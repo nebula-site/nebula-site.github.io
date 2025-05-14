@@ -161,25 +161,27 @@ function render() {
 
     context.beginPath();
     context.lineCap = 'round';
-    context.lineWidth = STAR_SIZE * star.z * scale;
-    context.globalAlpha = 0.5 + 0.5*Math.random();
+    context.lineWidth = STAR_SIZE * scale; // fixed size
+    context.globalAlpha = 0.5 + 0.5 * Math.random();
     context.strokeStyle = STAR_COLOR;
-
-    context.beginPath();
-    context.moveTo( star.x, star.y );
 
     var tailX = velocity.x * 2,
         tailY = velocity.y * 2;
 
-    // stroke() wont work on an invisible line
-    if( Math.abs( tailX ) < 0.1 ) tailX = 0.5;
-    if( Math.abs( tailY ) < 0.1 ) tailY = 0.5;
+    // Prevent invisible lines
+    if (Math.abs(tailX) < 0.1) tailX = 0.5;
+    if (Math.abs(tailY) < 0.1) tailY = 0.5;
 
-    context.lineTo( star.x + tailX, star.y + tailY );
+    context.beginPath();
+    context.moveTo(star.x, star.y);
+    context.lineTo(star.x + tailX, star.y + tailY);
 
     context.stroke();
 
-  } );
+  });
+
+}
+
 
 }
 
