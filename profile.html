@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/javascript/navbar.js" defer></script>
+  <script src="/javascript/profile.js" defer></script>
+  <script src="/javascript/main.js" defer></script>
+</head>
+<body>
+  <canvas></canvas>
+  <div id="navbar-element"></div>
+
+  <main>
+    <h2>Update Your Profile</h2>
+    <form id="profile-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="avatar">Upload Avatar:</label>
+      <input type="file" id="avatar" accept="image/*">
+
+      <button type="submit">Save Profile</button>
+    </form>
+    <p id="status-msg"></p>
+  </main>
+</body>
+</html>
