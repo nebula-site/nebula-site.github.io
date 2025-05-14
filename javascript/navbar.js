@@ -19,7 +19,7 @@
     </ul>
   `;
 
-  const target = document.getElementById('navbar');
+  const target = document.getElementById('navbar-element');
   if (target) {
     target.appendChild(nav);
   } else {
