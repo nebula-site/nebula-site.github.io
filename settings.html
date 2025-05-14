@@ -14,7 +14,40 @@
   <div id="navbar-element"></div>
   <main style="padding: 20px;">
     <h1>Settings</h1>
-    <p>Settings content here.</p>
+    <div id="settings-form-container"></div>
   </main>
+
+  <script src="/js/navbar.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    const settingsDiv = document.getElementById('settings-form-container');
+
+    if (user) {
+      settingsDiv.innerHTML = `
+        <form id="settings-form">
+          <label>
+            Name:
+            <input type="text" id="name" value="${user.name}">
+          </label><br><br>
+          <label>
+            Email:
+            <input type="email" id="email" value="${user.email}">
+          </label><br><br>
+          <button type="submit">Save Changes</button>
+        </form>
+      `;
+
+      document.getElementById('settings-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        user.name = document.getElementById('name').value;
+        user.email = document.getElementById('email').value;
+        localStorage.setItem('user', JSON.stringify(user));
+        alert("Settings updated!");
+        location.reload();
+      });
+    } else {
+      settingsDiv.innerHTML = `<p>Please <a href="/index.html">log in</a> to access settings.</p>`;
+    }
+  </script>
 </body>
 </html>
