@@ -12,9 +12,20 @@
 <body>
   <canvas></canvas>
   <div id="navbar-element"></div>
-  <main style="padding: 20px;">
-    <h1>My Profile</h1>
-    <p>User details and stats will go here.</p>
-  </main>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const profileDiv = document.getElementById('profile-content');
+
+    if (user) {
+      profileDiv.innerHTML = `
+        <img src="${user.avatar}" alt="Avatar" style="width:80px;border-radius:50%;">
+        <p><strong>Name:</strong> ${user.name}</p>
+        <p><strong>Email:</strong> ${user.email}</p>
+      `;
+    } else {
+      profileDiv.innerHTML = `<p>Please <a href="/index.html">log in</a> to see your profile.</p>`;
+    }
+  </script>
 </body>
 </html>
