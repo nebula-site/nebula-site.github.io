@@ -1,11 +1,10 @@
- document.addEventListener('DOMContentLoaded', function () {
-     const buttons = [
-         { name: '2048', image: '/images/2048.png', link: '/sourceCode/2048', path: '/play', favorite: false },
-     ];
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = [
+        { name: '2048', image: '/images/2048.png', link: '/sourceCode/2048', path: '/play', favorite: false },
+    ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
     const counterDisplay = document.getElementById('counterDisplay');
-    const sortOptions = document.getElementById('sortOptions');
 
     function getClickCount(buttonName) {
         const count = localStorage.getItem(buttonName);
@@ -28,7 +27,7 @@
     function toggleFavorite(button) {
         button.favorite = !button.favorite;
         setFavoriteStatus(button.name, button.favorite);
-        renderButtons(searchInput.value, sortOptions.value);
+        renderButtons(searchInput.value); // Just filter by search input
     }
 
     function createButton(button) {
@@ -89,24 +88,10 @@
         return a;
     }
 
-    function renderButtons(filter = '', sortBy = 'alphabetical') {
+    function renderButtons(filter = '') {
         buttonContainer.innerHTML = '';
 
-        let sortedButtons = [...buttons]; // clone to avoid in-place sort bugs
-
-        if (sortBy === 'starred') {
-            sortedButtons.sort((a, b) => {
-                return getFavoriteStatus(b.name) - getFavoriteStatus(a.name);
-            });
-        } else if (sortBy === 'clickCount') {
-            sortedButtons.sort((a, b) => {
-                return getClickCount(b.name) - getClickCount(a.name);
-            });
-        } else {
-            sortedButtons.sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        const filteredButtons = sortedButtons.filter(button =>
+        const filteredButtons = buttons.filter(button =>
             button.name.toLowerCase().includes(filter.toLowerCase())
         );
 
@@ -119,20 +104,8 @@
     }
 
     searchInput.addEventListener('input', (e) => {
-        renderButtons(e.target.value, sortOptions.value);
+        renderButtons(e.target.value);
     });
-
-    sortOptions.addEventListener('change', (e) => {
-        renderButtons(searchInput.value, e.target.value);
-    });
-
-    // Ensure the 'starred' option exists
-    if (!Array.from(sortOptions.options).some(opt => opt.value === 'starred')) {
-        const starredOption = document.createElement('option');
-        starredOption.value = 'starred';
-        starredOption.textContent = 'Sort By Starred';
-        sortOptions.appendChild(starredOption);
-    }
 
     renderButtons();
 });
