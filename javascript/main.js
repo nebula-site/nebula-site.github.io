@@ -181,10 +181,3 @@ function onMouseLeave() {
   pointerX = null;
   pointerY = null;
 }
-function login() {
-      localStorage.setItem('user', JSON.stringify({
-        name: "DemoUser",
-        avatar: "/images/user-avatar.png"
-      }));
-      location.reload();
-    }
