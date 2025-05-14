@@ -8,7 +8,6 @@
 }
 body {
   font-family: 'Nunito', sans-serif;
-  background: #555;
   padding-top: 60px; /* Adjust based on nav height (e.g. 40px padding + content) */
 }
 nav {
