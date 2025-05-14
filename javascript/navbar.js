@@ -1,22 +1,35 @@
 (function() {
   const nav = document.createElement('nav');
-  nav.style.cssText = `
-    background-color: #333;
-    padding: 10px 20px;
-    font-family: sans-serif;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `;
-
-  nav.innerHTML = `
-    <div style="font-weight: bold; font-size: 1.2em;">Anvabr</div>
-    <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
-      <li><a href="#" style="color: white; text-decoration: none;">Home</a></li>
-      <li><a href="#" style="color: white; text-decoration: none;">About</a></li>
-      <li><a href="#" style="color: white; text-decoration: none;">Contact</a></li>
-    </ul>
+nav.innerHTML = `
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
   `;
 
   const target = document.getElementById('navbar-element');
