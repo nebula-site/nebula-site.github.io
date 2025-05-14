@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #555;
+}
 #top-text {
   margin-top: 60px;
   font-family: Nunito;
@@ -8,12 +18,12 @@
 }
 @keyframes glow {
   0% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    text-shadow: 0 0 5px lightgrey, 0 0 10px #fff;
   }
   50% {
-    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
   }
   100% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    text-shadow: 0 0 5px lightgrey, 0 0 10px #fff;
   }
 }
