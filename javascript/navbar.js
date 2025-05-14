@@ -3,11 +3,7 @@ document.getElementById('navbar-element').innerHTML = `
     <div class="navbar">
       <div class="logo"><a href="#">CodingLab</a></div>
       <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Feedback</a></li>
+        <li><a href="/index"></a></li>
       </ul>
       <div class="search-box">
         <input type="text" placeholder="Search here...">
