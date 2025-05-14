@@ -1,1 +1,19 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+#top-text {
+  margin-top: 60px;
+  font-family: Nunito;
+  color: #555;
+  border: 1px solid #fff;
+  animation: glow 2s ease-in-out infinite;
+}
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+  }
+  50% {
+    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+  }
+}
