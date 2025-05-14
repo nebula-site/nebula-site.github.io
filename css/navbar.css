@@ -9,16 +9,17 @@
 body {
   font-family: 'Nunito', sans-serif;
   background: #555;
+  padding-top: 60px; /* Adjust based on nav height (e.g. 40px padding + content) */
 }
 nav {
   margin-top: 0;
   background: #242526;
   padding: 10px 0;
   position: fixed;
+  top: 0; /* Make it stick to the top */
   width: 100%;
   z-index: 100;
 }
-
 .navbar {
   margin-top: 0;
   display: flex;
