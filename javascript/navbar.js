@@ -1,19 +1,24 @@
+const user = JSON.parse(localStorage.getItem('user')) || {
+  name: "Guest",
+  avatar: "/images/user-avatar.png"
+};
+
 document.getElementById('navbar-element').innerHTML = `
   <nav>
     <div class="navbar">
-      <div class="logo"><a href="/index">Nebula</a></div>
+      <div class="logo"><a href="/index.html">Nebula</a></div>
       <ul class="menu">
-        <li><a href="/index"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="/games"><i class="fa-solid fa-gamepad"></i> Games</a></li>
+        <li><a href="/index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
       </ul>
       <div class="user-profile">
-        <img src="/images/user-avatar.png" alt="User Avatar" class="avatar">
+        <img src="${user.avatar}" alt="User Avatar" class="avatar">
         <div class="dropdown">
-          <button class="dropdown-toggle">Profile <i class="fa-solid fa-caret-down"></i></button>
+          <button class="dropdown-toggle">${user.name} <i class="fa-solid fa-caret-down"></i></button>
           <div class="dropdown-menu">
-            <a href="/profile">My Profile</a>
-            <a href="/settings">Settings</a>
-            <a href="/logout">Logout</a>
+            <a href="/profile.html">My Profile</a>
+            <a href="/settings.html">Settings</a>
+            <a href="/logout.html">Logout</a>
           </div>
         </div>
       </div>
