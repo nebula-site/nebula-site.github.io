@@ -20,7 +20,7 @@ body {
     text-shadow: 0 0 5px lightgrey, 0 0 10px #fff;
   }
   50% {
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+    text-shadow: 0 0 10px #fff, 0 0 20px lightgrey;
   }
   100% {
     text-shadow: 0 0 5px lightgrey, 0 0 10px #fff;
