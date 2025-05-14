@@ -1,5 +1,3 @@
-// anvabr.js
-
 (function() {
   const nav = document.createElement('nav');
   nav.style.cssText = `
@@ -21,7 +19,7 @@
     </ul>
   `;
 
-  const target = document.getElementById('navbar-element');
+  const target = document.getElementById('navbar');
   if (target) {
     target.appendChild(nav);
   } else {
