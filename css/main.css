@@ -11,7 +11,7 @@ body {
 #top-text {
   margin-top: 75px;
   font-family: Nunito;
-  color: #555;
+  color: lightgrey;
   animation: glow 2s ease-in-out infinite;
   font-size: 4rem;
 }
