@@ -77,7 +77,7 @@ body {
     }
 
     input[type="text"],
-    input[type="file"] {
+    input[id="avatar"] {
       background: #1a1a2e;
       border: 1px solid #00f0ff;
       color: #ffffff;
