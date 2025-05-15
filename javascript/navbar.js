@@ -12,7 +12,7 @@ document.getElementById('navbar-element').innerHTML = `
         <li><a href="/games"><i class="fa-solid fa-gamepad"></i> Games</a></li>
       </ul>
       <a href="/profile"><div class="user-profile">
-        <img src="${user.avatar}" alt="User Avatar" class="avatar" href="/profile">
+        <img src="${user.avatar}" class="avatar" href="/profile">
         <button class="dropdown-toggle">${user.name}</button>
         <span class="username">${user.name}</span>
       </div></a>
