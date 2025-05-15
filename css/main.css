@@ -36,3 +36,81 @@ canvas {
   height: 100%;
   z-index: -100000;
 }
+body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(ellipse at bottom, #0d0d1a 0%, #000000 100%);
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 10vh auto;
+      background: rgba(15, 15, 30, 0.85);
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00f0ff;
+      text-shadow: 0 0 5px #00f0ff;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 1em;
+      font-weight: bold;
+      color: #a0f0ff;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      background: #1a1a2e;
+      border: 1px solid #00f0ff;
+      color: #ffffff;
+      padding: 0.6em;
+      margin-top: 0.5em;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 2em;
+      padding: 0.8em;
+      border: none;
+      background: #00f0ff;
+      color: #000;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #00c0cc;
+    }
+
+    #status-msg {
+      text-align: center;
+      margin-top: 1em;
+      font-size: 1em;
+      color: #66f9ff;
+    }
+
+    /* Optional: Animate stars in canvas with JS */
