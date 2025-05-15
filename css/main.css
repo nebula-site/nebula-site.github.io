@@ -76,8 +76,7 @@ body {
       color: #a0f0ff;
     }
 
-    input[type="text"],
-    input[id="avatar"] {
+    #avatar {
       background: #1a1a2e;
       border: 1px solid #00f0ff;
       color: #ffffff;
