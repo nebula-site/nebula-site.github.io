@@ -14,7 +14,7 @@ document.getElementById('navbar-element').innerHTML = `
       <div class="user-profile">
         <img src="${user.avatar}" alt="User Avatar" class="avatar" href="/profile">
         <div class="dropdown">
-          <button class="dropdown-toggle">${user.name} <i class="fa-solid fa-caret-down"></i></button>
+          <button class="dropdown-toggle">${user.name}</button>
         </div>
       </div>
       <div class="menu-btn">
