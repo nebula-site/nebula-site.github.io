@@ -1,8 +1,3 @@
-const user = JSON.parse(localStorage.getItem('user')) || {
-  name: "Guest",
-  avatar: "/branding/favicon.png"
-};
-
 document.getElementById('navbar-element').innerHTML = `
   <nav>
     <div class="navbar">
@@ -12,10 +7,8 @@ document.getElementById('navbar-element').innerHTML = `
         <li><a href="/games"><i class="fa-solid fa-gamepad"></i> Games</a></li>
       </ul>
       <div class="user-profile">
-        <img src="${user.avatar}" alt="User Avatar" class="avatar" href="/profile">
-        <div class="dropdown">
-          <button class="dropdown-toggle">${user.name}</button>
-        </div>
+        <img src="${user.avatar}" alt="User Avatar" class="avatar">
+        <span class="username">${user.name}</span>
       </div>
       <div class="menu-btn">
         <i class="fas fa-bars"></i>
