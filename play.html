@@ -75,7 +75,8 @@
       gap: 10px;
     }
 
-    .controls button {
+    .controls button,
+    .controls a {
       background: rgba(255, 255, 255, 0.1);
       border: none;
       color: white;
@@ -84,9 +85,14 @@
       cursor: pointer;
       font-size: 14px;
       transition: background 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .controls button:hover {
+    .controls button:hover,
+    .controls a:hover {
       background: rgba(255, 255, 255, 0.3);
     }
 
@@ -147,8 +153,9 @@
     </div>
 
     <div class="controls">
-      <button onclick="reloadGame()"><i class="fa fa-rotate-right"></i></button>
-      <button onclick="toggleFullscreen()"><i class="fa fa-expand"></i></button>
+      <a href="/" title="Go Home"><i class="fa fa-home"></i></a>
+      <button onclick="reloadGame()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
+      <button onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
     </div>
   </div>
 
