@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const buttons = [
-        { name: 'Block Blast', image: '/images/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
+        { name: 'Block Blast', image: '/game-logos/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
