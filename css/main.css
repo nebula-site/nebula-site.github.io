@@ -38,10 +38,6 @@ canvas {
 }
 body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(ellipse at bottom, #0d0d1a 0%, #000000 100%);
-      color: #ffffff;
-      overflow: hidden;
     }
 
     canvas {
