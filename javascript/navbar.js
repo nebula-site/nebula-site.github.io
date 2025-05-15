@@ -16,9 +16,7 @@ document.getElementById('navbar-element').innerHTML = `
         <div class="dropdown">
           <button class="dropdown-toggle">${user.name} <i class="fa-solid fa-caret-down"></i></button>
           <div class="dropdown-menu">
-            <a href="/profile.html">My Profile</a>
-            <a href="/settings.html">Settings</a>
-            <a href="/logout.html">Logout</a>
+            <a href="/profile"><i class="fa-solid fa-user-pen"></i></a>
           </div>
         </div>
       </div>
