@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Play Game</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/javascript/main.js" defer></script>
   <style>
     * {
       box-sizing: border-box;
@@ -138,6 +140,7 @@
     }
   </style>
 </head>
+<canvas></canvas>
 <body>
   <div class="game-wrapper">
     <div class="play-overlay" id="playOverlay">
@@ -153,7 +156,7 @@
     </div>
 
     <div class="controls">
-      <a href="/" title="Go Home"><i class="fa fa-home"></i></a>
+      <a href="/games" title="Go Home"><i class="fa fa-home"></i></a>
       <button onclick="reloadGame()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
       <button onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
     </div>
