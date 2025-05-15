@@ -1,6 +1,5 @@
 const user = JSON.parse(localStorage.getItem('user')) || {
   name: "Guest",
-  avatar: "/images/user-avatar.png"
   avatar: "/branding/favicon.png"
 };
 
