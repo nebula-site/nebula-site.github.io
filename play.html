@@ -14,57 +14,43 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #111;
       color: white;
-      height: 100vh;
-      overflow: hidden;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
 
     .game-wrapper {
-      position: relative;
       width: 960px;
-      height: 600px;
+      max-width: 100%;
       border: 3px solid #333;
-      border-radius: 12px;
+      border-radius: 12px 12px 0 0;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     }
 
     iframe {
       width: 100%;
-      height: 100%;
+      height: 600px;
       border: none;
       background-color: #000;
+      display: block;
     }
 
-    .controls {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
+    .bottom-bar {
+      width: 960px;
+      max-width: 100%;
+      background-color: #1b1b1b;
+      padding: 10px 20px;
       display: flex;
-      gap: 10px;
-    }
-
-    .controls button {
-      background: rgba(0, 0, 0, 0.7);
-      border: none;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-
-    .controls button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
     }
 
     .game-info {
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -82,20 +68,42 @@
       font-weight: bold;
       color: #ccc;
     }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .controls button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .controls button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
   </style>
 </head>
 <body>
   <div class="game-wrapper">
     <iframe id="myIframe" src=""></iframe>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="game-info">
+      <img id="game-image" src="/images/placeholder.png" alt="Game Icon">
+      <span id="game-name">Loading...</span>
+    </div>
 
     <div class="controls">
       <button onclick="reloadGame()"><i class="fa fa-rotate-right"></i></button>
       <button onclick="toggleFullscreen()"><i class="fa fa-expand"></i></button>
-    </div>
-
-    <div class="game-info">
-      <img id="game-image" src="/images/placeholder.png" alt="Game Logo">
-      <span id="game-name">Loading...</span>
     </div>
   </div>
 
