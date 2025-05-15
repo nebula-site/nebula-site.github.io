@@ -4,7 +4,7 @@ const user = JSON.parse(localStorage.getItem('user')) || {
 };
 
 // Check if user avatar exists or is empty, and provide default
-const avatarSrc = user.avatar ? user.avatar : "/branding/favicon.png";
+const avatarSrc = user.avatar ? user.avatar : "/branding/nebula.png";
 
 document.getElementById('navbar-element').innerHTML = `
   <nav>
