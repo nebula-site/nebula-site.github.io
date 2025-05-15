@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Play Game</title>
+  <link rel="stylesheet" href="/styles/play.css"> <!-- Optional: your custom CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1c1c1c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background-color: #2b2b2b;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      flex-grow: 1;
+    }
+
+    #back-btn {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #game-frame {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img id="game-image" src="/images/placeholder.png" alt="Game">
+    <h1 id="game-name">Loading...</h1>
+    <button id="back-btn" onclick="goBack()">Back</button>
+  </header>
+  <div id="game-frame">
+    <iframe id="myIframe" src="" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const iframe = document.getElementById('myIframe');
+      const gameName = document.getElementById('game-name');
+      const gameImage = document.getElementById('game-image');
+
+      const link = sessionStorage.getItem('gameLink');
+      const name = sessionStorage.getItem('gameName');
+      const image = sessionStorage.getItem('gameImage');
+
+      if (link && name && image) {
+        iframe.src = link;
+        gameName.innerText = name;
+        gameImage.src = image;
+      } else {
+        gameName.innerText = "Game Not Found";
+      }
+    });
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
