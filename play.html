@@ -7,8 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-
     * {
       margin: 0;
       padding: 0;
@@ -52,7 +50,7 @@
       border: none;
       background-color: #000;
       display: block;
-      transition: height 0.3s;
+      transition: height 0.3s ease;
     }
 
     .bottom-bar {
@@ -66,8 +64,8 @@
       border-radius: 0 0 12px 12px;
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
       margin: 0 auto 40px;
-      height: 50px; /* Set a default height */
-      transition: height 0.3s;
+      height: 50px; /* Default height of bottom bar */
+      transition: height 0.3s ease;
     }
 
     .game-info {
@@ -215,6 +213,7 @@
     let iframe = document.getElementById('myIframe');
     let fullscreenBtn = document.getElementById('fullscreenBtn');
     let bottomBar = document.getElementById('bottomBar');
+    let iframeHeight = iframe.offsetHeight;
 
     document.addEventListener('DOMContentLoaded', () => {
       const name = sessionStorage.getItem('gameName');
@@ -231,13 +230,11 @@
         gameName.textContent = "Game Not Found";
       }
 
-      // Resize the bottom bar with the iframe
-      iframe.addEventListener('resize', adjustLayout);
+      adjustLayout();
     });
 
     function startGame() {
       iframe.src = gameLink;
-
       const overlay = document.getElementById('playOverlay');
       overlay.classList.add('hidden');
     }
@@ -249,20 +246,33 @@
     function toggleFullscreen() {
       if (document.fullscreenElement) {
         document.exitFullscreen();
-        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>'; // Change to expand icon
-        bottomBar.style.height = '50px'; // Reset bottom bar size
+        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
+        bottomBar.style.height = '50px'; // Default height
+        iframe.style.height = `${iframeHeight}px`; // Reset iframe height
       } else {
         iframe.requestFullscreen();
-        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>'; // Change to compress (exit fullscreen) icon
-        bottomBar.style.height = `${iframe.offsetHeight + 20}px`; // Increase bottom bar size to match iframe
+        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
+        adjustLayout(); // Adjust height dynamically
       }
     }
 
     function adjustLayout() {
-      // Adjust bottom bar height based on iframe height
-      bottomBar.style.height = `${iframe.offsetHeight + 20}px`;
+      // Adjust the bottom bar height and iframe size
+      let bottomBarHeight = bottomBar.offsetHeight;
+      iframe.style.height = `calc(100vh - ${bottomBarHeight}px)`;
     }
+
+    // Listen for fullscreen changes
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
+        adjustLayout();
+      } else {
+        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
+        iframe.style.height = `${iframeHeight}px`; // Reset iframe height
+      }
+    });
+
   </script>
-  <script src="/javascript/main.js"></script>
 </body>
 </html>
