@@ -154,14 +154,7 @@ function render() {
 }
 
 function movePointer(x, y) {
-  if (typeof pointerX === 'number' && typeof pointerY === 'number') {
-    let ox = x - pointerX,
-        oy = y - pointerY;
-
-    velocity.tx += (ox / (8 * scale)) * (touchInput ? 1 : -1);
-    velocity.ty += (oy / (8 * scale)) * (touchInput ? 1 : -1);
-  }
-
+  // Remove the pointer-based velocity updates
   pointerX = x;
   pointerY = y;
 }
