@@ -61,6 +61,7 @@
 .menu-button:hover img {
     border-radius: 10%;
     transform: scale(1.1);
+    border: 1px solid lightgrey;
 }
 
 .overlay {
@@ -85,7 +86,6 @@
 .menu-button:hover .overlay {
     opacity: 1;
     color: white;
-    border: 2px solid lightgrey;
 }
 
 #counterDisplay {
