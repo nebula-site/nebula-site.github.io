@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -50,7 +52,6 @@
       border: none;
       background-color: #000;
       display: block;
-      transition: all 0.5s ease; /* Smooth transition for iframe */
     }
 
     .bottom-bar {
@@ -64,8 +65,6 @@
       border-radius: 0 0 12px 12px;
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
       margin: 0 auto 40px;
-      height: 50px;
-      transition: all 0.5s ease; /* Smooth transition for bottom bar */
     }
 
     .game-info {
@@ -195,7 +194,7 @@
     <iframe id="myIframe" src=""></iframe>
   </div>
 
-  <div class="bottom-bar" id="bottomBar">
+  <div class="bottom-bar">
     <div class="game-info">
       <img id="game-image" src="/images/placeholder.png" alt="Game Icon">
       <span id="game-name">Loading...</span>
@@ -204,17 +203,12 @@
     <div class="controls">
       <a href="/games" title="Go Home"><i class="fa fa-home"></i></a>
       <button onclick="reloadGame()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
-      <button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
+      <button onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
     </div>
   </div>
 
   <script>
     let gameLink = '';
-    let iframe = document.getElementById('myIframe');
-    let fullscreenBtn = document.getElementById('fullscreenBtn');
-    let bottomBar = document.getElementById('bottomBar');
-    let iframeHeight = iframe.offsetHeight;
-
     document.addEventListener('DOMContentLoaded', () => {
       const name = sessionStorage.getItem('gameName');
       const image = sessionStorage.getItem('gameImage');
@@ -229,53 +223,32 @@
       } else {
         gameName.textContent = "Game Not Found";
       }
-
-      adjustLayout();
     });
 
     function startGame() {
+      const iframe = document.getElementById('myIframe');
       iframe.src = gameLink;
+
       const overlay = document.getElementById('playOverlay');
       overlay.classList.add('hidden');
     }
 
     function reloadGame() {
+      const iframe = document.getElementById('myIframe');
       iframe.src = iframe.src;
     }
 
     function toggleFullscreen() {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
-        bottomBar.style.height = '50px'; // Default height
-        bottomBar.style.width = '960px'; // Default width
-        iframe.style.height = `${iframeHeight}px`; // Reset iframe height
-      } else {
+      const iframe = document.getElementById('myIframe');
+      if (iframe.requestFullscreen) {
         iframe.requestFullscreen();
-        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
-        bottomBar.style.height = '50px'; // Default height
-        bottomBar.style.width = '100%'; // Full width
-        iframe.style.height = `calc(100vh - 50px)`; // Reduced iframe height
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
       }
-    }
-
-    // Adjust iframe and navbar layout when fullscreen changes
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
-        bottomBar.style.height = '50px';
-        bottomBar.style.width = '100%';
-        iframe.style.height = `calc(100vh - 50px)`;
-      } else {
-        bottomBar.style.height = '50px';
-        bottomBar.style.width = '960px';
-        iframe.style.height = `${iframeHeight}px`;
-      }
-    });
-
-    function adjustLayout() {
-      let bottomBarHeight = bottomBar.offsetHeight;
-      iframe.style.height = `calc(100vh - ${bottomBarHeight}px)`;
     }
   </script>
+  <script src="/javascript/main.js"></script>
 </body>
 </html>
