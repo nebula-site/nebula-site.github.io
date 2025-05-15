@@ -52,6 +52,7 @@
       border: none;
       background-color: #000;
       display: block;
+      transition: height 0.3s;
     }
 
     .bottom-bar {
@@ -65,6 +66,8 @@
       border-radius: 0 0 12px 12px;
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
       margin: 0 auto 40px;
+      height: 50px; /* Set a default height */
+      transition: height 0.3s;
     }
 
     .game-info {
@@ -194,7 +197,7 @@
     <iframe id="myIframe" src=""></iframe>
   </div>
 
-  <div class="bottom-bar">
+  <div class="bottom-bar" id="bottomBar">
     <div class="game-info">
       <img id="game-image" src="/images/placeholder.png" alt="Game Icon">
       <span id="game-name">Loading...</span>
@@ -203,12 +206,16 @@
     <div class="controls">
       <a href="/games" title="Go Home"><i class="fa fa-home"></i></a>
       <button onclick="reloadGame()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
-      <button onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
+      <button id="fullscreenBtn" onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
     </div>
   </div>
 
   <script>
     let gameLink = '';
+    let iframe = document.getElementById('myIframe');
+    let fullscreenBtn = document.getElementById('fullscreenBtn');
+    let bottomBar = document.getElementById('bottomBar');
+
     document.addEventListener('DOMContentLoaded', () => {
       const name = sessionStorage.getItem('gameName');
       const image = sessionStorage.getItem('gameImage');
@@ -223,10 +230,12 @@
       } else {
         gameName.textContent = "Game Not Found";
       }
+
+      // Resize the bottom bar with the iframe
+      iframe.addEventListener('resize', adjustLayout);
     });
 
     function startGame() {
-      const iframe = document.getElementById('myIframe');
       iframe.src = gameLink;
 
       const overlay = document.getElementById('playOverlay');
@@ -234,19 +243,24 @@
     }
 
     function reloadGame() {
-      const iframe = document.getElementById('myIframe');
       iframe.src = iframe.src;
     }
 
     function toggleFullscreen() {
-      const iframe = document.getElementById('myIframe');
-      if (iframe.requestFullscreen) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>'; // Change to expand icon
+        bottomBar.style.height = '50px'; // Reset bottom bar size
+      } else {
         iframe.requestFullscreen();
-      } else if (iframe.webkitRequestFullscreen) {
-        iframe.webkitRequestFullscreen();
-      } else if (iframe.msRequestFullscreen) {
-        iframe.msRequestFullscreen();
+        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>'; // Change to compress (exit fullscreen) icon
+        bottomBar.style.height = `${iframe.offsetHeight + 20}px`; // Increase bottom bar size to match iframe
       }
+    }
+
+    function adjustLayout() {
+      // Adjust bottom bar height based on iframe height
+      bottomBar.style.height = `${iframe.offsetHeight + 20}px`;
     }
   </script>
   <script src="/javascript/main.js"></script>
