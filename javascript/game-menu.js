@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const buttons = [
         { name: 'Block Blast', image: '/game-logos/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
         { name: 'Subway Surfers', image: '/game-logos/subway-surfers.png', link: '/sourceCode/subway-surfers/', path: '/play', favorite: false },
+        { name: 'Cookie Clicker', image: '/game-logos/cookie-clicker.png', link: '/sourceCode/cookie-clicker/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
