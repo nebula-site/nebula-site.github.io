@@ -50,7 +50,7 @@
       border: none;
       background-color: #000;
       display: block;
-      transition: height 0.3s ease;
+      transition: all 0.5s ease; /* Smooth transition for iframe */
     }
 
     .bottom-bar {
@@ -64,8 +64,8 @@
       border-radius: 0 0 12px 12px;
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.4);
       margin: 0 auto 40px;
-      height: 50px; /* Default height of bottom bar */
-      transition: height 0.3s ease, width 0.3s ease;
+      height: 50px;
+      transition: all 0.5s ease; /* Smooth transition for bottom bar */
     }
 
     .game-info {
@@ -253,24 +253,22 @@
       } else {
         iframe.requestFullscreen();
         fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
-        bottomBar.style.height = '80px'; // Increased height for fullscreen
+        bottomBar.style.height = '50px'; // Default height
         bottomBar.style.width = '100%'; // Full width
-        iframe.style.height = `calc(100vh - 80px)`; // Reduced iframe height
+        iframe.style.height = `calc(100vh - 50px)`; // Reduced iframe height
       }
     }
 
     // Adjust iframe and navbar layout when fullscreen changes
     document.addEventListener('fullscreenchange', () => {
       if (document.fullscreenElement) {
-        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>';
-        bottomBar.style.height = '80px'; // Adjust for fullscreen
+        bottomBar.style.height = '50px';
         bottomBar.style.width = '100%';
-        iframe.style.height = `calc(100vh - 80px)`;
+        iframe.style.height = `calc(100vh - 50px)`;
       } else {
-        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>';
         bottomBar.style.height = '50px';
         bottomBar.style.width = '960px';
-        iframe.style.height = `${iframeHeight}px`; // Reset height
+        iframe.style.height = `${iframeHeight}px`;
       }
     });
 
