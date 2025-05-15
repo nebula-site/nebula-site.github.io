@@ -12,12 +12,9 @@ document.getElementById('navbar-element').innerHTML = `
         <li><a href="/games"><i class="fa-solid fa-gamepad"></i> Games</a></li>
       </ul>
       <div class="user-profile">
-        <img src="${user.avatar}" alt="User Avatar" class="avatar">
+        <img src="${user.avatar}" alt="User Avatar" class="avatar" href="/profile">
         <div class="dropdown">
           <button class="dropdown-toggle">${user.name} <i class="fa-solid fa-caret-down"></i></button>
-          <div class="dropdown-menu">
-            <a href="/profile"><i class="fa-solid fa-user-pen"></i></a>
-          </div>
         </div>
       </div>
       <div class="menu-btn">
