@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Cut The Rope', image: '/game-logos/cut-the-rope.png', link: '/sourceCode/cut-the-rope', path: '/play', favorite: false },
         { name: 'Drive Mad', image: '/game-logos/drive-mad.png', link: '/sourceCode/drive-mad', path: '/play', favorite: false },
         { name: 'Fruit Ninja', image: '/game-logos/fruit-ninja.png', link: '/sourceCode/fruit-ninja', path: '/play', favorite: false },
+        { name: 'Dadish', image: '/game-logos/dadish.png', link: '/sourceCode/dadish/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
