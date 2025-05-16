@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Drive Mad', image: '/game-logos/drive-mad.png', link: '/sourceCode/drive-mad', path: '/play', favorite: false },
         { name: 'Fruit Ninja', image: '/game-logos/fruit-ninja.png', link: '/sourceCode/fruit-ninja', path: '/play', favorite: false },
         { name: 'Dadish', image: '/game-logos/dadish.png', link: '/sourceCode/dadish/', path: '/play', favorite: false },
+        { name: 'Retro Bowl College', image: '/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college/', path: '/play', favorite: false },
+        { name: 'Monkey Mart', image: '/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
