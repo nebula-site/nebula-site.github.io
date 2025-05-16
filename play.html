@@ -255,18 +255,33 @@
     // Toggle mute function
     function toggleMute() {
       isMuted = !isMuted;
+
+      // Change icon based on mute state
       if (isMuted) {
         muteIcon.classList.remove('fa-volume-up');
         muteIcon.classList.add('fa-volume-mute');
-        iframe.contentWindow.postMessage('mute', '*');
       } else {
         muteIcon.classList.remove('fa-volume-mute');
         muteIcon.classList.add('fa-volume-up');
-        iframe.contentWindow.postMessage('unmute', '*');
       }
+
+      // Send message to iframe to mute or unmute
+      const message = isMuted ? 'mute' : 'unmute';
+      iframe.contentWindow.postMessage({ action: message }, '*');
     }
+
+    // Listen for messages from the iframe (if game sends any response)
+    window.addEventListener('message', (event) => {
+      if (event.origin !== iframe.src) return; // Make sure the message is from the game iframe
+
+      // Handle any incoming messages if needed, like confirming mute/unmute
+      const data = event.data;
+      if (data.action === 'muted') {
+        console.log('Game is muted');
+      } else if (data.action === 'unmuted') {
+        console.log('Game is unmuted');
+      }
+    });
   </script>
-  <script src="/javascript/main.js"></script>
 </body>
 </html>
-
