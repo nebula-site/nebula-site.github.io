@@ -191,7 +191,7 @@
     <div class="play-overlay" id="playOverlay">
       <button class="play-button" onclick="startGame()"><i class="fa fa-play"></i> Play</button>
     </div>
-    <iframe id="myIframe" src=""></iframe>
+    <iframe id="myIframe" src="" frameborder="0"></iframe>
   </div>
 
   <div class="bottom-bar">
@@ -252,29 +252,22 @@
       }
     }
 
+    // Mute Button Function
     function toggleMute() {
       isMuted = !isMuted;
-      // Toggle mute icon
       muteIcon.className = isMuted ? 'fa fa-volume-mute' : 'fa fa-volume-up';
-      
-      // Send message to iframe to mute/unmute its audio
-      iframe.contentWindow.postMessage({
-        action: isMuted ? 'mute' : 'unmute'
-      }, '*');
-    }
 
-    // Listen for messages from the iframe (if game sends any response)
-    window.addEventListener('message', (event) => {
-      if (event.origin !== iframe.src) return; // Make sure the message is from the game iframe
-
-      // Handle any incoming messages if needed, like confirming mute/unmute
-      const data = event.data;
-      if (data.action === 'muted') {
-        console.log('Game is muted');
-      } else if (data.action === 'unmuted') {
-        console.log('Game is unmuted');
+      // If iframe is from the same domain, we can directly access it
+      if (iframe.contentWindow) {
+        const iframeDocument = iframe.contentWindow.document;
+        const audioElements = iframeDocument.querySelectorAll('audio, video');
+        
+        audioElements.forEach((audio) => {
+          audio.muted = isMuted;
+        });
       }
-    });
+    }
   </script>
+  <script src="/javascript/main.js"></script>
 </body>
-</html>
+</
