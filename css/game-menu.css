@@ -49,6 +49,7 @@
     transform: scale(1.1);
     border-radius: 15%;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    border: 1px solid lightgrey;
 }
 
 .menu-button img {
@@ -61,7 +62,6 @@
 .menu-button:hover img {
     border-radius: 10%;
     transform: scale(1.1);
-    border: 1px solid lightgrey;
 }
 
 .overlay {
