@@ -252,22 +252,15 @@
       }
     }
 
-    // Toggle mute function
     function toggleMute() {
       isMuted = !isMuted;
-
-      // Change icon based on mute state
-      if (isMuted) {
-        muteIcon.classList.remove('fa-volume-up');
-        muteIcon.classList.add('fa-volume-mute');
-      } else {
-        muteIcon.classList.remove('fa-volume-mute');
-        muteIcon.classList.add('fa-volume-up');
-      }
-
-      // Send message to iframe to mute or unmute
-      const message = isMuted ? 'mute' : 'unmute';
-      iframe.contentWindow.postMessage({ action: message }, '*');
+      // Toggle mute icon
+      muteIcon.className = isMuted ? 'fa fa-volume-mute' : 'fa fa-volume-up';
+      
+      // Send message to iframe to mute/unmute its audio
+      iframe.contentWindow.postMessage({
+        action: isMuted ? 'mute' : 'unmute'
+      }, '*');
     }
 
     // Listen for messages from the iframe (if game sends any response)
