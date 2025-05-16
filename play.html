@@ -204,11 +204,18 @@
       <a href="/games" title="Go Home"><i class="fa fa-home"></i></a>
       <button onclick="reloadGame()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
       <button onclick="toggleFullscreen()" title="Fullscreen"><i class="fa fa-expand"></i></button>
+      <!-- Mute Button -->
+      <button onclick="toggleMute()" id="muteButton" title="Mute"><i class="fa fa-volume-up" id="muteIcon"></i></button>
     </div>
   </div>
 
   <script>
     let gameLink = '';
+    let isMuted = false;
+    const iframe = document.getElementById('myIframe');
+    const muteButton = document.getElementById('muteButton');
+    const muteIcon = document.getElementById('muteIcon');
+
     document.addEventListener('DOMContentLoaded', () => {
       const name = sessionStorage.getItem('gameName');
       const image = sessionStorage.getItem('gameImage');
@@ -226,20 +233,16 @@
     });
 
     function startGame() {
-      const iframe = document.getElementById('myIframe');
       iframe.src = gameLink;
-
       const overlay = document.getElementById('playOverlay');
       overlay.classList.add('hidden');
     }
 
     function reloadGame() {
-      const iframe = document.getElementById('myIframe');
       iframe.src = iframe.src;
     }
 
     function toggleFullscreen() {
-      const iframe = document.getElementById('myIframe');
       if (iframe.requestFullscreen) {
         iframe.requestFullscreen();
       } else if (iframe.webkitRequestFullscreen) {
@@ -248,7 +251,22 @@
         iframe.msRequestFullscreen();
       }
     }
+
+    // Toggle mute function
+    function toggleMute() {
+      isMuted = !isMuted;
+      if (isMuted) {
+        muteIcon.classList.remove('fa-volume-up');
+        muteIcon.classList.add('fa-volume-mute');
+        iframe.contentWindow.postMessage('mute', '*');
+      } else {
+        muteIcon.classList.remove('fa-volume-mute');
+        muteIcon.classList.add('fa-volume-up');
+        iframe.contentWindow.postMessage('unmute', '*');
+      }
+    }
   </script>
   <script src="/javascript/main.js"></script>
 </body>
 </html>
+
