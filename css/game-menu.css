@@ -41,7 +41,7 @@
     text-align: center;
     color: lightgrey;
     text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Keep this for smooth transformation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;  /* Keep this for smooth transformation */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -49,7 +49,7 @@
     transform: scale(1.1);
     border-radius: 15%;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
-    border: 1px solid lightgrey;
+    border: 1.5px solid lightgrey;
 }
 
 .menu-button img {
