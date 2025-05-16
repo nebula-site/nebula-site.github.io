@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Dadish', image: '/game-logos/dadish.png', link: '/sourceCode/dadish/', path: '/play', favorite: false },
         { name: 'Retro Bowl College', image: '/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college/', path: '/play', favorite: false },
         { name: 'Monkey Mart', image: '/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart/', path: '/play', favorite: false },
+        { name: 'Stickman Hook', image: '/game-logos/stickman-hook.png', link: '/sourceCode/stickman-hook', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
