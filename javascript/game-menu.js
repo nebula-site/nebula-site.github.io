@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Monkey Mart', image: '/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart/', path: '/play', favorite: false },
         { name: 'Stickman Hook', image: '/game-logos/stickman-hook.png', link: '/sourceCode/stickman-hook', path: '/play', favorite: false },
         { name: 'Tiny Fishing', image: '/game-logos/tiny-fishing.png', link: '/sourceCode/tiny-fishing/', path: '/play', favorite: false },
+        { name: 'Moto X3m', image: '/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
