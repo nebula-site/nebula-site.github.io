@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Tiny Fishing', image: '/game-logos/tiny-fishing.png', link: '/sourceCode/tiny-fishing/', path: '/play', favorite: false },
         { name: 'Moto X3m', image: '/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m/', path: '/play', favorite: false },
         { name: 'Stick Archers Battle', image: '/game-logos/stick-archers-battle.png', link: '/sourceCode/stick-archers-battle/', path: '/play', favorite: false },
+        { name: 'Crazy Cattle 3d', image: '/game-logos/crazy-cattle-3d.png', link: '/sourceCode/crazy-cattle-3d/', path: '/play', favorite: false },
+        { name: 'Dino Bros', image: '/game-logos/dino-bros.png', link: '/sourceCode/dino-bros/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
