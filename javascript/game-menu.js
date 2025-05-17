@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'Stickman Hook', image: '/game-logos/stickman-hook.png', link: '/sourceCode/stickman-hook', path: '/play', favorite: false },
         { name: 'Tiny Fishing', image: '/game-logos/tiny-fishing.png', link: '/sourceCode/tiny-fishing/', path: '/play', favorite: false },
         { name: 'Moto X3m', image: '/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m/', path: '/play', favorite: false },
+        { name: 'Stick Archers Battle', image: '/game-logos/stick-archers-battle.png', link: '/sourceCode/stick-archers-battle/', path: '/play', favorite: false },
     ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
