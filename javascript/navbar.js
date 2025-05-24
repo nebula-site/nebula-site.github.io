@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="menu">
                     <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
                     <li><a href="/games.html"><i class="fa-solid fa-gamepad"></i> Games</a></li>
+                    <li><a href="/contact"><i class="fa-solid fa-comment"></i> Contact Us</a></li>
                 </ul>
 
                 <div class="menu-btn">
