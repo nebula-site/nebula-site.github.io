@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="logo"><a href="/index.html">Nebula</a></div>
                 <ul class="menu">
                     <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
-                    <li><a href="/games"><i class="fa-solid fa-gamepad"></i> Games</a></li>
+                    <li><a href="/games.html"><i class="fa-solid fa-gamepad"></i> Games</a></li>
                 </ul>
 
                 <div class="menu-btn">
