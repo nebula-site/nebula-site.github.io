@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nebula | Games</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4D603JG8H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R4D603JG8H');
+  </script>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/game-menu.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="/javascript/navbar.js" type="module" defer></script>
+  <script src="/javascript/profile.js" type="module" defer></script>
+  <script src="/javascript/game-menu.js" defer></script>
+  <script src="/javascript/main.js" defer></script>
+</head>
+<body>
+  <canvas></canvas>
+  <div id="navbar-element"></div>
+  <center>
+    <h1 id="top-text">Games</h1>
+    <br>
+    <input autocomplete="off" name="hidden" type="text" class="search animate__animated animate__fadeInDown" id="search" placeholder="Search for games...">
+    <select id="sortSelect" class="sort-dropdown">
+      <option value="alphabetical">Sort Alphabetically</option>
+      <option value="trending">Sort by Trending</option>
+    </select>
+    <br><br>
+    <div id="counterDisplay"></div>
+    <br>
+    <div class="button-container" id="buttonContainer"></div>
+  </center>
+</body>
+</html>

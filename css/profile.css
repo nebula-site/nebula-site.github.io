@@ -1,0 +1,165 @@
+/* --- Black & White Space Theme --- */
+
+/* Reset and base */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  margin-top: 100px;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #000; /* pure black background */
+  color: #eee; /* off-white text */
+  overflow-x: hidden;
+}
+
+/* Subtle starry background using a radial gradient pattern */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(2px 2px at 10% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 50% 40%, #eee, transparent),
+    radial-gradient(1px 1px at 80% 70%, #ddd, transparent);
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Links */
+a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+a:hover {
+  border-color: #fff;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 0 6px #fff;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+button, .btn {
+  background: transparent;
+  border: 1px solid #eee;
+  color: #eee;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background: #eee;
+  color: #000;
+  box-shadow: 0 0 10px #eee;
+}
+
+/* Inputs and textareas */
+input, textarea, select {
+  background: #111;
+  border: 1px solid #eee;
+  color: #eee;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-shadow: inset 0 0 5px #444;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 8px #fff;
+}
+
+/* Containers */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cards */
+.card {
+  background: #111;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #eee;
+}
+
+table th, table td {
+  border: 1px solid #444;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background: #222;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #444;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eee;
+}
+
+/* Misc */
+hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 20px 0;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
