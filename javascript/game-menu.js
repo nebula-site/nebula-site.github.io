@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { name: 'Crossy Road', image: '/game-logos/crossy-road.png', link: '/sourceCode/crossy-road/', path: '/play', favorite: false },
     { name: 'Slope.io', image: '/game-logos/slope-io.png', link: '/sourceCode/slope-io', path: '/play', favorite: false },
     { name: 'Slope.io 3', image: '/game-logos/slope-io-3.png', link: '/sourceCode/slope-io-3/', path: '/play', favorite: false },
+    { name: 'Tomb of The Mask', image: '/game-logos/tomb-of-the-mask.png', link: '/sourceCode/tomb-of-the-mask/', path: '/play', favorite: false },
   ];
 
   const buttonContainer = document.getElementById('buttonContainer');
