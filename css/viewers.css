@@ -1,0 +1,174 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+body {
+    margin-top: 0px;
+    background-color: rgba(210, 180, 140, 1);
+    width: 100%;
+    height: 100%;
+    font-family: Space Grotesk;
+    margin-top: 60px;
+    overflow-x: hidden;
+    text-decoration: none; /* Remove underline from all links */
+}
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+#game-container {
+    margin: 4px auto;
+    width: 80%;
+    height: 570px; /* Set height to 570px */
+    border: none;
+    position: relative;
+    background-color: none;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: begin 0.5s ease-out;
+}
+
+#game-container #iframe-container {
+    width: 100%;
+    height: 80%;
+    border: 4px solid pink;
+    border-radius: 10px;
+    background-color: lightblue;
+}
+
+#game-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+}
+
+#game-container .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+#game-container .buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+#game-container .buttons-container button {
+    padding: 10px 20px;
+    background-color: rgba(210, 180, 140, 1);
+    color: lightblue;
+    transition: background-color 0.7s, box-shadow 0.7s, transform 0.7s;
+    border: 3px solid lightblue;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+}
+
+#game-container .buttons-container button:hover {
+    padding: 10px 20px;
+    background-color: lightblue;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    color: rgba(210, 180, 140, 1);
+    transform: scale(0.9);
+}
+
+#game-container #game-name {
+    color: lightblue;
+    font-size: 40px;
+    padding-top: 0px;
+    font-family: Bebas Neue;
+    text-wrap: nowrap;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+/* Container for iframe */
+#iframe-container {
+    width: 100%;
+    height: 80%;
+    border: 4px solid pink;
+    border-radius: 10px;
+    background-color: lightblue;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* <-- Added shadow */
+}
+
+/* Style for "Waffles" text */
+.game-title {
+    position: absolute;
+    top: 33%; /* Adjust position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    font-weight: bold;
+    font-size: 2rem;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* <-- Added shadow */
+}
+
+/* Style for Play button */
+#playButton {
+    position: absolute;
+    top: 55%; /* Below the "Waffles" text */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 2rem;
+    background-color: pink; /* Pink */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Hover effect for Play button */
+#playButton:hover {
+    background-color: darkpink; /* Darker pink */
+}
+
+/* Initially hidden iframe */
+#myIframe {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+/* Pause button overlaying in the top-right corner */
+#pauseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+/* Hover effect for the pause button */
+#pauseButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+#gameImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 15%;
+    top: 50%;
+}
+@Keyframes begin {
+    0% {
+        opacity: 0;
+        transform: translateY(-50);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

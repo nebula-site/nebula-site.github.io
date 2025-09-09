@@ -1,0 +1,208 @@
+
+
+/* =====================
+   CORE ELEMENTS
+===================== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+body {
+    background-color: rgba(210, 180, 140, 1);
+    width: 100%;
+    height: 100%;
+    font-family: Space Grotesk;
+    margin-top: 60px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    overflow-x: hidden;
+    text-decoration: none; /* Remove underline from all links */
+}
+footer {
+    background-color: rgba(68, 85, 90, 0.5);
+}
+h1 {
+    color: #fff;
+    font-size: 50px;
+    font-family: Bebas Neue;
+}
+#plus-description {
+    background-color: lightblue;
+    border: none;
+    border-radius: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    padding: 40px;
+}
+#plus-description p {
+    color: #fff;
+    font-size: 30px;
+    font-family: Bebas Neue;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.status {
+    padding: 10px 20px;
+    background-color: rgba(210, 180, 140, 1);
+    color: lightblue;
+    transition: background-color 0.7s;
+    border: 3px solid lightblue;
+    border-radius: 5px;
+}
+.status:hover {
+    padding: 10px 20px;
+    background-color: lightblue;
+    color: rgba(210, 180, 140, 1);
+    transition: background-color 0.7s;
+    border: none;
+    border-radius: 5px;
+}
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+#popup button {
+    background-color: lightblue;
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 5px;
+}
+#popup button:hover {
+    background-color: rgba(210, 180, 140, 1);
+    border: 2px solid white;
+    padding: 4.5px;
+    border-radius: 5px;
+}
+.music {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+.music:hover {
+    transform: scale(1.1);
+}
+div.gallery {
+  border: 5px solid green;
+}
+
+div.gallery:hover {
+  border: 5px solid lightblue;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+  font-family: Space Grotesk;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.waffles {
+    margin-top: 30px;
+}
+.popup {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    visibility: visible;
+    transition: opacity 0.3s;
+    opacity: 1;
+    display: none;
+}
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.4s;
+    color: white;
+}
+
+.side-menu h2 {
+    padding-left: 20px;
+}
+
+.side-menu input,
+.side-menu select {
+    margin: 20px;
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1001;
+}
+#form {
+    width: 50%;
+    height: 100%;
+    outline: none;
+    border: none;
+}
