@@ -1,6 +1,6 @@
  document.addEventListener('DOMContentLoaded', function () {
      const buttons = [
-         { name: 'Block Blast', image: '/images/game-logos/block-blast.png', link: '/sourceCode/block-blast/', path: '/play', favorite: false },
+         { name: 'Block Blast', image: '/images/game-logos/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
          { name: 'Cookie Clicker', image: '/images/game-logos/cookie-clicker.png', link: '/sourceCode/cookie-clicker/', path: '/play', favorite: false },
          { name: 'Crazy Cattle 3D', image: '/images/game-logos/crazy-cattle-3d.png', link: '/sourceCode/crazy-cattle-3d/', path: '/play', favorite: false },
          { name: 'Crossy Road', image: '/images/game-logos/crossy-road.png', link: '/sourceCode/crossy-road/', path: '/play', favorite: false },
@@ -11,7 +11,7 @@
          { name: 'Fruit Ninja', image: '/images/game-logos/fruit-ninja.png', link: '/sourceCode/fruit-ninja/', path: '/play', favorite: false },
          { name: 'Monkey Mart', image: '/images/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart/', path: '/play', favorite: false },
          { name: 'Moto X3m', image: '/images/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m/', path: '/play', favorite: false },
-         { name: 'Recoil', image: '/images/game-logos/recoil.png', link: '/sourceCode/recoil/', path: '/play', favorite: false },
+         { name: 'Recoil', image: '/images/game-logos/recoil.png', link: '/sourceCode/recoil', path: '/play', favorite: false },
          { name: 'Retro Bowl College', image: '/images/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college/', path: '/play', favorite: false },
          { name: 'Retro Bowl', image: '/images/game-logos/retro-bowl.png', link: '/sourceCode/retro-bowl/', path: '/play', favorite: false },
          { name: 'Slope.IO', image: '/images/game-logos/slope-io.png', link: '/sourceCode/slope-io/', path: '/play', favorite: false },
