@@ -2,9 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
 
+/* Space background and font */
 body {
     margin: 0;
-    background: linear-gradient(135deg, #1a0033 0%, #0d1b3f 100%);
+    background: radial-gradient(ellipse at 60% 40%, #3f00ff 0%, #1a0033 70%, #0d1b3f 100%);
     width: 100%;
     min-height: 100vh;
     font-family: 'Space Grotesk', Arial, sans-serif;
@@ -13,9 +14,13 @@ body {
     color: #e0e6ff;
     text-decoration: none;
     letter-spacing: 0.03em;
-    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Particle background stays behind everything */
 #particles-js {
     position: fixed;
     top: 0;
@@ -25,37 +30,65 @@ body {
     z-index: -1;
 }
 
+/* Center the main game container */
 #game-container {
-    margin: 32px auto;
-    width: 100%;
-    max-width: 1100px;
-    max-height: 70%;
+    margin: 0 auto;
+    width: 95vw;
+    max-width: 900px;
     min-height: 600px;
-    border-radius: 24px;
-    background: rgba(30, 0, 60, 0.85);
-    box-shadow: 0 0 48px #3f00ff55, 0 8px 32px #a3f7ff22;
+    border-radius: 32px;
+    background: rgba(30, 0, 60, 0.92);
+    box-shadow: 0 0 64px #3f00ff88, 0 8px 32px #a3f7ff44;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: begin 0.5s ease-out;
+    justify-content: center;
+    animation: begin 0.7s cubic-bezier(0.4,0.2,0.2,1);
     position: relative;
-    padding: 10px 10px 10px 10px;
-    backdrop-filter: blur(12px);
-    border: 1.5px solid #3f00ff;
+    padding: 40px 32px 32px 32px;
+    backdrop-filter: blur(16px);
+    border: 2px solid #3f00ff;
+    gap: 24px;
 }
 
+/* Responsive centering for all screen sizes */
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+/* Game name/title */
+#game-container #game-name {
+    color: #a3f7ff;
+    font-size: 2.8rem;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    text-shadow: 0 0 18px #3f00ff, 2px 2px 8px #000a;
+    margin-bottom: 18px;
+    letter-spacing: 3px;
+    text-align: center;
+    font-weight: 700;
+    background: linear-gradient(90deg, #3f00ff44 0%, #1a003344 100%);
+    border-radius: 18px;
+    padding: 12px 0;
+    width: 100%;
+}
+
+/* Game iframe container */
 #game-container #iframe-container,
 #iframe-container {
     width: 100%;
-    height: 70vh;
+    height: 60vh;
     min-height: 350px;
     border: 4px solid #a3f7ff;
-    border-radius: 18px;
+    border-radius: 24px;
     background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
     box-shadow: 0 4px 32px #a3f7ff44;
     overflow: hidden;
     margin-bottom: 24px;
     transition: box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #game-container iframe,
@@ -64,34 +97,39 @@ body {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 18px;
+    border-radius: 24px;
     background: #0d1b3f;
     box-shadow: 0 4px 24px #3f00ff55;
     display: block;
 }
 
+/* Button row */
 #game-container .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 12px 0;
+    gap: 18px;
 }
 
+/* Button group */
 #game-container .buttons-container {
     display: flex;
     gap: 20px;
 }
 
-#game-container .buttons-container button {
-    padding: 12px 32px;
+/* Modern space-themed buttons */
+#game-container .buttons-container button,
+#pauseButton {
+    padding: 14px 36px;
     background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
     color: #1a0033;
     font-family: 'Space Grotesk', Arial, sans-serif;
     font-size: 1.15rem;
     font-weight: 700;
     border: 2px solid #a3f7ff;
-    border-radius: 10px;
+    border-radius: 14px;
     box-shadow: 0 4px 16px #3f00ff55;
     transition: background 0.3s, box-shadow 0.3s, transform 0.3s, color 0.3s, border 0.3s;
     cursor: pointer;
@@ -99,26 +137,52 @@ body {
     letter-spacing: 0.05em;
 }
 
-#game-container .buttons-container button:hover {
+#game-container .buttons-container button:hover,
+#pauseButton:hover {
     background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
     color: #a3f7ff;
     border: 2px solid #ffb3fe;
     box-shadow: 0 8px 32px #a3f7ff44;
-    transform: scale(1.04);
+    transform: scale(1.07);
 }
 
-#game-container #game-name {
-    color: #a3f7ff;
-    font-size: 2.7rem;
-    font-family: 'Bebas Neue', Arial, sans-serif;
-    text-wrap: nowrap;
-    text-shadow: 0 0 16px #3f00ff, 2px 2px 8px #000a;
-    margin-bottom: 18px;
-    letter-spacing: 3px;
-    text-align: center;
+/* Play button */
+#playButton {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 16px 44px;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
+    color: #1a0033;
+    border: none;
+    cursor: pointer;
+    border-radius: 16px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
     font-weight: 700;
+    box-shadow: 0 4px 16px #a3f7ff44;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+    z-index: 2;
+    letter-spacing: 0.07em;
 }
 
+#playButton:hover {
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    color: #ffb3fe;
+    box-shadow: 0 8px 32px #ffb3fe44;
+    transform: scale(1.09);
+}
+
+/* Pause button */
+#pauseButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+}
+
+/* Game title overlay */
 .game-title {
     position: absolute;
     top: 12%;
@@ -138,66 +202,99 @@ body {
     box-shadow: 0 2px 12px #a3f7ff22;
 }
 
-#playButton {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 14px 38px;
-    font-size: 1.35rem;
-    background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
-    color: #1a0033;
-    border: none;
-    cursor: pointer;
-    border-radius: 12px;
-    font-family: 'Space Grotesk', Arial, sans-serif;
-    font-weight: 700;
-    box-shadow: 0 4px 16px #a3f7ff44;
-    transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
-    z-index: 2;
-    letter-spacing: 0.07em;
-}
-
-#playButton:hover {
-    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
-    color: #ffb3fe;
-    box-shadow: 0 8px 32px #ffb3fe44;
-    transform: scale(1.07);
-}
-
+/* Hide iframe initially */
 #myIframe {
     display: none;
     width: 100%;
     height: 100%;
-    border-radius: 18px;
+    border-radius: 24px;
     background: #0d1b3f;
     box-shadow: 0 4px 24px #3f00ff55;
 }
 
-#pauseButton {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    padding: 12px 28px;
-    font-size: 1.15rem;
-    background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
-    color: #a3f7ff;
-    border: 2px solid #a3f7ff;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 4px 16px #3f00ff55;
-    z-index: 10;
-    font-family: 'Space Grotesk', Arial, sans-serif;
-    font-weight: 700;
-    transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
-    letter-spacing: 0.05em;
+/* Animation for fade-in */
+@keyframes begin {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-#pauseButton:hover {
-    background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
-    color: #1a0033;
-    border: 2px solid #ffb3fe;
-    box-shadow: 0 8px 32px #ffb3fe44;
-    transform: scale(1.07);
+/* Responsive design for mobile */
+@media (max-width: 900px) {
+    #game-container {
+        width: 99vw;
+        padding: 18px 4vw 12px 4vw;
+        min-height: 350px;
+        border-radius: 18px;
+    }
+    #game-container #iframe-container,
+    #iframe-container {
+        border-radius: 12px;
+        min-height: 220px;
+    }
+    #game-container #game-name,
+    .game-title {
+        font-size: 1.5rem;
+        padding: 6px 12px;
+    }
+    #playButton {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+    #pauseButton {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
 }
 
+@media (max-width: 600px) {
+    #game-container {
+        width: 100vw;
+        padding: 8px 2vw 4px 2vw;
+        min-height: 220px;
+        border-radius: 10px;
+    }
+    #game-container #iframe-container,
+    #iframe-container {
+        border-radius: 8px;
+        min-height: 120px;
+    }
+    #game-container #game-name,
+    .game-title {
+        font-size: 1.1rem;
+        padding: 4px 6px;
+    }
+    #playButton {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+    #pauseButton {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+}
+/* ...existing code... */
+
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    width: 100%;
+    padding: 12px 0;
+    gap: 18px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    width: 100%;
+}
+
+/* ...existing code... */

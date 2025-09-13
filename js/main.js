@@ -3,28 +3,28 @@ document.title = "Nebula - Gaming Meets Reality";
 document.addEventListener("DOMContentLoaded", function() {
     const body = document.body;
     const sayings = [
-        "Thou Shalt Eat Waffles",
-        "Keep Calm and Waffle On",
-        "Good Things Come to Those Who Waffle",
-        "Life is Better with Waffles",
-        "Waffles are the Answer",
-        "In a World Full of Pancakes, Be a Waffle",
-        "You Can't Buy Happiness, But You Can Buy Waffles",
-        "Thou shalt eat waffles.",
-        "Waffles: The breakfast of champions",
-        "Love is like a waffle — hot, sweet, and comforting.",
-        "Waffles: Because some decisions in life are easy.",
-        "Every day is waffle day if you want it to be.",
-        "A day without waffles is a day without sunshine.",
-        "Waffles are proof that good things come in crunchy packages.",
-        "The world would be a better place if everyone ate waffles.",
-        "When life gets complicated, add waffles.",
-        "A waffle in the morning keeps the grumpiness away.",
-        "Waffle more, worry less.",
-        "You had me at waffles.",
-        "A waffle a day keeps the hangry away.",
-        "Don't worry, be waffle.",
-        "You can't go wrong with waffles."
+        "Reach for the stars, even if you start with waffles.",
+        "Every new day is a chance to level up your dreams.",
+        "Great journeys begin with a single step—and a good breakfast.",
+        "Let your imagination soar beyond the horizon.",
+        "Success is built one small victory at a time.",
+        "Stay curious, stay kind, and keep moving forward.",
+        "Your potential is limitless—believe in yourself.",
+        "Challenges are just opportunities in disguise.",
+        "Shine bright, even on cloudy days.",
+        "The best adventures start with courage.",
+        "Dream big, act boldly, and inspire others.",
+        "Progress is progress, no matter how small.",
+        "You are the hero of your own story.",
+        "Let your passion guide you to new worlds.",
+        "Every setback is a setup for a comeback.",
+        "Keep going—your breakthrough is closer than you think.",
+        "Inspire others by being your authentic self.",
+        "The universe rewards those who dare.",
+        "Kindness is the greatest power you can wield.",
+        "Your journey matters—make it extraordinary.",
+        "Greatness begins with believing you can.",
+        "You are capable of amazing things."
     ];
 
     // Pick a random saying from the list
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loader.style.left = "0";
     loader.style.width = "100%";
     loader.style.height = "100%";
-    loader.style.backgroundColor = "rgba(210, 180, 140, 0.8)";
+    loader.style.backgroundColor = "rgba(17, 70, 131, 0.8)";
     loader.style.display = "flex";
     loader.style.alignItems = "center";
     loader.style.justifyContent = "center";
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
             transform: translate(-50%, -50%);
             width: 300px;
             height: 30px;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(49, 23, 125, 0.2);
             border-radius: 15px;
             overflow: hidden;
             margin: 0;
