@@ -1,23 +1,78 @@
+/* ...existing code... */
+
+/* Modern search box with smooth, glowing hover/focus animation */
 .search {
-    background-color: #87CEEB;
-    border: 3px solid #fff;
-    border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 500;
-    font-family: Space Grotesk;
-    color: #fff;
-    width: 30%;
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    backdrop-filter: blur(8px);
+    padding: 7px 11px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     outline: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: background-color 0.7s, box-shadow 0.7s, transform 0.7s;
-    transform: scale(1);
+    color: #a3f7ff;
+    border: 2px solid #a3f7ff;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 16px #3f00ff55;
+    width: 320px;
+    margin-bottom: 18px;
+    transition:
+        background 0.4s cubic-bezier(0.4,0.2,0.2,1),
+        box-shadow 0.4s cubic-bezier(0.4,0.2,0.2,1),
+        border-color 0.4s cubic-bezier(0.4,0.2,0.2,1),
+        transform 0.3s cubic-bezier(0.4,0.2,0.2,1);
 }
-.search:hover {
-    background-color: #90d5ff;
+
+.search::placeholder {
+    color: #a3f7ff;
+    opacity: 1;
+    transition: color 0.4s;
+}
+
+/* Smooth glowing effect on hover/focus */
+.search:hover,
+.search:focus {
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    box-shadow: 0 0 24px #ffb3fe, 0 4px 24px #a3f7ff44;
+    border-color: #ffb3fe;
+    transform: scale(1.06);
+}
+
+/* ...existing code... */
+
+#sortOptions {
+    padding: 7px 11px;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    color: #a3f7ff;
+    border: 2px solid #a3f7ff;
+    border-radius: 50px;
+    outline: none;
+    box-shadow: 0 4px 16px #3f00ff55;
+    transition: background 0.7s, box-shadow 0.7s, transform 0.7s;
+    transform: scale(1);
+    margin-left: 12px;
+    margin-bottom: 18px;
+}
+
+#sortOptions:hover,
+#sortOptions:focus {
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    color: #1a0033;
     transform: scale(1.02);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 20px #a3f7ff44;
+    border: 2px solid #ffb3fe;
+}
+
+#sortOptions option {
+    padding: 7px 11px;
+    font-size: 1.2rem;
+    background: #1a0033;
+    color: #a3f7ff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
 }
 .button-container {
      display: flex;
@@ -27,69 +82,94 @@
      margin-left: 50px;
      margin-right: 60px;
 }
+
+/* Modern horizontal game card */
 .menu-button {
     position: relative;
-    display: inline-block;
-    margin: 10px;
-    width: 140px;
-    height: 140px;
+    display: flex;
+    align-items: center;
+    margin: 14px;
+    width: 340px;
+    height: 100px;
     overflow: hidden;
-    border-radius: 15%;
+    border-radius: 18px;
     cursor: pointer;
-    text-align: center;
-    color: lightblue;
+    color: #a3f7ff;
     text-decoration: none;
-    transition: transform 0.7s ease, box-shadow 0.7s ease;  /* Keep this for smooth transformation */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.7s ease, box-shadow 0.7s ease;
+    box-shadow: 0 4px 16px #3f00ff55;
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    border: 2px solid #a3f7ff;
+    padding: 0;
 }
 
 .menu-button:hover {
-    transform: scale(1.1);
-    border-radius: 15%;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px #a3f7ff44;
+    border: 2px solid #ffb3fe;
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
 }
 
 .menu-button img {
-    width: 100%;
-    height: 100%;
+    width: 90px;
+    height: 90px;
+    margin-left: 8px;
+    margin-right: 18px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px #a3f7ff44;
+    object-fit: cover;
     transition: transform 0.7s ease;
-    border-radius: 15%;
 }
 
 .menu-button:hover img {
-    border-radius: 15%;
-    transform: scale(1.3);
+    transform: scale(1.08);
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(34, 34, 34, 0.5);
-    border-radius: 15%;
+    position: static;
+    background: none;
+    border-radius: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s, color 0.3s;
+    justify-content: flex-start;
+    opacity: 1;
     font-family: 'Space Grotesk', sans-serif;
-    color: white;
-    border: 2px solid pink;
-    border: none;
-    transition: opacity 0.7s ease;
+    color: #a3f7ff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    transition: none;
 }
 
 .menu-button:hover .overlay {
+    color: #ffb3fe;
+}
+
+/* .favorite-icon styles removed */
+
+.popup {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    background: rgba(30, 0, 60, 0.8);
+    color: #a3f7ff;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    visibility: visible;
     opacity: 1;
-    backdrop-filter: blur(3px);
-    color: pink;
+    box-shadow: 0 0 8px #a3f7ff22;
+    pointer-events: none;
+    z-index: 2;
 }
 
 #counterDisplay {
-    color: lightblue;
+    color: #a3f7ff;
     font-size: 20px;
+    text-shadow: 0 0 8px #3f00ff88, 1px 1px 3px #000a;
 }
 
 #counterDisplay:hover {
@@ -99,44 +179,82 @@
 button {
     padding: 10px;
     font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
+    background: linear-gradient(90deg, #3f00ff 0%, #a3f7ff 100%);
+    color: #1a0033;
+    border: 2px solid #a3f7ff;
     cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 2px 8px #3f00ff55;
+    transition: background 0.7s, color 0.7s;
+}
+
+button:hover {
+    background: #1a0033;
+    color: #a3f7ff;
+    border: 2px solid #ffb3fe;
 }
 
 .button-animate {
     transform: scale(0.95);
     transition: transform 0.3s ease;
 }
-#sortOptions {
-    padding: 9px;
-    font-size: 16px;
-    background-color: rgba(210, 180, 140, 1);
-    color: white;
-    border: 2px solid lightblue;
+
+
+/* Responsive design for mobile */
+@media (max-width: 600px) {
+    .menu-button {
+        width: 98vw;
+        height: 80px;
+        border-radius: 12px;
+        margin: 8px 0;
+    }
+    .menu-button img {
+        width: 60px;
+        height: 60px;
+        margin-left: 6px;
+        margin-right: 12px;
+        border-radius: 8px;
+    }
+    .overlay {
+        font-size: 1rem;
+    }
+}
+/* ...existing code... */
+
+/* Improved thumbs up (favorite-icon) styles */
+.favorite-icon {
+    margin-left: 12px;
+    font-size: 1.7rem;
+    color: #ffb3fe;
     cursor: pointer;
-    border-radius: 5px;
-    outline: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: background-color 0.7s, box-shadow 0.7s, transform 0.7s;
-    transform: scale(1);
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 6px #a3f7ff88);
 }
 
-#sortOptions:hover {
-    background-color: lightblue;
-    transform: scale(1.02);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+.menu-button:hover .favorite-icon,
+.favorite-icon:hover {
+    color: #a3f7ff;
+    transform: scale(1.18) rotate(-10deg);
+    text-shadow: 0 0 12px #ffb3fe88, 0 0 6px #a3f7ff88;
+    filter: drop-shadow(0 0 12px #ffb3fe88);
 }
 
-#sortOptions option {
-    padding: 9px;
-    font-size: 16px;
-    background-color: rgba(210, 180, 140, 1);
-    color: white;
-    border: 2px solid lightblue;
-    cursor: pointer;
-    border-radius: 5px;
-    outline: none;
+.favorite-icon .fa-thumbs-up {
+    transition: color 0.3s, transform 0.3s;
+    margin-right: 15px;
 }
+
+.favorite-icon .fa-solid {
+    color: #ffb3fe;
+    text-shadow: 0 0 8px #ffb3fe88;
+}
+
+.favorite-icon .fa-regular {
+    color: #a3f7ff;
+    opacity: 0.7;
+}
+
+/* ...existing code... */

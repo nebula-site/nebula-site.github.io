@@ -1,52 +1,73 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
 body {
-    margin-top: 0px;
-    background-color: rgba(210, 180, 140, 1);
+    margin: 0;
+    background: linear-gradient(135deg, #1a0033 0%, #0d1b3f 100%);
     width: 100%;
-    height: 100%;
-    font-family: Space Grotesk;
+    min-height: 100vh;
+    font-family: 'Space Grotesk', Arial, sans-serif;
     margin-top: 60px;
     overflow-x: hidden;
-    text-decoration: none; /* Remove underline from all links */
+    color: #e0e6ff;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    overflow-y: hidden;
 }
+
 #particles-js {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
 }
+
 #game-container {
-    margin: 4px auto;
-    width: 80%;
-    height: 570px; /* Set height to 570px */
-    border: none;
-    position: relative;
-    background-color: none;
-    opacity: 1;
+    margin: 32px auto;
+    width: 100%;
+    max-width: 1100px;
+    max-height: 70%;
+    min-height: 600px;
+    border-radius: 24px;
+    background: rgba(30, 0, 60, 0.85);
+    box-shadow: 0 0 48px #3f00ff55, 0 8px 32px #a3f7ff22;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     animation: begin 0.5s ease-out;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    backdrop-filter: blur(12px);
+    border: 1.5px solid #3f00ff;
 }
 
-#game-container #iframe-container {
+#game-container #iframe-container,
+#iframe-container {
     width: 100%;
-    height: 80%;
-    border: 4px solid pink;
-    border-radius: 10px;
-    background-color: lightblue;
+    height: 70vh;
+    min-height: 350px;
+    border: 4px solid #a3f7ff;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
+    box-shadow: 0 4px 32px #a3f7ff44;
+    overflow: hidden;
+    margin-bottom: 24px;
+    transition: box-shadow 0.3s;
 }
 
-#game-container iframe {
+#game-container iframe,
+#iframe-container iframe,
+#myIframe {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 10px;
-    background-color: black;
+    border-radius: 18px;
+    background: #0d1b3f;
+    box-shadow: 0 4px 24px #3f00ff55;
+    display: block;
 }
 
 #game-container .container {
@@ -54,121 +75,129 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px;
+    padding: 12px 0;
 }
 
 #game-container .buttons-container {
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 
 #game-container .buttons-container button {
-    padding: 10px 20px;
-    background-color: rgba(210, 180, 140, 1);
-    color: lightblue;
-    transition: background-color 0.7s, box-shadow 0.7s, transform 0.7s;
-    border: 3px solid lightblue;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transform: scale(1);
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    color: #1a0033;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: 2px solid #a3f7ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px #3f00ff55;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s, color 0.3s, border 0.3s;
+    cursor: pointer;
+    outline: none;
+    letter-spacing: 0.05em;
 }
 
 #game-container .buttons-container button:hover {
-    padding: 10px 20px;
-    background-color: lightblue;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-    color: rgba(210, 180, 140, 1);
-    transform: scale(0.9);
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    color: #a3f7ff;
+    border: 2px solid #ffb3fe;
+    box-shadow: 0 8px 32px #a3f7ff44;
+    transform: scale(1.04);
 }
 
 #game-container #game-name {
-    color: lightblue;
-    font-size: 40px;
-    padding-top: 0px;
-    font-family: Bebas Neue;
+    color: #a3f7ff;
+    font-size: 2.7rem;
+    font-family: 'Bebas Neue', Arial, sans-serif;
     text-wrap: nowrap;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-/* Container for iframe */
-#iframe-container {
-    width: 100%;
-    height: 80%;
-    border: 4px solid pink;
-    border-radius: 10px;
-    background-color: lightblue;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* <-- Added shadow */
+    text-shadow: 0 0 16px #3f00ff, 2px 2px 8px #000a;
+    margin-bottom: 18px;
+    letter-spacing: 3px;
+    text-align: center;
+    font-weight: 700;
 }
 
-/* Style for "Waffles" text */
 .game-title {
     position: absolute;
-    top: 33%; /* Adjust position above the button */
+    top: 12%;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Arial', sans-serif;
-    color: #fff;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    color: #a3f7ff;
     font-weight: bold;
-    font-size: 2rem;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* <-- Added shadow */
+    font-size: 2.3rem;
+    text-shadow: 0 0 16px #3f00ff, 2px 2px 8px #000a;
+    letter-spacing: 2px;
+    z-index: 2;
+    background: rgba(30,0,60,0.7);
+    padding: 8px 32px;
+    border-radius: 16px;
+    border: 1.5px solid #3f00ff;
+    box-shadow: 0 2px 12px #a3f7ff22;
 }
 
-/* Style for Play button */
 #playButton {
     position: absolute;
-    top: 55%; /* Below the "Waffles" text */
+    top: 38%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 2rem;
-    background-color: pink; /* Pink */
-    color: white;
+    padding: 14px 38px;
+    font-size: 1.35rem;
+    background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
+    color: #1a0033;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 12px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-weight: 700;
+    box-shadow: 0 4px 16px #a3f7ff44;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+    z-index: 2;
+    letter-spacing: 0.07em;
 }
 
-/* Hover effect for Play button */
 #playButton:hover {
-    background-color: darkpink; /* Darker pink */
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    color: #ffb3fe;
+    box-shadow: 0 8px 32px #ffb3fe44;
+    transform: scale(1.07);
 }
 
-/* Initially hidden iframe */
 #myIframe {
     display: none;
     width: 100%;
     height: 100%;
-}
-/* Pause button overlaying in the top-right corner */
-#pauseButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 10;
+    border-radius: 18px;
+    background: #0d1b3f;
+    box-shadow: 0 4px 24px #3f00ff55;
 }
 
-/* Hover effect for the pause button */
+#pauseButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 12px 28px;
+    font-size: 1.15rem;
+    background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
+    color: #a3f7ff;
+    border: 2px solid #a3f7ff;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px #3f00ff55;
+    z-index: 10;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s, transform 0.3s;
+    letter-spacing: 0.05em;
+}
+
 #pauseButton:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
+    color: #1a0033;
+    border: 2px solid #ffb3fe;
+    box-shadow: 0 8px 32px #ffb3fe44;
+    transform: scale(1.07);
 }
-#gameImage {
-    width: 50px;
-    height: 50px;
-    border-radius: 15%;
-    top: 50%;
-}
-@Keyframes begin {
-    0% {
-        opacity: 0;
-        transform: translateY(-50);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+

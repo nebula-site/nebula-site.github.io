@@ -11,13 +11,13 @@ particlesJS('particles-js',
         }
       },
       "color": {
-        "value": "#faf896"
+        "value": "#a3f7ff" // Space accent blue
       },
       "shape": {
         "type": "circle",
         "stroke": {
           "width": 0,
-          "olor": "#000000"
+          "color": "#3f00ff" // Deep space purple
         },
         "polygon": {
           "nb_sides": 5
@@ -29,7 +29,7 @@ particlesJS('particles-js',
         }
       },
       "opacity": {
-        "value": 1,
+        "value": 0.8,
         "random": false,
         "anim": {
           "enable": false,
@@ -51,9 +51,9 @@ particlesJS('particles-js',
       "line_linked": {
         "enable": true,
         "distance": 150,
-        "color": "#faf896",
-        "opacity": 1,
-        "width":3
+        "color": "#3f00ff", // Deep space purple
+        "opacity": 0.7,
+        "width": 2
       },
       "move": {
         "enable": true,
@@ -86,7 +86,7 @@ particlesJS('particles-js',
         "grab": {
           "distance": 400,
           "line_linked": {
-            "opacity": 3
+            "opacity": 1
           }
         },
         "bubble": {

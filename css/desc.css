@@ -1,16 +1,17 @@
-/* Fade-in effect */
+/* Space-themed Fade-in effect */
 #desc-1 {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
   margin: 0;
-  background-color: rgba(255, 192, 203, 0.2);
-  backdrop-filter: blur(10px);
-  border-top: 5px solid #fff;
-  border-bottom: 5px solid #fff;
+  background: linear-gradient(135deg, #1a0033 0%, #0d1b3f 100%);
+  backdrop-filter: blur(12px);
+  border-top: 5px solid #a3f7ff;
+  border-bottom: 5px solid #a3f7ff;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1s ease-out, transform 1s ease-out;
+  box-shadow: 0 0 40px 0 #3f00ff55;
 }
 
 #desc-1.fade-in {
@@ -23,29 +24,31 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  border-radius: 5px;
-  padding: 20px;
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(30, 0, 60, 0.5);
+  box-shadow: 0 0 16px 0 #a3f7ff22;
 }
 
 /* Headline styling */
 #desc-1 h1 {
   width: 100%;
-  font-size: 2.5rem;
-  font-family: Arial, sans-serif;
-  color: lightblue;
+  font-size: 2.7rem;
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: #a3f7ff;
   text-align: left;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 12px #3f00ff, 2px 2px 6px #000a;
 }
 
 /* Paragraph styling */
 #desc-1 p {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 1.5rem;
-  font-family: Arial, sans-serif;
-  color: white;
+  font-family: 'Roboto Mono', Arial, sans-serif;
+  color: #e0e6ff;
   text-align: left;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 8px #3f00ff88, 1px 1px 3px #000a;
 }
 
 /* Image container */
@@ -53,30 +56,34 @@
   width: 50%;
   display: block;
   margin: 20px 0;
-  border-radius: 10px;
+  border-radius: 12px;
+  background: rgba(60, 0, 100, 0.3);
+  box-shadow: 0 0 24px 0 #a3f7ff44;
 }
 
 /* Image styling */
 #image-1 {
-  width: 300px;
+  width: 320px;
   display: block;
-  margin-left: 20px;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin-left: 24px;
+  border-radius: 30px;
+  box-shadow: 0 8px 24px rgba(163, 247, 255, 0.4), 0 0 32px #3f00ff88;
 }
-/* Fade-in effect */
+
+/* Space-themed Fade-in effect */
 #desc-2 {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
   margin: 0;
-  background-color: rgba(255, 192, 203, 0.2);
-  backdrop-filter: blur(10px);
-  border-top: 5px solid #fff;
-  border-bottom: 5px solid #fff;
+  background: linear-gradient(135deg, #0d1b3f 0%, #3f00ff 100%);
+  backdrop-filter: blur(12px);
+  border-top: 5px solid #ffb3fe;
+  border-bottom: 5px solid #ffb3fe;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1s ease-out, transform 1s ease-out;
+  box-shadow: 0 0 40px 0 #ffb3fe55;
 }
 
 #desc-2.fade-in {
@@ -89,29 +96,31 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  border-radius: 5px;
-  padding: 20px;
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(63, 0, 255, 0.3);
+  box-shadow: 0 0 16px 0 #ffb3fe22;
 }
 
 /* Headline styling */
 #desc-2 h1 {
   width: 100%;
-  font-size: 2.5rem;
-  font-family: Arial, sans-serif;
-  color: lightblue;
+  font-size: 2.7rem;
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: #ffb3fe;
   text-align: left;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 12px #a3f7ff, 2px 2px 6px #000a;
 }
 
 /* Paragraph styling */
 #desc-2 p {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 1.5rem;
-  font-family: Arial, sans-serif;
-  color: white;
+  font-family: 'Roboto Mono', Arial, sans-serif;
+  color: #f8e1ff;
   text-align: left;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 8px #ffb3fe88, 1px 1px 3px #000a;
 }
 
 /* Image container */
@@ -119,14 +128,16 @@
   width: 50%;
   display: block;
   margin: 20px 0;
-  border-radius: 10px;
+  border-radius: 12px;
+  background: rgba(255, 179, 254, 0.2);
+  box-shadow: 0 0 24px 0 #ffb3fe44;
 }
 
 /* Image styling */
 #image-2 {
-  width: 300px;
+  width: 320px;
   display: block;
-  margin-left: 20px;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin-left: 24px;
+  border-radius: 30px;
+  box-shadow: 0 8px 24px rgba(255, 179, 254, 0.4), 0 0 32px #a3f7ff88;
 }

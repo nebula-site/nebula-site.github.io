@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
      const buttons = [
          { name: 'Block Blast', image: '/images/game-logos/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
          { name: 'Cookie Clicker', image: '/images/game-logos/cookie-clicker.png', link: '/sourceCode/cookie-clicker', path: '/play', favorite: false },
@@ -79,8 +79,10 @@
         icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
         favoriteIcon.appendChild(icon);
 
+        // Prevent navigation when clicking thumbs up
         favoriteIcon.addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
             toggleFavorite(button);
             icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
             icon.classList.add('animate__animated', 'animate__bounce');
@@ -92,6 +94,8 @@
         a.appendChild(favoriteIcon);
 
         a.addEventListener('click', (e) => {
+            // Only navigate if the click is not on the favorite icon
+            if (e.target.closest('.favorite-icon')) return;
             e.preventDefault();
             count++;
             setClickCount(button.name, count);
@@ -115,7 +119,7 @@
 
         let sortedButtons = [...buttons]; // clone to avoid in-place sort bugs
 
-        if (sortBy === 'starred') {
+        if (sortBy === 'liked') {
             sortedButtons.sort((a, b) => {
                 return getFavoriteStatus(b.name) - getFavoriteStatus(a.name);
             });
@@ -147,12 +151,12 @@
         renderButtons(searchInput.value, e.target.value);
     });
 
-    // Ensure the 'starred' option exists
-    if (!Array.from(sortOptions.options).some(opt => opt.value === 'starred')) {
-        const starredOption = document.createElement('option');
-        starredOption.value = 'starred';
-        starredOption.textContent = 'Sort By Starred';
-        sortOptions.appendChild(starredOption);
+    // Ensure the 'liked' option exists
+    if (!Array.from(sortOptions.options).some(opt => opt.value === 'liked')) {
+        const likedOption = document.createElement('option');
+        likedOption.value = 'liked';
+        likedOption.textContent = 'Sort By Liked';
+        sortOptions.appendChild(likedOption);
     }
 
     renderButtons();

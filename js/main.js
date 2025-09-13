@@ -1,4 +1,4 @@
-document.title = "Waffles"
+document.title = "Nebula - Gaming Meets Reality";
 
 document.addEventListener("DOMContentLoaded", function() {
     const body = document.body;
