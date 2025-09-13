@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
          { name: 'Minecraft', image: '/images/game-logos/minecraft.png', link: '/sourceCode/minecraft', path: '/play', favorite: false },
          { name: 'Worlds Hardest Game', image: '/images/game-logos/worlds-hardest-game.png', link: '/sourceCode/worlds-hardest-game', path: '/play', favorite: false },
          { name: 'Arena King', image: '/images/game-logos/arena-king.png', link: '/sourceCode/arena-king', path: '/play', favorite: false },
+         { name: 'Slow Roads', image: '/images/game-logos/slow-roads.png', link: '/sourceCode/slow-roads', path: '/play', favorite: false },
+         { name: 'Helix Jump', image: '/images/game-logos/helix-jump.png', link: '/sourceCode/helix-jump', path: '/play', favorite: false },
          
          
      ];
