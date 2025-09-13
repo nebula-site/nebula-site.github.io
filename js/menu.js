@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
          { name: 'Geometry Dash', image: '/images/game-logos/geometry-dash.png', link: '/sourceCode/geometry-dash', path: '/play', favorite: false },
          { name: 'Minecraft', image: '/images/game-logos/minecraft.png', link: '/sourceCode/minecraft', path: '/play', favorite: false },
          { name: 'Worlds Hardest Game', image: '/images/game-logos/worlds-hardest-game.png', link: '/sourceCode/worlds-hardest-game', path: '/play', favorite: false },
+         { name: 'Arena King', image: '/images/game-logos/arena-king.png', link: '/sourceCode/arena-king', path: '/play', favorite: false },
          
          
      ];
