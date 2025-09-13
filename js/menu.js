@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
          { name: 'Subway Surfers', image: '/images/game-logos/subway-surfers.png', link: '/sourceCode/subway-surfers', path: '/play', favorite: false },
          { name: 'Tiny Fishing', image: '/images/game-logos/tiny-fishing.png', link: '/sourceCode/tiny-fishing', path: '/play', favorite: false },
          { name: 'Tomb of the Mask', image: '/images/game-logos/tomb-of-the-mask.png', link: '/sourceCode/tomb-of-the-mask', path: '/play', favorite: false },
+         { name: 'Geometry Dash', image: '/images/game-logos/geometry-dash.png', link: '/sourceCode/geometry-dash', path: '/play', favorite: false },
+         { name: 'Minecraft', image: '/images/game-logos/minecraft.png', link: '/sourceCode/minecraft', path: '/play', favorite: false },
+         { name: 'WOrlds Hardest Game', image: '/images/game-logos/worlds-hardest-game.png', link: '/sourceCode/worlds-hardest-game', path: '/play', favorite: false },
+         
          
      ];
     const buttonContainer = document.getElementById('buttonContainer');
