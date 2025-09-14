@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waffles | Play</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/viewers.css">
+</head>
+<body>
+    <center>
+        <br><br><br>
+        <div id="game-container">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 18px;">
+                <img id="game-image" src="" alt="Game Image" style="width:80px; height:80px; border-radius:18px; box-shadow:0 4px 16px #a3f7ff44; background:#1a0033; border:2px solid #3f00ff; object-fit:cover; display:none;">
+                <h2 id="game-name" style="margin:0;"></h2>
+            </div>
+            <div id="iframe-container">
+                <iframe id="myIframe" src="" frameborder="none" style="display: none;"></iframe>
+            </div>
+
+            <div class="container">
+                <div class="buttons-container">
+                    <button onclick="goHome()">
+                        <i class='fa fa-house fa-lg'></i>
+                    </button>
+                    <button id="fullscreenButton" onclick="makeFullscreen()">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center fa-lg"></i>
+                    </button>
+                    <button id="reloadButton" onclick="reloadIframe()">
+                        <i class="fa fa-refresh fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </center>
+
+    <script>
+        window.addEventListener('load', function () {
+            const gameLink = sessionStorage.getItem('gameLink');
+            const gameName = sessionStorage.getItem('gameName');
+            const gameImage = sessionStorage.getItem('gameImage');
+
+            if (gameLink && gameName) {
+                document.getElementById('game-name').innerText = gameName;
+                sessionStorage.setItem('gameLink', gameLink);
+
+                // Show and set game image
+                const imgElem = document.getElementById('game-image');
+                if (gameImage) {
+                    imgElem.src = gameImage;
+                    imgElem.style.display = 'block';
+                } else {
+                    imgElem.style.display = 'none';
+                }
+
+                startGame();
+            } else {
+                window.location.href = "/games";
+            }
+        });
+
+        function startGame() {
+            const gameLink = sessionStorage.getItem('gameLink');
+            const iframe = document.getElementById('myIframe');
+            iframe.style.display = 'block';
+            redirectIframe(gameLink, 4750);
+        }
+
+        function reloadIframe() {
+            const iframe = document.getElementById('myIframe');
+            const currentSrc = iframe.src;
+            const reloadButton = document.getElementById('reloadButton');
+
+            reloadButton.innerHTML = "<i class='fa fa-refresh fa-lg'></i>";
+            iframe.src = '';
+            iframe.src = currentSrc;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const reloadButton = document.getElementById('reloadButton');
+            reloadButton.addEventListener("mouseenter", function () {
+                reloadButton.querySelector("i").classList.add("fa-spin");
+            });
+            reloadButton.addEventListener("mouseleave", function () {
+                reloadButton.querySelector("i").classList.remove("fa-spin");
+            });
+        });
+
+        function makeFullscreen() {
+            const iframe = document.getElementById('myIframe');
+            const iframeContainer = document.getElementById('iframe-container');
+
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+
+            iframeContainer.classList.add('fullscreen');
+        }
+
+        function goHome() {
+            window.location.href = '/videos';
+        }
+
+        function redirectIframe(newSrc, delay) {
+            const iframe = document.getElementById('myIframe');
+            iframe.src = "/loading.html";
+
+            let finalSrc = newSrc;
+            if (!newSrc.startsWith('http') && !newSrc.startsWith('/')) {
+                finalSrc = '/' + newSrc;
+            }
+
+            setTimeout(() => {
+                iframe.src = finalSrc;
+            }, delay);
+        }
+
+        // Handle fullscreen exit cleanup
+        const fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'msfullscreenchange'];
+        fullscreenEvents.forEach(event => {
+            document.addEventListener(event, () => {
+                if (!document.fullscreenElement &&
+                    !document.webkitFullscreenElement &&
+                    !document.mozFullScreenElement &&
+                    !document.msFullscreenElement) {
+                    document.getElementById('iframe-container').classList.remove('fullscreen');
+                }
+            });
+        });
+    </script>
+
+    <div id="particles-js"></div>
+    <script src="/js/profile.js"></script>
+    <script src="/js/particles.js"></script>
+    <script src="/js/particles-config.js"></script>
+</body>
+  <br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/privacy.html" style="color:white; margin:0 10px;">Privacy Policy</a> <a href="/terms.html" style="color:white; margin:0 10px;">Terms of Service</a> <a href="/contact.html" style="color:white; margin:0 10px;">Contact Us</a> </nav></footer>
+
+</html>
