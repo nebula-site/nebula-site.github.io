@@ -37,7 +37,7 @@
   animation: fade 0.5s ease-out;
 }
 
-.nav-left-bg, .nav-right-bg {
+.nav-left-bg {
   background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
   backdrop-filter: blur(8px);
   padding: 3px 7px;

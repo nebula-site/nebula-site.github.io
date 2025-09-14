@@ -20,7 +20,7 @@
         <br>
     <input autocomplete="off" name="hidden" type="text" class="search animate__animated animate__fadeInDown" id="youtube-search-input" placeholder="Search for YouTube videos...">
     <br><br>
-    <h2 style="color:#a3f7ff;">Suggested Videos</h2>
+    <h2 id="results-heading" style="color:#a3f7ff;">Suggested Videos</h2>
     <div id="suggested-results" style="width:80%;margin:0 auto;"></div>
     <br>
     <div id="youtube-results" style="width: 80%; margin: 0 auto;"></div>
@@ -166,6 +166,9 @@
             if (!query) return;
             addSearchToHistory(query);
             document.getElementById('youtube-results').innerHTML = '<p>Searching...</p>';
+            // Hide suggested videos and change heading
+            document.getElementById('suggested-results').style.display = 'none';
+            document.getElementById('results-heading').textContent = 'Search Results';
             try {
                 const videos = await searchYouTube(query);
                 renderResults(videos);
