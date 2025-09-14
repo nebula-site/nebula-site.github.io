@@ -16,10 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/ai"><i class="fa-solid fa-robot"></i></a>
           <a href="/forms"><i class="fa fa-clipboard-list fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
           <a href="javascript:void(0);" class="extra"><i class="fa fa-plus fa-lg"></i></a>
           <div class="extra-buttons" style="display: none;">
-            <a target="_blank" href="https://github.com/eat-waffles-more"><i class="fa-brands fa-github fa-lg"></i></a>
+            <a target="_blank" href="https://github.com/nebula-site"><i class="fa-brands fa-github fa-lg"></i></a>
             <a href="/terms"><i class="fa-solid fa-clipboard-check"></i></a>
             <a href="/privacy"><i class="fa-solid fa-user-lock"></i></a>
             <a href="/contact"><i class="fa-solid fa-envelope"></i></a>
