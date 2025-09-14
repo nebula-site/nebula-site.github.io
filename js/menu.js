@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Monkey Mart', image: '/images/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart', path: '/play', favorite: false },
      { name: 'Moto X3m', image: '/images/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m', path: '/play', favorite: false },
      { name: 'Recoil', image: '/images/game-logos/recoil.png', link: '/sourceCode/recoil', path: '/play', favorite: false },
-     { name: 'Retro Bowl College', image: '/images/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college', path: '/play', favorite: false },
      { name: 'Retro Bowl', image: '/images/game-logos/retro-bowl.png', link: '/sourceCode/retro-bowl', path: '/play', favorite: false },
      { name: 'Slope.IO', image: '/images/game-logos/slope-io.png', link: '/sourceCode/slope-io', path: '/play', favorite: false },
      { name: 'Slope.IO 3', image: '/images/game-logos/slope-io-3.png', link: '/sourceCode/slope-io-3', path: '/play', favorite: false },
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Helix Jump', image: '/images/game-logos/helix-jump.png', link: '/sourceCode/helix-jump', path: '/play', favorite: false },
      { name: 'Mario Bros', image: '/images/game-logos/mario-bros.png', link: '/sourceCode/mario-bros', path: '/play', favorite: false },
      { name: 'Core Ball', image: '/images/game-logos/core-ball.png', link: '/sourceCode/core-ball', path: '/play', favorite: false },
-     { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout/', path: '/play', favorite: false },
      { name: 'Doodle Jump', image: '/images/game-logos/doodle-jump.png', link: '/sourceCode/doodle-jump', path: '/play', favorite: false },
      { name: 'Death Run 3D', image: '/images/game-logos/death-run-3d.png', link: '/sourceCode/death-run-3d', path: '/play', favorite: false },
          
