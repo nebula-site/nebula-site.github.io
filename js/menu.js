@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Helix Jump', image: '/images/game-logos/helix-jump.png', link: '/sourceCode/helix-jump', path: '/play', favorite: false },
      { name: 'Mario Bros', image: '/images/game-logos/mario-bros.png', link: '/sourceCode/mario-bros', path: '/play', favorite: false },
      { name: 'Core Ball', image: '/images/game-logos/core-ball.png', link: '/sourceCode/core-ball', path: '/play', favorite: false },
-     { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout', path: '/play', favorite: false },
+     { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout/', path: '/play', favorite: false },
      { name: 'Doodle Jump', image: '/images/game-logos/doodle-jump.png', link: '/sourceCode/doodle-jump', path: '/play', favorite: false },
      { name: 'Death Run 3D', image: '/images/game-logos/death-run-3d.png', link: '/sourceCode/death-run-3d', path: '/play', favorite: false },
          
