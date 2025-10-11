@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Core Ball', image: '/images/game-logos/core-ball.png', link: '/sourceCode/core-ball', path: '/play', favorite: false },
      { name: 'Doodle Jump', image: '/images/game-logos/doodle-jump.png', link: '/sourceCode/doodle-jump', path: '/play', favorite: false },
      { name: 'Death Run 3D', image: '/images/game-logos/death-run-3d.png', link: '/sourceCode/death-run-3d', path: '/play', favorite: false },
+     { name: 'Thorns and Balloons', image: '/images/game-logos/thorns-and-balloons.png', link: '/sourceCode/thorns-and-balloons', path: '/play', favorite: false },
+     { name: 'Getaway Shootout', image: '/images/game-logos/getaway-shootout.png', link: '/sourceCode/getaway-shootout', path: '/play', favorite: false },
+     { name: 'Bacon may Die', image: '/images/game-logos/bacon-may-die.png', link: '/sourceCode/bacon-may-die', path: '/play', favorite: false },
+     { name: 'Angry Birds', image: '/images/game-logos/angry-birds.png', link: '/sourceCode/angry-birds', path: '/play', favorite: false },
+     
          
          
      ];
