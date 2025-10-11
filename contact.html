@@ -3,126 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waffles - Contact Us</title>
+  <title>Waffles</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk&display=swap" rel="stylesheet">
-
-  <!-- Optional: External styles (keep or remove if your CSS exists) -->
-  <style>
-    body {
-      background: radial-gradient(circle at top, #120026, #000);
-      color: #e0e6ff;
-      font-family: 'Space Grotesk', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding-bottom: 120px;
-    }
-    img.waffles {
-      width: 120px;
-      border-radius: 16px;
-      box-shadow: 0 0 16px #3f00ff;
-    }
-    footer {
-      background-color: #3f00ff;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      width: 100%;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 -2px 10px #0008;
-    }
-    footer a {
-      color: white;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/menu.css" />
+  <script src="/js/main.js" defer></script>
+  <script src="/js/navbar.js" defer></script>
 </head>
 <body>
-  <br><br>
-  <img class="waffles" src="/images/favicon.png" alt="Waffles Logo" />
-  <br><br>
-  <div class="info" id="info">
-    <h1 style="color:#a3f7ff; font-size:50px; font-family:'Bebas Neue',cursive; text-shadow:0 0 12px #3f00ff,2px 2px 6px #000a;">
-      Contact Us
-    </h1>
-    <p style="color:#e0e6ff; font-size:20px;">
-      We’d love to hear from you! Whether you have a question, suggestion, or just want to share your thoughts, we’re always here to help.
-    </p>
+  <center>
+    <br><br>
+    <img class="waffles" src="/images/favicon.png" alt="Waffles Logo" />
+    <br><br>
+    <div class="info" id="info">
+      <h1 style="color:#a3f7ff; font-size:50px; font-family:'Bebas Neue',cursive; text-shadow:0 0 12px #3f00ff,2px 2px 6px #000a;">Contact Us</h1>
+      <p style="color:#e0e6ff; font-size:20px; font-family:Space Grotesk;">We’d love to hear from you! Whether you have a question, suggestion, or just want to share your thoughts, we’re always here to help. Your feedback is important to us, and we strive to provide the best support and service possible.</p>
 
-    <h2 style="color:#a3f7ff; font-family:'Bebas Neue',cursive;">Contact Form</h2>
-    <form id="contactForm"
-      action="https://formspree.io/f/xzzjjwgp"
-      method="POST"
-      style="background:rgba(30,0,60,0.5); border-radius:16px; box-shadow:0 0 24px 0 #a3f7ff44; padding:32px 24px; max-width:400px; margin:24px auto 0 auto; display:flex; flex-direction:column; gap:16px;">
-      
-      <label for="name" style="color:#a3f7ff; font-weight:600;">Name:</label>
-      <input type="text" id="name" name="name" required
-        style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+      <h2 style="color:#a3f7ff; font-family:'Bebas Neue',cursive;">Contact Form</h2>
+      <form id="contactForm" action="https://formspree.io/f/xzzjjwgp" 
+        method="POST" style="background:rgba(30,0,60,0.5); border-radius:16px; box-shadow:0 0 24px 0 #a3f7ff44; padding:32px 24px; max-width:400px; margin:24px auto 0 auto; display:flex; flex-direction:column; gap:16px;">
+        <label for="name" style="color:#a3f7ff; font-weight:600;">Name:</label>
+        <input type="text" id="name" name="name" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
 
-      <label for="email" style="color:#a3f7ff; font-weight:600;">Your Email:</label>
-      <input type="email" id="email" name="email" required
-        style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+        <label for="email" style="color:#a3f7ff; font-weight:600;">Your Email:</label>
+        <input type="email" id="email" name="email" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
 
-      <label for="subject" style="color:#a3f7ff; font-weight:600;">Subject:</label>
-      <input type="text" id="subject" name="subject" required
-        style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+        <label for="subject" style="color:#a3f7ff; font-weight:600;">Subject:</label>
+        <input type="text" id="subject" name="subject" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
 
-      <label for="message" style="color:#a3f7ff; font-weight:600;">Message:</label>
-      <textarea id="message" name="message" rows="5" required
-        style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;"></textarea>
+        <label for="message" style="color:#a3f7ff; font-weight:600;">Message:</label>
+        <textarea id="message" name="message" rows="5" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;"></textarea>
 
-      <button type="submit"
-        style="background:linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%); color:#1a0033; padding:12px; border:none; border-radius:8px; font-size:1.1em; font-weight:bold; cursor:pointer; margin-top:8px; box-shadow:0 0 8px #a3f7ff88; transition:background 0.2s;">
-        Send
-      </button>
-    </form>
-
-    <p id="form-status" style="color:#a3f7ff; text-align:center; margin-top:10px; font-weight:600;"></p>
-  </div>
-
-  <script>
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const status = document.getElementById('form-status');
-      const data = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
+        <button type="submit" style="background:linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%); color:#1a0033; padding:12px; border:none; border-radius:8px; font-size:1.1em; font-weight:bold; cursor:pointer; margin-top:8px; box-shadow:0 0 8px #a3f7ff88; transition:background 0.2s;">Send</button>
+      </form>
+      <p id="form-status" style="color:#a3f7ff; text-align:center; margin-top:10px; font-weight:600;"></p>
+      <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          var form = this;
+          var status = document.getElementById('form-status');
+          e.preventDefault();
+          var data = new FormData(form);
+          fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(function(response) {
+            if (response.ok) {
+              status.textContent = 'Thank you for your message!';
+              form.reset();
+            } else {
+              response.json().then(function(data) {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.textContent = data["errors"].map(function(error) { return error["message"]; }).join(", ");
+                } else {
+                  status.textContent = 'Oops! There was a problem submitting your form.';
+                }
+              });
+            }
+          }).catch(function(error) {
+            status.textContent = 'Oops! There was a problem submitting your form.';
+          });
         });
+      </script>
+    </div>
+  </center>
 
-        if (response.ok) {
-          status.textContent = '✅ Thank you for your message!';
-          form.reset();
-        } else {
-          const err = await response.json();
-          status.textContent = err?.errors?.map(e => e.message).join(', ') || '❌ Error submitting the form.';
-        }
-      } catch (error) {
-        status.textContent = '⚠️ Network error — please try again later.';
-      }
-    });
-  </script>
+  <div id="navbar-container"></div>
+  <div id="particles-js"></div>
 
-  <footer>
-    <p>Nebula — Gaming meets reality!</p>
-    <nav>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/contact.html">Contact Us</a>
-    </nav>
-  </footer>
-</body>
-</html>
+  <script src="/js/profile.js" defer></script>
+  <script src="/js/particles.js" defer></script>
+  <script src="/js/particles-config.js" defer></script>
+
+  <br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/privacy.html" style="color:white; margin:0 10px;">Privacy Policy</a> <a href="/terms.html" style="color:white; margin:0 10px;">Terms of Service</a> <a href="/contact.html" style="color:white; margin:0 10px;">Contact Us</a> </nav></footer>
