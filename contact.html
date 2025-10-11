@@ -8,17 +8,6 @@
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/navbar.css" />
   <link rel="stylesheet" href="/css/menu.css" />
-  <style>
-    .info {
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      border-radius: 5px;
-      word-wrap: break-word;
-      margin: 0 50px;
-      color: white;
-    }
-  </style>
   <script src="/js/main.js" defer></script>
   <script src="/js/navbar.js" defer></script>
 </head>
@@ -28,11 +17,54 @@
     <img class="waffles" src="/images/favicon.png" alt="Waffles Logo" />
     <br><br>
     <div class="info" id="info">
-      <h1>Contact Us</h1>
-      <p>We’d love to hear from you! Whether you have a question, suggestion, or just want to share your thoughts, we’re always here to help. Your feedback is important to us, and we strive to provide the best support and service possible.</p>
+      <h1 style="color:#a3f7ff; font-size:50px; font-family:'Bebas Neue',cursive; text-shadow:0 0 12px #3f00ff,2px 2px 6px #000a;">Contact Us</h1>
+      <p style="color:#e0e6ff; font-size:20px; font-family:Space Grotesk;">We’d love to hear from you! Whether you have a question, suggestion, or just want to share your thoughts, we’re always here to help. Your feedback is important to us, and we strive to provide the best support and service possible.</p>
 
-      <h2>Email Us</h2>
-      <p>The easiest way to reach us is by email. Simply send your message to <a href="mailto:contact.nebula.site@gmail.com" style="color:white;">contact.nebula.site@gmail.com</a>, and we’ll get back to you as soon as we can. We aim to respond within 24-48 hours.</p>
+      <h2 style="color:#a3f7ff; font-family:'Bebas Neue',cursive;">Contact Form</h2>
+      <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST" style="background:rgba(30,0,60,0.5); border-radius:16px; box-shadow:0 0 24px 0 #a3f7ff44; padding:32px 24px; max-width:400px; margin:24px auto 0 auto; display:flex; flex-direction:column; gap:16px;">
+        <label for="name" style="color:#a3f7ff; font-weight:600;">Name:</label>
+        <input type="text" id="name" name="name" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+
+        <label for="email" style="color:#a3f7ff; font-weight:600;">Your Email:</label>
+        <input type="email" id="email" name="email" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+
+        <label for="subject" style="color:#a3f7ff; font-weight:600;">Subject:</label>
+        <input type="text" id="subject" name="subject" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;">
+
+        <label for="message" style="color:#a3f7ff; font-weight:600;">Message:</label>
+        <textarea id="message" name="message" rows="5" required style="background:#23263a; color:#e0e6ff; border:none; border-radius:8px; padding:10px; font-size:1em;"></textarea>
+
+        <button type="submit" style="background:linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%); color:#1a0033; padding:12px; border:none; border-radius:8px; font-size:1.1em; font-weight:bold; cursor:pointer; margin-top:8px; box-shadow:0 0 8px #a3f7ff88; transition:background 0.2s;">Send</button>
+      </form>
+      <p id="form-status" style="color:#a3f7ff; text-align:center; margin-top:10px; font-weight:600;"></p>
+      <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          var form = this;
+          var status = document.getElementById('form-status');
+          e.preventDefault();
+          var data = new FormData(form);
+          fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(function(response) {
+            if (response.ok) {
+              status.textContent = 'Thank you for your message!';
+              form.reset();
+            } else {
+              response.json().then(function(data) {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.textContent = data["errors"].map(function(error) { return error["message"]; }).join(", ");
+                } else {
+                  status.textContent = 'Oops! There was a problem submitting your form.';
+                }
+              });
+            }
+          }).catch(function(error) {
+            status.textContent = 'Oops! There was a problem submitting your form.';
+          });
+        });
+      </script>
     </div>
   </center>
 
