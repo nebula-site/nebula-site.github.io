@@ -34,7 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Getaway Shootout', image: '/images/game-logos/getaway-shootout.png', link: '/sourceCode/getaway-shootout', path: '/play', favorite: false },
      { name: 'Bacon may Die', image: '/images/game-logos/bacon-may-die.png', link: '/sourceCode/bacon-may-die', path: '/play', favorite: false },
      { name: 'Angry Birds', image: '/images/game-logos/angry-birds.png', link: '/sourceCode/angry-birds', path: '/play', favorite: false },
-     
+     { name: '1v1.LOL', image: '/images/game-logos/1v1-lol.png', link: '/sourceCode/1v1-lol', path: '/play', favorite: false },
+     { name: '2048', image: '/images/game-logos/2048.png', link: '/sourceCode/2048', path: '/play', favorite: false },
+     { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout', path: '/play', favorite: false },
+     { name: 'Snow Rider 3D', image: '/images/game-logos/snow-rider.png', link: '/sourceCode/snow-rider', path: '/play', favorite: false },
+     { name: 'OvO', image: '/images/game-logos/ovo.png', link: '/sourceCode/ovo', path: '/play', favorite: false },
+     { name: '2048', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
          
          
      ];
