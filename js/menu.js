@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Slice It', image: '/images/game-logos/slice-it.png', link: '/sourceCode/slice-it', path: '/play', favorite: false },
      { name: 'Opposite Day', image: '/images/game-logos/opposite-day.png', link: '/sourceCode/opposite-day', path: '/play', favorite: false },
      { name: 'Infinate Craft', image: '/images/game-logos/infinate-craft.png', link: '/sourceCode/infinate-craft', path: '/play', favorite: false },
-     { name: 'Drift Boss', image: '/images/game-logos/drift-craft.png', link: '/sourceCode/drift-boss', path: '/play', favorite: false },
+     { name: 'Drift Boss', image: '/images/game-logos/drift-boss.png', link: '/sourceCode/drift-boss', path: '/play', favorite: false },
      { name: 'Ball Blast', image: '/images/game-logos/ball-blast.png', link: '/sourceCode/ball-blast', path: '/play', favorite: false },
      { name: 'Pac Man', image: '/images/game-logos/pac-man.png', link: '/sourceCode/pac-man', path: '/play', favorite: false },
      { name: 'Resizer', image: '/images/game-logos/resizer.png', link: '/sourceCode/resizer', path: '/play', favorite: false },
