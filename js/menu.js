@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout', path: '/play', favorite: false },
      { name: 'Snow Rider 3D', image: '/images/game-logos/snow-rider.png', link: '/sourceCode/snow-rider', path: '/play', favorite: false },
      { name: 'OvO', image: '/images/game-logos/ovo.png', link: '/sourceCode/ovo', path: '/play', favorite: false },
-     { name: '2048', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
+     { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
          
          
      ];
