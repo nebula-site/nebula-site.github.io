@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'OvO', image: '/images/game-logos/ovo.png', link: '/sourceCode/ovo', path: '/play', favorite: false },
      { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
      { name: 'Slice It', image: '/images/game-logos/slice-it.png', link: '/sourceCode/slice-it', path: '/play', favorite: false },
-     { name: 'Slice It', image: '/images/game-logos/opposite-day.png', link: '/sourceCode/opposite-day', path: '/play', favorite: false },
+     { name: 'Opposite Day', image: '/images/game-logos/opposite-day.png', link: '/sourceCode/opposite-day', path: '/play', favorite: false },
 
          
          
