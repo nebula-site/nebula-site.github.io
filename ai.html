@@ -11,10 +11,28 @@
   <script src="/js/navbar.js"></script>
 </head>
 <body>
+  <div class="centered" style="text-align:center; margin-top:28px;">
+    <img class="waffles" src="/images/favicon.png" width="120" height="120" alt="Nebula Logo" />
+    <h1 style="color:#a3f7ff; font-family:'Bebas Neue', font-size:48px; margin:8px 0 4px;">Lunar Copilot</h1>
+    <p id="greeting" style="color:#e0e6ff; margin:0 0 12px; font-weight:600;">Loading...</p>
+  </div>
+
   <div id="chat"></div>
   <div id="inputs">
     <input type="text" id="input" autocomplete="off" placeholder="Type a message...">
     <button id="send">Send</button>
+  </div>
+
+  <!-- Sign-in overlay (shown when user is not authenticated) -->
+  <div id="auth-overlay" style="position:fixed; inset:0; background:linear-gradient(90deg, rgba(10,4,30,0.8), rgba(30,0,60,0.8)); display:flex; align-items:center; justify-content:center; z-index:2000;">
+    <div style="background:rgba(20,6,50,0.9); padding:28px; border-radius:16px; text-align:center; color:#e0e6ff; max-width:480px; box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+      <h2 style="color:#a3f7ff; margin-bottom:8px;">Please sign in to use Lunar Copilot</h2>
+      <p style="margin-bottom:18px;">This feature is available to signed-in users only so we can personalize responses and remember preferences.</p>
+      <div style="display:flex; gap:12px; justify-content:center;">
+        <button id="login-btn" style="background:linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%); color:#1a0033; padding:10px 18px; border:none; border-radius:10px; font-weight:700; cursor:pointer;">Sign In</button>
+        <a href="/profile.html" style="display:inline-block; background:transparent; color:#a3f7ff; padding:10px 18px; border:1px solid rgba(163,247,255,0.12); border-radius:10px; text-decoration:none;">Profile Page</a>
+      </div>
+    </div>
   </div>
   <script src="https://js.puter.com/v2/"></script>
   <script src="/js/ai.js"></script>

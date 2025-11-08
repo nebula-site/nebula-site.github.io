@@ -1,11 +1,12 @@
 /* Global Styles */
 body {
   margin: 0;
-  margin-top: 7%;
-  margin-bottom: 0%;
+  margin-top: 6%;
+  margin-bottom: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a202c, #2d3748);
-  color: #edf2f7;
+  /* Match Nebula purple-blue gradient */
+  background: linear-gradient(135deg, #1a0033, #2b1a4f);
+  color: #e0e6ff;
   display: flex;
   height: 88vh;
   flex-direction: column;
@@ -36,23 +37,66 @@ body {
 
 .bot {
   align-self: flex-start;
-  background: rgba(59, 130, 246, 0.2);
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  background: none;
+  border: none;
 }
 
 .you {
   align-self: flex-end;
-  background: rgba(168, 85, 247, 0.2);
-  border: 1px solid rgba(168, 85, 247, 0.4);
+  background: none;
+  border:none;
+}
+
+/* Message row: contains avatar + body */
+.message-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+.message-row.bot {
+  justify-content: flex-start;
+}
+.message-row.you {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+.msg-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(163,247,255,0.08);
+  flex-shrink: 0;
+}
+.msg-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.msg-name {
+  font-weight: 700;
+  color: #a3f7ff;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+.msg-content {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  word-wrap: break-word;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease;
+  background: inherit; /* allow .bot/.you background to show via parent row class */
 }
 
 /* Input Bar */
 #inputs {
   display: flex;
   padding: 12px;
-  background: rgba(15, 23, 42, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(20, 6, 50, 0.55);
+  border-top: 1px solid rgba(163,247,255,0.04);
+  backdrop-filter: blur(8px);
+  align-items: center;
 }
 
 #input {
@@ -64,20 +108,22 @@ body {
   font-size: 16px;
   color: #edf2f7;
   background: rgba(255, 255, 255, 0.08);
+  margin-left: 200px;
 }
 
 #send {
   margin-left: 10px;
   padding: 12px 18px;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  background: linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%);
   border: none;
   border-radius: 12px;
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  color: #1a0033;
+  box-shadow: 0 6px 18px rgba(63,0,255,0.18);
   transition: transform 0.1s ease, filter 0.2s ease;
+  margin-right: 200px;
 }
 
 #send:hover {

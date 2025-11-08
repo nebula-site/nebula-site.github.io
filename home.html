@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/desc.css">
+    <link rel="stylesheet" href="/css/home.css">
 
     <!-- Scripts -->
     <script src="/js/main.js" defer></script>
@@ -20,7 +21,8 @@
     <script src="/js/home.js" defer></script>
     <script src="/js/particles.js" defer></script>
     <script src="/js/particles-config.js" defer></script>
-    <title>Nebula, Gaming Meets Reality! – Free GitHub Games & Browser Fun</title>
+    <meta name="google-site-verification" content="HKKGHrT2ct0py7ws2N_-KqgOHC6Kzx1HHFvFgGTD_b4" />
+
 
 <meta name="description" content="Nebula, gaming meets reality! Discover the Nebula Games hub for GitHub games, open-source projects, and creative indie browser experiences. Play, fork, and create your own in the Nebula universe.">
 
@@ -44,18 +46,81 @@
     <!-- Navbar Container -->
     <div id="navbar-container"></div>
 
-    <!-- Centered Content -->
-    <center>
-        <br><br>
-        <img class="waffles" src="/images/favicon.png" >
-        <br><br><br><br>
-        <div id="desc-1"><div id="text-container-1"><h1>Best Games in Town!</h1><br><p>Here at Nebula, we strive to keep our users entertained, no matter what! so thats why we have the best game on the web, to keep you entertained for hours on end!</p></div><div id="image-1-container"><img id="image-1" src="/images/desc-1.png"></div></div><br><br><br>
-        <div id="desc-2"><div id="text-container-2"><h1>Fully Appropriate!</h1><br><p>Here at Nebula, we strive to keep our site safe, no matter what! so thats why we have the best, most family-friendly on the web, to keep you entertained, and safe, for hours on end!</p></div><div id="image-2-container"><img id="image-2" src="/images/desc-2.png"></div></div>
-    </center>
+        <!-- Hero + Features -->
+        <main class="home-hero">
+            <div class="hero-inner">
+                <div class="hero-left">
+                    <img src="/images/favicon.png" alt="Nebula" class="hero-logo">
+                    <h1>Nebula — Gaming Meets Reality</h1>
+                    <p class="hero-sub">Discover and play curated, open-source browser games. Fast, free, and built by the community.</p>
+                    <div class="hero-ctas">
+                        <a class="btn ghost" href="/games.html">Play Games</a>
+                        <a class="btn ghost" href="/games.html">Explore Games</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-card">
+                        <img src="/images/desc-1.png" alt="Games preview">
+                    </div>
+                </div>
+            </div>
+
+            <section class="features">
+                <div class="feature">
+                    <div class="feature-icon"><img src="/images/desc-1.png" alt="Fun"></div>
+                    <h3>Curated Games</h3>
+                    <p>Hand-picked browser games that are fun and lightweight — play instantly.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><img src="/images/desc-2.png" alt="Safe"></div>
+                    <h3>Family Friendly</h3>
+                    <p>We prioritize a safe experience suitable for players of all ages.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><img src="/images/favicon.png" alt="Open"></div>
+                    <h3>Open Source</h3>
+                    <p>Fork and learn from games hosted on GitHub — build your own Nebula experiences.</p>
+                </div>
+            </section>
+        </main>
 
     <!-- Particles Container -->
-    <div id="particles-js"></div>
-</body>
+            <!-- Particles Container -->
+            <div id="particles-js"></div>
+
+        <footer class="site-footer" role="contentinfo">
+            <div class="footer-inner container">
+                <div class="footer-col footer-about">
+                    <img src="/images/favicon.png" alt="Nebula" style="width:64px;height:64px;border-radius:12px;">
+                    <p style="margin-top:8px; color:var(--text-100);">Nebula is a small hub for open-source browser games and indie projects — play, fork, and create.</p>
+                </div>
+
+                <div class="footer-col footer-links">
+                    <h4>Quick links</h4>
+                    <nav aria-label="Footer quick links">
+                        <a href="/games.html">Games</a>
+                        <a href="/videos.html">Videos</a>
+                        <a href="/reviews.html">Reviews</a>
+                    </nav>
+                </div>
+
+                <div class="footer-col footer-legal">
+                    <h4>Legal & contact</h4>
+                    <nav aria-label="Footer legal links">
+                        <a href="/privacy.html">Privacy Policy</a>
+                        <a href="/terms.html">Terms of Service</a>
+                        <a href="/contact.html">Contact</a>
+                    </nav>
+                    <p style="margin-top:10px;font-size:0.9rem;color:var(--muted);">&copy; <span id="current-year"></span> Nebula</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to top -->
+        <button id="back-to-top" aria-label="Back to top">↑</button>
+
+        <script src="/js/ui.js" defer></script>
+
+    </body>
 
 </html>
-<br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/privacy.html" style="color:white; margin:0 10px;">Privacy Policy</a> <a href="/terms.html" style="color:white; margin:0 10px;">Terms of Service</a> <a href="/contact.html" style="color:white; margin:0 10px;">Contact Us</a> </nav></footer>
