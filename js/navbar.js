@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (name) name.textContent = profile.name || profile.email || 'User';
     } else {
       if (img) img.src = defaultAvatar;
-      if (name) name.textContent = 'Guest';
+      if (name) name.textContent = 'Sign In';
     }
   }
 
