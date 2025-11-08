@@ -37,6 +37,7 @@
         <button type="submit" style="background:linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%); color:#1a0033; padding:12px; border:none; border-radius:8px; font-size:1.1em; font-weight:bold; cursor:pointer; margin-top:8px; box-shadow:0 0 8px #a3f7ff88; transition:background 0.2s;">Send</button>
       </form>
       <p id="form-status" style="color:#a3f7ff; text-align:center; margin-top:10px; font-weight:600;"></p>
+      <!-- ...existing code... -->
       <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
           var form = this;
@@ -65,6 +66,46 @@
           });
         });
       </script>
+
+      <!-- Autofill / redirect logic -->
+      <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+          const nameInput = document.getElementById('name');
+          const emailInput = document.getElementById('email');
+
+          // 1) Try localStorage (set by profile/profile navbar code)
+          try {
+            const stored = localStorage.getItem('nebula_profile');
+            if (stored) {
+              const p = JSON.parse(stored);
+              if (p && (p.name || p.email)) {
+                if (p.name) nameInput.value = p.name;
+                if (p.email) emailInput.value = p.email;
+                return; // done
+              }
+            }
+          } catch (e) { /* ignore and continue */ }
+
+          // 2) Fallback: try puter auth if available
+          try {
+            if (window.puter && puter.auth && typeof puter.auth.getUser === 'function') {
+              const user = await puter.auth.getUser();
+              if (user) {
+                const meta = user.user_metadata || {};
+                const name = user.name || meta.full_name || meta.name || '';
+                const email = user.email || '';
+                if (name) nameInput.value = name;
+                if (email) emailInput.value = email;
+                return; // done
+              }
+            }
+          } catch (e) { /* ignore */ }
+
+          // 3) Not signed in — redirect to profile page to sign in
+          window.location.href = '/profile.html';
+        });
+      </script>
+<!-- ...existing code... -->
     </div>
   </center>
 

@@ -67,6 +67,7 @@
         <script src="/js/navbar.js"></script>
         <script src="/js/particles.js"></script>
         <script src="/js/particles-config.js"></script>
+
         <script>
             function handleFormspreeSubmit(formId, statusId) {
                 var form = document.getElementById(formId);
@@ -89,6 +90,8 @@
                                 } else {
                                     status.textContent = 'Oops! There was a problem submitting your form.';
                                 }
+                            }).catch(function() {
+                              status.textContent = 'Oops! There was a problem submitting your form.';
                             });
                         }
                     }).catch(function(error) {
@@ -98,6 +101,86 @@
             }
             handleFormspreeSubmit('formspreeForm1', 'form-status-1');
             handleFormspreeSubmit('formspreeForm2', 'form-status-2');
+        </script>
+
+        <script>
+          (function () {
+            async function tryGetProfileFromLocal() {
+              try {
+                const raw = localStorage.getItem('nebula_profile');
+                if (!raw) return null;
+                const p = JSON.parse(raw);
+                if (p && (p.name || p.email)) return p;
+              } catch (e) {}
+              return null;
+            }
+
+            async function tryGetProfileFromPuter() {
+              try {
+                if (window.puter && puter.auth && typeof puter.auth.getUser === 'function') {
+                  const res = await puter.auth.getUser();
+                  if (res && res.user) {
+                    const u = res.user;
+                    const meta = u.user_metadata || {};
+                    return {
+                      name: u.name || meta.full_name || meta.name || '',
+                      email: u.email || ''
+                    };
+                  }
+                }
+              } catch (e) {}
+              return null;
+            }
+
+            async function tryGetProfileFromSupabase() {
+              try {
+                const url = window.SUPABASE_URL;
+                const anon = window.SUPABASE_ANON_KEY;
+                if (!url || !anon) return null;
+                const mod = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+                const supabase = mod.createClient(url, anon);
+                const { data } = await supabase.auth.getSession();
+                const user = data?.session?.user || null;
+                if (user) {
+                  const meta = user.user_metadata || {};
+                  return {
+                    name: meta.full_name || meta.name || user.email || '',
+                    email: user.email || ''
+                  };
+                }
+              } catch (e) {}
+              return null;
+            }
+
+            async function fillOrRedirect() {
+              const name1 = document.getElementById('name1');
+              const email1 = document.getElementById('email1');
+              const name2 = document.getElementById('name2');
+              const email2 = document.getElementById('email2');
+
+              // Try localStorage first
+              let profile = await tryGetProfileFromLocal();
+              if (!profile) profile = await tryGetProfileFromPuter();
+              if (!profile) profile = await tryGetProfileFromSupabase();
+
+              if (profile) {
+                if (profile.name) {
+                  if (name1) name1.value = profile.name;
+                  if (name2) name2.value = profile.name;
+                }
+                if (profile.email) {
+                  if (email1) email1.value = profile.email;
+                  if (email2) email2.value = profile.email;
+                }
+                return; // user is signed in or profile available
+              }
+
+              // No profile detected — redirect to sign-in/profile page
+              window.location.replace('/profile.html');
+            }
+
+            document.addEventListener('DOMContentLoaded', fillOrRedirect);
+          })();
         </script>
 </body>
 </html>

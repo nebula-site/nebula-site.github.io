@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/videos"><i class="fa-solid fa-circle-play"></i></a>
           <a href="/ai"><i class="fa-solid fa-robot"></i></a>
           <a href="/forms"><i class="fa fa-clipboard-list fa-lg"></i></a>
+          <a href="/profile"><i class="fa fa-user fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="javascript:void(0);" class="extra" title="More options"><i class="fa fa-plus fa-lg"></i></a>
 
