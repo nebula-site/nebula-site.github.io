@@ -34,12 +34,11 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Getaway Shootout', image: '/images/game-logos/getaway-shootout.png', link: '/sourceCode/getaway-shootout', path: '/play', favorite: false },
      { name: 'Bacon may Die', image: '/images/game-logos/bacon-may-die.png', link: '/sourceCode/bacon-may-die', path: '/play', favorite: false },
      { name: 'Angry Birds', image: '/images/game-logos/angry-birds.png', link: '/sourceCode/angry-birds', path: '/play', favorite: false },
-     { name: '1v1.LOL', image: '/images/game-logos/1v1-lol.png', link: '/sourceCode/1v1-lol', path: '/play', favorite: false },
+     { name: '1v1.LOL', image: '/images/game-logos/1v1-lol.png', link: '/sourceCode/1v1.lol', path: '/play', favorite: false },
      { name: '2048', image: '/images/game-logos/2048.png', link: '/sourceCode/2048', path: '/play', favorite: false },
      { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout', path: '/play', favorite: false },
      { name: 'Snow Rider 3D', image: '/images/game-logos/snow-rider.png', link: '/sourceCode/snow-rider', path: '/play', favorite: false },
      { name: 'OvO', image: '/images/game-logos/ovo.png', link: '/sourceCode/ovo', path: '/play', favorite: false },
-     { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
      { name: 'Slice It', image: '/images/game-logos/slice-it.png', link: '/sourceCode/slice-it', path: '/play', favorite: false },
      { name: 'Opposite Day', image: '/images/game-logos/opposite-day.png', link: '/sourceCode/opposite-day', path: '/play', favorite: false },
      { name: 'Infinate Craft', image: '/images/game-logos/infinate-craft.png', link: '/sourceCode/infinate-craft', path: '/play', favorite: false },
@@ -47,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Ball Blast', image: '/images/game-logos/ball-blast.png', link: '/sourceCode/ball-blast', path: '/play', favorite: false },
      { name: 'Pac Man', image: '/images/game-logos/pac-man.png', link: '/sourceCode/pac-man', path: '/play', favorite: false },
      { name: 'Resizer', image: '/images/game-logos/resizer.png', link: '/sourceCode/resizer', path: '/play', favorite: false },
+     { name: 'Basket Random', image: '/images/game-logos/basket-random.png', link: '/sourceCode/basket-random', path: '/play', favorite: false },
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
