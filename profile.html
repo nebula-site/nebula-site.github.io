@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile – Nebula</title>
+
+  <!-- Favicon and Stylesheets -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/desc.css">
+
+  <!-- Scripts -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/navbar.js" defer></script>
+  <script src="/js/particles.js" defer></script>
+  <script src="/js/particles-config.js" defer></script>
+
+  <!-- ✅ Expose Supabase credentials globally for navbar.js -->
+  <script>
+    window.SUPABASE_URL = 'https://yjwipqxgvjbeofnwsiaa.supabase.co';
+    window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqd2lwcXhndmpiZW9mbndzaWFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1Mjg0MTIsImV4cCI6MjA3ODEwNDQxMn0.sxVxT4RGt6YBDNc5k8pl3F77c03gmao_f85TZTf_MqQ';
+  </script>
+
+  <!-- Meta Info -->
+  <meta name="description" content="Your Nebula Profile — connect, explore, and manage your account across the Nebula universe.">
+  <meta name="keywords" content="Nebula, Profile, Nebula Games, Gaming Meets Reality, Account, Google Sign-In, Supabase">
+  <meta name="author" content="Nebula Games Team">
+  <meta property="og:title" content="Your Nebula Profile – Gaming Meets Reality">
+  <meta property="og:description" content="Manage your Nebula account, connect via Google, and explore personalized experiences in the Nebula universe.">
+  <meta property="og:image" content="https://yourdomain.com/images/nebula-games-preview.png">
+  <meta property="og:url" content="https://yourdomain.com/profile.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nebula Profile – Gaming Meets Reality">
+  <meta name="twitter:description" content="View and manage your Nebula Games profile and settings.">
+  <meta name="twitter:image" content="https://yourdomain.com/images/nebula-games-preview.png">
+</head>
+
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <!-- Centered Profile Content -->
+  <center>
+    <br><br>
+    <img class="waffles" src="/images/favicon.png" alt="Nebula Icon">
+    <br><br>
+
+    <main style="max-width:900px;margin:auto;padding:24px;text-align:left;background:rgba(255,255,255,0.05);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.2);backdrop-filter:blur(8px);">
+      <h1 style="color:#a3f7ff;text-align:center;">Your Profile</h1>
+      <p id="profile-status" style="text-align:center;color:#ccc;">Not signed in.</p>
+
+      <section id="profile-card" style="display:none;align-items:center;gap:16px;padding:18px;border-radius:12px;background:rgba(30,0,60,0.12);margin-top:20px;">
+        <img id="profile-pic" src="/images/favicon.png" alt="avatar"
+          style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid rgba(163,247,255,0.2);">
+        <div>
+          <div id="profile-name" style="font-weight:700;font-size:1.2rem;color:white;"></div>
+          <div id="profile-email" style="opacity:0.85;font-size:0.95rem;color:#a3f7ff;"></div>
+          <div style="margin-top:12px;">
+            <button id="signOutBtn"
+              style="padding:8px 12px;border-radius:8px;background:#ff6b6b;color:white;border:0;cursor:pointer;transition:0.2s;">
+              Sign out
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <hr style="margin:24px 0;border:0;height:1px;background:rgba(255,255,255,0.2);">
+
+      <div style="text-align:center;">
+        <h2 style="color:#a3f7ff;">Sign in with Google</h2>
+        <p style="color:#ccc;">Click below to connect with your Google account (Supabase handles the OAuth flow).</p>
+
+        <div style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center;">
+          <button id="supabaseSignInBtn"
+            style="padding:10px 16px;border-radius:8px;background:#1a73e8;color:white;border:0;cursor:pointer;transition:0.2s;">
+            <i class="fa-brands fa-google"></i> Sign in with Google
+          </button>
+          <span id="auth-note" style="font-size:0.9rem;color:#aaa;">Connecting...</span>
+        </div>
+      </div>
+    </main>
+
+    <br><br><br>
+  </center>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Footer -->
+  <footer
+    style="background:rgba(30,0,60,0.9);color:white;padding:20px;text-align:center;position:relative;bottom:0;width:100%;border-top:2px solid #3f00ff88;">
+    <p style="margin:0;">Nebula — gaming meets reality!</p>
+    <nav style="margin-top:8px;">
+      <a href="/privacy.html" style="color:#a3f7ff; margin:0 10px;">Privacy Policy</a>
+      <a href="/terms.html" style="color:#a3f7ff; margin:0 10px;">Terms of Service</a>
+      <a href="/contact.html" style="color:#a3f7ff; margin:0 10px;">Contact Us</a>
+    </nav>
+  </footer>
+
+  <!-- Supabase Auth Logic -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const SUPABASE_URL = window.SUPABASE_URL;
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
+
+    const authNoteEl = document.getElementById('auth-note');
+    let supabase = null;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      authNoteEl.textContent = 'Supabase not configured.';
+    } else {
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      authNoteEl.textContent = '';
+    }
+
+    function showProfile(profile) {
+      document.getElementById('profile-status').textContent = 'Signed in';
+      const card = document.getElementById('profile-card');
+      document.getElementById('profile-name').textContent = profile.name || profile.email || 'User';
+      document.getElementById('profile-email').textContent = profile.email || '';
+      document.getElementById('profile-pic').src = profile.picture || '/images/favicon.png';
+      card.style.display = 'flex';
+      try { localStorage.setItem('nebula_profile', JSON.stringify(profile)); } catch (e) { }
+    }
+
+    function hideProfile() {
+      document.getElementById('profile-status').textContent = 'Not signed in.';
+      document.getElementById('profile-card').style.display = 'none';
+      try { localStorage.removeItem('nebula_profile'); } catch (e) { }
+    }
+
+    function userToProfile(user) {
+      if (!user) return null;
+      const metadata = user.user_metadata || {};
+      return {
+        id: user.id,
+        name: metadata.full_name || metadata.name || user.email || '',
+        email: user.email || '',
+        picture: metadata.avatar_url || metadata.picture || metadata.avatar || ''
+      };
+    }
+
+    async function initAuth() {
+      if (!supabase) return;
+
+      try {
+        const { data: urlData } = await supabase.auth.getSessionFromUrl({ storeSession: true }).catch(() => ({ data: null }));
+        if (urlData?.session) {
+          const p = userToProfile(urlData.session.user);
+          if (p) showProfile(p);
+          history.replaceState({}, document.title, window.location.pathname);
+        }
+      } catch (e) { }
+
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (sessionData?.session?.user) {
+        const p = userToProfile(sessionData.session.user);
+        if (p) showProfile(p);
+      }
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session?.user) {
+          const p = userToProfile(session.user);
+          if (p) showProfile(p);
+        } else {
+          hideProfile();
+        }
+      });
+    }
+
+    document.getElementById('supabaseSignInBtn').addEventListener('click', async () => {
+      if (!supabase) {
+        alert('Supabase not configured.');
+        return;
+      }
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+      });
+    });
+
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      if (!supabase) {
+        hideProfile();
+        return;
+      }
+      await supabase.auth.signOut();
+      hideProfile();
+    });
+
+    window.addEventListener('DOMContentLoaded', initAuth);
+  </script>
+</body>
+
+</html>
