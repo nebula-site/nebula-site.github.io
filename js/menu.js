@@ -57,7 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Google Baseball', image: '/images/game-logos/google-baseball.png', link: '/sourceCode/google-baseball', path: '/play', favorite: false },
      { name: 'Clean Up.io', image: '/images/game-logos/clean-up-io.png', link: '/sourceCode/clean-up-io', path: '/play', favorite: false },
      { name: 'Escape Roads', image: '/images/game-logos/escape-roads.png', link: '/sourceCode/escape-roads', path: '/play', favorite: false },
-
+     { name: 'Retro Bowl College', image: '/images/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college', path: '/play', favorite: false },
+     { name: 'Boxing Random', image: '/images/game-logos/boxing-random.png', link: '/sourceCode/boxing-random', path: '/play', favorite: false },
+     { name: 'Slope.io 2', image: '/images/game-logos/slope-io-2.png', link: '/sourceCode/slope-io-2', path: '/play', favorite: false },
+     { name: 'Dadish 2', image: '/images/game-logos/dadish-2.png', link: '/sourceCode/dadish-2', path: '/play', favorite: false },
+     { name: 'Dadish 3', image: '/images/game-logos/dadish-3.png', link: '/sourceCode/dadish-3', path: '/play', favorite: false },
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
