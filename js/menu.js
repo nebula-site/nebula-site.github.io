@@ -50,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Flappy Dunk', image: '/images/game-logos/flappy-dunk.png', link: '/sourceCode/flappy-dunk', path: '/play', favorite: false },
      { name: 'Going Balls', image: '/images/game-logos/going-balls.png', link: '/sourceCode/going-balls', path: '/play', favorite: false },
      { name: 'Paper.io 2', image: '/images/game-logos/paper-io-2.png', link: '/sourceCode/paper-io-2', path: '/play', favorite: false },
+     { name: 'Flappy Bird', image: '/images/game-logos/flappy-bird.png', link: '/sourceCode/flappy-bird', path: '/play', favorite: false },
+     { name: 'Cluster Rush', image: '/images/game-logos/cluster-rush.png', link: '/sourceCode/cluster-rush', path: '/play', favorite: false },
+     { name: 'Time Shooter', image: '/images/game-logos/time-shooter.png', link: '/sourceCode/time-shooter', path: '/play', favorite: false },
+     { name: 'Gunspin', image: '/images/game-logos/gunspin.png', link: '/sourceCode/gunspin', path: '/play', favorite: false },
+     { name: 'Google Baseball', image: '/images/game-logos/google-baseball.png', link: '/sourceCode/google-baseball', path: '/play', favorite: false },
+
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
