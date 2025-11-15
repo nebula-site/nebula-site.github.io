@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Time Shooter', image: '/images/game-logos/time-shooter.png', link: '/sourceCode/time-shooter-3', path: '/play', favorite: false },
      { name: 'Gunspin', image: '/images/game-logos/gunspin.png', link: '/sourceCode/gunspin', path: '/play', favorite: false },
      { name: 'Google Baseball', image: '/images/game-logos/google-baseball.png', link: '/sourceCode/google-baseball', path: '/play', favorite: false },
+     { name: 'Clean Up.io', image: '/images/game-logos/clean-up-io.png', link: '/sourceCode/clean-up-io', path: '/play', favorite: false },
 
 ];
     const buttonContainer = document.getElementById('buttonContainer');
