@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Resizer', image: '/images/game-logos/resizer.png', link: '/sourceCode/resizer', path: '/play', favorite: false },
      { name: 'Basket Random', image: '/images/game-logos/basket-random.png', link: '/sourceCode/basket-random', path: '/play', favorite: false },
      { name: 'Flappy Dunk', image: '/images/game-logos/flappy-dunk.png', link: '/sourceCode/flappy-dunk', path: '/play', favorite: false },
-     { name: 'Amaze', image: '/images/game-logos/amaze.png', link: '/sourceCode/amaze', path: '/play', favorite: false },
      { name: 'Going Balls', image: '/images/game-logos/going-balls.png', link: '/sourceCode/going-balls', path: '/play', favorite: false },
      { name: 'Paper.io 2', image: '/images/game-logos/paper-io-2.png', link: '/sourceCode/paper-io-2', path: '/play', favorite: false },
 ];
