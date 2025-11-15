@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Paper.io 2', image: '/images/game-logos/paper-io-2.png', link: '/sourceCode/paper-io-2', path: '/play', favorite: false },
      { name: 'Flappy Bird', image: '/images/game-logos/flappy-bird.png', link: '/sourceCode/flappy-bird', path: '/play', favorite: false },
      { name: 'Cluster Rush', image: '/images/game-logos/cluster-rush.png', link: '/sourceCode/cluster-rush', path: '/play', favorite: false },
-     { name: 'Time Shooter', image: '/images/game-logos/time-shooter.png', link: '/sourceCode/time-shooter', path: '/play', favorite: false },
+     { name: 'Time Shooter', image: '/images/game-logos/time-shooter.png', link: '/sourceCode/time-shooter-3', path: '/play', favorite: false },
      { name: 'Gunspin', image: '/images/game-logos/gunspin.png', link: '/sourceCode/gunspin', path: '/play', favorite: false },
      { name: 'Google Baseball', image: '/images/game-logos/google-baseball.png', link: '/sourceCode/google-baseball', path: '/play', favorite: false },
 
