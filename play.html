@@ -9,189 +9,243 @@
     <link rel="stylesheet" href="/css/menu.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/viewers.css" />
-    <style>
-    #game-container {
-        margin-top: 20px;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* NO SCROLL ANYWHERE */
+        background: #000;
     }
 
-      /* lightweight fullscreen container for iframe */
-      #iframe-container.fullscreen {
+    #game-container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* HEADER */
+    #game-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 16px 0;
+    }
+
+    /* Center game area perfectly */
+    #iframe-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 0;
+    }
+
+    #iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+        background: #000;
+    }
+
+    /* FULLSCREEN MODE */
+    #iframe-container.fullscreen {
         position: fixed;
         inset: 0;
         z-index: 9999;
         background: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      #iframe-container iframe {
-        width: 100%;
-        height: 700px;
-        border: 0;
-        border-radius: 12px;
-        background: #000;
-      }
-      #iframe-container.fullscreen iframe {
-        width: 100%;
-        height: 100%;
+    }
+    #iframe-container.fullscreen iframe {
         border-radius: 0;
-      }
-      /* keep game header responsive */
-      #game-name { color: #a3f7ff; font-family: 'Bebas Neue', cursive; }
-    </style>
+    }
+
+    /* Bottom Buttons */
+    .container {
+        padding: 18px 0;
+        text-align: center;
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+    }
+
+    .buttons-container button {
+        background: #111;
+        color: #a3f7ff;
+        border: 2px solid #3f00ff;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 0 12px #3f00ff44;
+        transition: 0.15s;
+    }
+    .buttons-container button:hover {
+        background: #1a0033;
+    }
+
+    #particles-js {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+    }
+</style>
 </head>
+
 <body>
-  <center>
-    <div id="game-container">
-      <div style="display:flex; align-items:center; justify-content:center; gap:24px; margin-bottom:18px;">
-        <img id="game-image" src="" alt="Game Image" style="width:80px; height:80px; border-radius:18px; box-shadow:0 4px 16px #a3f7ff44; background:#1a0033; border:2px solid #3f00ff; object-fit:cover; display:none;">
-        <h2 id="game-name" style="margin:0;"></h2>
-      </div>
 
-      <div id="iframe-container">
-        <!-- allow helps WebGL / audio / fullscreen; remove loading intermediate to avoid double-load -->
-        <iframe id="myIframe" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-      </div>
+<div id="game-container">
 
-      <div class="container">
-        <div class="buttons-container">
-          <button onclick="goHome()" title="Back to games">
-            <i class="fa fa-house fa-lg"></i>
-          </button>
-          <button id="fullscreenButton" onclick="makeFullscreen()" title="Fullscreen">
-            <i class="fa-solid fa-up-right-and-down-left-from-center fa-lg"></i>
-          </button>
-          <button id="reloadButton" onclick="reloadIframe()" title="Reload">
-            <i class="fa fa-refresh fa-lg"></i>
-          </button>
-        </div>
-      </div>
+    <!-- TOP HEADER -->
+    <div id="game-header">
+        <img id="game-image" src="" alt="Game"
+             style="width:80px; height:80px; border-radius:18px; box-shadow:0 4px 16px #a3f7ff44; background:#1a0033; border:2px solid #3f00ff; object-fit:cover; display:none;">
+
+        <h2 id="game-name" style="margin:0; color:#a3f7ff; font-family:'Bebas Neue', cursive;"></h2>
     </div>
-  </center>
 
-  <div id="particles-js"></div>
+    <!-- MIDDLE GAME AREA -->
+    <div id="iframe-container">
+        <iframe id="myIframe"
+            src=""
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share"
+            sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    </div>
 
-  <script>
-    // Utility: hide heavy visuals (particles / animated effects) to free CPU/GPU
-    function pausePageEffects() {
-      const p = document.getElementById('particles-js');
-      if (p) p.style.display = 'none';
-      // If you have other loops/intervals, pause them here (e.g. navbar animations)
-      document.documentElement.style.scrollBehavior = 'auto';
-    }
-    function restorePageEffects() {
-      const p = document.getElementById('particles-js');
-      if (p) p.style.display = '';
-      document.documentElement.style.scrollBehavior = '';
-    }
+    <!-- BOTTOM BUTTONS -->
+    <div class="container">
+        <div class="buttons-container">
+            <button onclick="goHome()" title="Back to games">
+                <i class="fa fa-house fa-lg"></i>
+            </button>
 
-    window.addEventListener('load', function () {
-      const gameLink = sessionStorage.getItem('gameLink');
-      const gameName = sessionStorage.getItem('gameName');
-      const gameImage = sessionStorage.getItem('gameImage');
+            <button id="fullscreenButton" onclick="makeFullscreen()" title="Fullscreen">
+                <i class="fa-solid fa-up-right-and-down-left-from-center fa-lg"></i>
+            </button>
 
-      if (gameLink && gameName) {
+            <button id="reloadButton" onclick="reloadIframe()" title="Reload">
+                <i class="fa fa-refresh fa-lg"></i>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div id="particles-js"></div>
+
+<script>
+/* Hide effects to boost performance while a game runs */
+function pausePageEffects() {
+    const p = document.getElementById('particles-js');
+    if (p) p.style.display = 'none';
+}
+
+function restorePageEffects() {
+    const p = document.getElementById('particles-js');
+    if (p) p.style.display = '';
+}
+
+window.addEventListener('load', function () {
+    const gameLink = sessionStorage.getItem('gameLink');
+    const gameName = sessionStorage.getItem('gameName');
+    const gameImage = sessionStorage.getItem('gameImage');
+
+    if (gameLink && gameName) {
         document.getElementById('game-name').innerText = gameName;
 
-        // Show and set game image
-        const imgElem = document.getElementById('game-image');
+        const img = document.getElementById('game-image');
         if (gameImage) {
-          imgElem.src = gameImage;
-          imgElem.style.display = 'block';
-        } else {
-          imgElem.style.display = 'none';
+            img.src = gameImage;
+            img.style.display = 'block';
         }
 
         startGame();
-      } else {
-        // Missing info -> go back to games listing
+    } else {
         window.location.href = "/games";
-      }
-    });
-
-    function startGame() {
-      const gameLink = sessionStorage.getItem('gameLink') || '';
-      const iframe = document.getElementById('myIframe');
-
-      // Pause page effects to improve performance
-      pausePageEffects();
-
-      // Normalize src and set directly (avoid intermediate loading page / double load)
-      let finalSrc = gameLink;
-      if (!finalSrc.startsWith('http') && !finalSrc.startsWith('/')) finalSrc = '/' + finalSrc;
-      iframe.src = finalSrc;
-
-      // Ensure iframe visible (in case CSS hid it)
-      iframe.style.display = 'block';
     }
+});
 
-    function reloadIframe() {
-      const iframe = document.getElementById('myIframe');
-      const currentSrc = iframe.src || sessionStorage.getItem('gameLink') || '';
-      const reloadButton = document.getElementById('reloadButton');
+function startGame() {
+    const gameLink = sessionStorage.getItem('gameLink') || '';
+    const iframe = document.getElementById('myIframe');
 
-      // simple visual feedback
-      reloadButton.querySelector("i").classList.add("fa-spin");
-      // force reload
-      iframe.src = '';
-      // small timeout to ensure a reload actually occurs
-      setTimeout(() => { iframe.src = currentSrc; reloadButton.querySelector("i").classList.remove("fa-spin"); }, 150);
-    }
+    pausePageEffects();
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const reloadButton = document.getElementById('reloadButton');
-      reloadButton.addEventListener("mouseenter", function () {
-        reloadButton.querySelector("i").classList.add("fa-spin");
-      });
-      reloadButton.addEventListener("mouseleave", function () {
+    let finalSrc = gameLink;
+    if (!finalSrc.startsWith('http') && !finalSrc.startsWith('/'))
+        finalSrc = '/' + finalSrc;
+
+    iframe.src = finalSrc;
+    iframe.style.display = 'block';
+}
+
+function reloadIframe() {
+    const iframe = document.getElementById('myIframe');
+    const currentSrc = iframe.src || sessionStorage.getItem('gameLink') || '';
+    const reloadButton = document.getElementById('reloadButton');
+
+    reloadButton.querySelector("i").classList.add("fa-spin");
+
+    iframe.src = '';
+    setTimeout(() => {
+        iframe.src = currentSrc;
         reloadButton.querySelector("i").classList.remove("fa-spin");
-      });
+    }, 150);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const reloadButton = document.getElementById('reloadButton');
+    reloadButton.addEventListener("mouseenter", function () {
+        reloadButton.querySelector("i").classList.add("fa-spin");
     });
+    reloadButton.addEventListener("mouseleave", function () {
+        reloadButton.querySelector("i").classList.remove("fa-spin");
+    });
+});
 
-    function makeFullscreen() {
-      const iframe = document.getElementById('myIframe');
-      const container = document.getElementById('iframe-container');
+function makeFullscreen() {
+    const container = document.getElementById('iframe-container');
 
-      // Prefer container fullscreen so controls remain visible if desired
-      if (container.requestFullscreen) {
-        container.requestFullscreen();
-      } else if (container.webkitRequestFullscreen) {
-        container.webkitRequestFullscreen();
-      } else if (container.mozRequestFullScreen) {
-        container.mozRequestFullScreen();
-      } else if (container.msRequestFullscreen) {
-        container.msRequestFullscreen();
-      }
+    if (container.requestFullscreen) container.requestFullscreen();
+    else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+    else if (container.mozRequestFullScreen) container.mozRequestFullScreen();
+    else if (container.msRequestFullscreen) container.msRequestFullscreen();
 
-      container.classList.add('fullscreen');
-      // keep page effects paused while fullscreen
-      pausePageEffects();
-    }
+    container.classList.add('fullscreen');
+    pausePageEffects();
+}
 
-    function goHome() {
-      // restore effects before leaving
-      restorePageEffects();
-      window.location.href = '/games';
-    }
+function goHome() {
+    restorePageEffects();
+    window.location.href = "/games";
+}
 
-    // Cleanup when fullscreen exits
-    const fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'msfullscreenchange'];
-    fullscreenEvents.forEach(eventName => {
-      document.addEventListener(eventName, () => {
+const fsEvents = [
+    'fullscreenchange', 'webkitfullscreenchange',
+    'mozfullscreenchange', 'msfullscreenchange'
+];
+
+fsEvents.forEach(eventName => {
+    document.addEventListener(eventName, () => {
         const container = document.getElementById('iframe-container');
-        const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-        if (!isFull && container) {
-          container.classList.remove('fullscreen');
-          // optional: restore effects after a short delay so the player isn't disturbed immediately
-          setTimeout(restorePageEffects, 300);
+        const full = document.fullscreenElement || document.webkitFullscreenElement ||
+                     document.mozFullScreenElement || document.msFullscreenElement;
+
+        if (!full && container) {
+            container.classList.remove('fullscreen');
+            setTimeout(restorePageEffects, 300);
         }
-      });
     });
-  </script>
+});
+</script>
 
-  <script src="/js/profile.js"></script>
-
-  <br>
+<script src="/js/profile.js"></script>
 
 </body>
 </html>
