@@ -32,8 +32,8 @@ body {
 /* Center the main game container */
 #game-container {
     margin: 0 auto;
-    width: 95vw;
-    max-width: 900px;
+    width: 100%;
+    max-width: 100%;
     min-height: 600px;
     border-radius: 32px;
     background: rgba(30, 0, 60, 0.92);
