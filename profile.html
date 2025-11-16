@@ -418,10 +418,26 @@
         }
       } catch (e) { /* ignore */ }
 
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (sessionData?.session?.user) {
-        const p = userToProfile(sessionData.session.user);
-        if (p) showProfile(p);
+      // get current session (if persisted)
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (sessionData?.session?.user) {
+          const p = userToProfile(sessionData.session.user);
+          if (p) showProfile(p);
+        } else {
+          // if there's a profile in localStorage, show it briefly (best-effort)
+          try {
+            const cached = localStorage.getItem('nebula_profile');
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              if (parsed && parsed.email) {
+                showProfile(parsed);
+              }
+            }
+          } catch (e) { /* ignore */ }
+        }
+      } catch (e) {
+        // ignore
       }
 
       // auth state changes
@@ -499,7 +515,7 @@
     });
 
     /* -------------------------
-       CREATE ACCOUNT (email/password)
+       CREATE ACCOUNT (email/password) — now auto signs in
        ------------------------- */
     const createNameEl = document.getElementById('create-name');
     const createEmailEl = document.getElementById('create-email');
@@ -530,7 +546,7 @@
       createSubmitBtn.textContent = 'Creating...';
 
       try {
-        // sign up
+        // sign up (attempt). Supabase may or may not return a session depending on email confirmations.
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -542,19 +558,47 @@
         if (error) {
           createErrorEl.style.display = 'block';
           createErrorEl.textContent = error.message || 'Create account failed.';
-        } else {
-          // supabase returns user or confirmation pending
-          // if user created and signed in, show profile. Otherwise inform user to check email.
-          if (data?.user) {
+          return;
+        }
+
+        // If signUp returned a session and user, we're done — user is signed in.
+        if (data?.user) {
+          // If data.session exists user is already signed in. If not, try to sign in right away.
+          if (data?.session) {
             const p = userToProfile(data.user);
             if (p) showProfile(p);
             closeModal('#modal-create-backdrop');
+            return;
           } else {
-            // e.g., email verification required
-            createErrorEl.style.display = 'block';
-            createErrorEl.textContent = 'Account created — check your email to confirm your address.';
-            // keep modal open so they see message (they can close)
+            // Try immediate sign-in (best-effort). If project requires email confirmation, this may fail.
+            try {
+              const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+              if (signInError) {
+                // Could be because email confirm is required. Inform user clearly.
+                createErrorEl.style.display = 'block';
+                createErrorEl.textContent = 'Account created — check your email to confirm your address before signing in.';
+                return;
+              } else if (signInData?.user) {
+                const p = userToProfile(signInData.user);
+                if (p) showProfile(p);
+                closeModal('#modal-create-backdrop');
+                return;
+              } else {
+                createErrorEl.style.display = 'block';
+                createErrorEl.textContent = 'Account created — check your email to confirm the address.';
+                return;
+              }
+            } catch (signinErr) {
+              createErrorEl.style.display = 'block';
+              createErrorEl.textContent = 'Account created — check your email to confirm your address.';
+              return;
+            }
           }
+        } else {
+          // data.user not present — likely confirmation flow
+          createErrorEl.style.display = 'block';
+          createErrorEl.textContent = 'Account created — check your email to confirm your address.';
+          return;
         }
       } catch (err) {
         createErrorEl.style.display = 'block';
