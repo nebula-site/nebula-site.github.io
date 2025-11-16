@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Dadish 3', image: '/images/game-logos/dadish-3.png', link: '/sourceCode/dadish-3', path: '/play', favorite: false },
      { name: 'Draw Climber', image: '/images/game-logos/draw-climber.png', link: '/sourceCode/draw-climber', path: '/play', favorite: false },
      { name: 'Shell Shockers', image: '/images/game-logos/shell-shockers.png', link: '/sourceCode/shell-shockers', path: '/play', favorite: false },
+     { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: '/sourceCode/stickman-parkour', path: '/play', favorite: false },
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
