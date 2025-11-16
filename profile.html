@@ -2,45 +2,153 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile – Nebula</title>
 
   <!-- Favicon and Stylesheets -->
-  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/desc.css">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/desc.css" />
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Scripts -->
+  <!-- Scripts (deferred where appropriate) -->
   <script src="/js/main.js" defer></script>
   <script src="/js/navbar.js" defer></script>
   <script src="/js/particles.js" defer></script>
   <script src="/js/particles-config.js" defer></script>
 
-  <!-- Expose Supabase credentials -->
+  <!-- Expose Supabase credentials globally for the inline script -->
   <script>
     window.SUPABASE_URL = 'https://yjwipqxgvjbeofnwsiaa.supabase.co';
     window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqd2lwcXhndmpiZW9mbndzaWFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1Mjg0MTIsImV4cCI6MjA3ODEwNDQxMn0.sxVxT4RGt6YBDNc5k8pl3F77c03gmao_f85TZTf_MqQ';
   </script>
 
-  <!-- Meta Info -->
   <meta name="description" content="Your Nebula Profile — connect, explore, and manage your account across the Nebula universe.">
+
+  <style>
+    /* Nebula Glass modal styles (A1) — matches your profile card look */
+    .nebula-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 0, 20, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    .nebula-modal {
+      max-width: 520px;
+      width: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(163, 247, 255, 0.06);
+      position: relative;
+      animation: nebulaFadeIn 240ms ease;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes nebulaFadeIn {
+      from { transform: translateY(8px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .nebula-modal .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .nebula-modal h3 {
+      margin: 0;
+      color: #a3f7ff;
+      font-size: 1.15rem;
+    }
+
+    .nebula-close {
+      background: transparent;
+      border: 0;
+      color: #cfefff;
+      font-size: 1.05rem;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .nebula-modal .modal-body {
+      margin-top: 12px;
+      color: #e6f7ff;
+      font-size: 0.95rem;
+    }
+
+    .nebula-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(10,3,30,0.4);
+      color: #eafcff;
+      margin-top: 10px;
+      outline: none;
+      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.25);
+    }
+
+    .nebula-btn {
+      padding: 10px 14px;
+      border-radius: 9px;
+      border: 0;
+      cursor: pointer;
+      transition: 0.18s;
+      font-weight: 600;
+    }
+
+    .nebula-action-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .text-muted {
+      color: #9fb7c7;
+      font-size: 0.9rem;
+    }
+
+    .form-error {
+      margin-top: 8px;
+      color: #ff9999;
+      font-size: 0.9rem;
+    }
+
+    /* small responsive tweaks */
+    @media (max-width: 520px) {
+      .nebula-modal { padding: 16px; border-radius: 12px; }
+      .nebula-action-row { justify-content: center; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Navbar Container -->
   <div id="navbar-container"></div>
 
+  <!-- Centered Profile Content -->
   <center>
-    <br><br>
-    <img class="waffles" src="/images/favicon.png" alt="Nebula Icon">
-    <br><br>
+    <br /><br />
+    <img class="waffles" src="/images/favicon.png" alt="Nebula Icon" />
+    <br /><br />
 
     <main style="max-width:900px;margin:auto;padding:24px;text-align:left;background:rgba(255,255,255,0.05);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.2);backdrop-filter:blur(8px);">
-
       <h1 style="color:#a3f7ff;text-align:center;">Your Profile</h1>
       <p id="profile-status" style="text-align:center;color:#ccc;">Not signed in.</p>
 
@@ -50,7 +158,6 @@
         <div>
           <div id="profile-name" style="font-weight:700;font-size:1.2rem;color:white;"></div>
           <div id="profile-email" style="opacity:0.85;font-size:0.95rem;color:#a3f7ff;"></div>
-
           <div style="margin-top:12px;">
             <button id="signOutBtn"
               style="padding:8px 12px;border-radius:8px;background:#ff6b6b;color:white;border:0;cursor:pointer;transition:0.2s;">
@@ -60,32 +167,30 @@
         </div>
       </section>
 
-      <hr style="margin:24px 0;border:0;height:1px;background:rgba(255,255,255,0.2);">
+      <hr style="margin:24px 0;border:0;height:1px;background:rgba(255,255,255,0.2);" />
 
       <div style="text-align:center;">
         <h2 style="color:#a3f7ff;">Sign in with Google</h2>
         <p style="color:#ccc;">Click below to connect with your Google account</p>
 
-        <div style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap;">
-
-          <!-- Google Login -->
-          <button id="supabaseSignInBtn"
+        <div id="auth-controls" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap;">
+          <button id="supabaseSignInBtn" class="nebula-btn"
             style="padding:10px 16px;border-radius:8px;background:#1a73e8;color:white;border:0;cursor:pointer;transition:0.2s;">
             <i class="fa-brands fa-google"></i> Sign in with Google
           </button>
 
-          <!-- NEW BUTTONS -->
-          <button id="regularSignInBtn"
+          <!-- NEW BUTTONS (functional) -->
+          <button id="regularSignInBtn" class="nebula-btn"
             style="padding:10px 16px;border-radius:8px;background:#3f00ff;color:white;border:0;cursor:pointer;transition:0.2s;">
             <i class="fa-solid fa-right-to-bracket"></i> Sign In
           </button>
 
-          <button id="createAccountBtn"
+          <button id="createAccountBtn" class="nebula-btn"
             style="padding:10px 16px;border-radius:8px;background:#6500ff;color:white;border:0;cursor:pointer;transition:0.2s;">
             <i class="fa-solid fa-user-plus"></i> Create Account
           </button>
 
-          <button id="uploadAvatarBtn"
+          <button id="uploadAvatarBtn" class="nebula-btn"
             style="padding:10px 16px;border-radius:8px;background:#8800ff;color:white;border:0;cursor:pointer;transition:0.2s;">
             <i class="fa-solid fa-image"></i> Upload Avatar
           </button>
@@ -95,11 +200,13 @@
       </div>
     </main>
 
-    <br><br><br>
+    <br /><br /><br />
   </center>
 
+  <!-- Particles Background -->
   <div id="particles-js"></div>
 
+  <!-- Footer -->
   <footer
     style="background:rgba(30,0,60,0.9);color:white;padding:20px;text-align:center;position:relative;bottom:0;width:100%;border-top:2px solid #3f00ff88;">
     <p style="margin:0;">Nebula — gaming meets reality!</p>
@@ -110,14 +217,118 @@
     </nav>
   </footer>
 
-  <!-- Supabase Auth Logic -->
+  <!-- Nebula Glass Modals (Sign In / Create Account / Upload Avatar) -->
+  <!-- Backdrops -->
+  <div id="modal-signin-backdrop" class="nebula-modal-backdrop" aria-hidden="true">
+    <div class="nebula-modal" role="dialog" aria-modal="true" aria-labelledby="signin-title">
+      <div class="modal-header">
+        <h3 id="signin-title">Sign In</h3>
+        <button class="nebula-close" data-close-modal="#modal-signin-backdrop" title="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div>
+          <label class="text-muted">Email</label>
+          <input id="signin-email" class="nebula-input" type="email" autocomplete="email" placeholder="you@domain.com">
+        </div>
+
+        <div>
+          <label class="text-muted">Password</label>
+          <input id="signin-password" class="nebula-input" type="password" autocomplete="current-password" placeholder="••••••••">
+        </div>
+
+        <div class="form-error" id="signin-error" style="display:none"></div>
+
+        <div class="nebula-action-row">
+          <button id="signin-submit" class="nebula-btn" style="background:#1a73e8;color:white;">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In
+          </button>
+          <button class="nebula-btn" data-close-modal="#modal-signin-backdrop" style="background:transparent;color:#cfefff;">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-create-backdrop" class="nebula-modal-backdrop" aria-hidden="true">
+    <div class="nebula-modal" role="dialog" aria-modal="true" aria-labelledby="create-title">
+      <div class="modal-header">
+        <h3 id="create-title">Create Account</h3>
+        <button class="nebula-close" data-close-modal="#modal-create-backdrop" title="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div>
+          <label class="text-muted">Full name</label>
+          <input id="create-name" class="nebula-input" type="text" placeholder="Jane Doe">
+        </div>
+
+        <div>
+          <label class="text-muted">Email</label>
+          <input id="create-email" class="nebula-input" type="email" autocomplete="email" placeholder="you@domain.com">
+        </div>
+
+        <div>
+          <label class="text-muted">Password</label>
+          <input id="create-password" class="nebula-input" type="password" autocomplete="new-password" placeholder="Choose a password">
+        </div>
+
+        <div class="form-error" id="create-error" style="display:none"></div>
+
+        <div class="nebula-action-row">
+          <button id="create-submit" class="nebula-btn" style="background:#28a745;color:white;">
+            <i class="fa-solid fa-user-plus"></i> Create
+          </button>
+          <button class="nebula-btn" data-close-modal="#modal-create-backdrop" style="background:transparent;color:#cfefff;">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-avatar-backdrop" class="nebula-modal-backdrop" aria-hidden="true">
+    <div class="nebula-modal" role="dialog" aria-modal="true" aria-labelledby="avatar-title">
+      <div class="modal-header">
+        <h3 id="avatar-title">Upload Avatar</h3>
+        <button class="nebula-close" data-close-modal="#modal-avatar-backdrop" title="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="display:flex;gap:12px;align-items:center;">
+          <img id="avatar-preview" src="/images/favicon.png" alt="preview" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(163,247,255,0.12);">
+          <div style="flex:1;">
+            <input id="avatar-file" class="nebula-input" type="file" accept="image/*" />
+            <div class="text-muted" style="margin-top:6px;font-size:0.85rem;">Choose a PNG/JPG. Max 5 MB recommended.</div>
+          </div>
+        </div>
+
+        <div class="form-error" id="avatar-error" style="display:none"></div>
+
+        <div class="nebula-action-row">
+          <button id="avatar-upload-submit" class="nebula-btn" style="background:#6f42c1;color:white;">
+            <i class="fa-solid fa-upload"></i> Upload & Save
+          </button>
+          <button class="nebula-btn" data-close-modal="#modal-avatar-backdrop" style="background:transparent;color:#cfefff;">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase Auth Logic & Modals JS -->
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
     const SUPABASE_URL = window.SUPABASE_URL;
     const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
 
+    // Elements
     const authNoteEl = document.getElementById('auth-note');
+    const signOutBtn = document.getElementById('signOutBtn');
+
     let supabase = null;
 
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -127,6 +338,41 @@
       authNoteEl.textContent = '';
     }
 
+    /* -------------------------
+       Helper: Show / Hide modals
+       ------------------------- */
+    function openModal(selector) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      el.style.display = 'flex';
+      el.setAttribute('aria-hidden', 'false');
+      // focus first input
+      const first = el.querySelector('.nebula-input, input, button');
+      if (first) first.focus();
+    }
+    function closeModal(selector) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      el.style.display = 'none';
+      el.setAttribute('aria-hidden', 'true');
+    }
+    // wire close buttons
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sel = btn.getAttribute('data-close-modal');
+        closeModal(sel);
+      });
+    });
+    // click backdrop to close
+    document.querySelectorAll('.nebula-modal-backdrop').forEach(back => {
+      back.addEventListener('click', (e) => {
+        if (e.target === back) back.style.display = 'none';
+      });
+    });
+
+    /* -------------------------
+       Show / Hide profile UI
+       ------------------------- */
     function showProfile(profile) {
       document.getElementById('profile-status').textContent = 'Signed in';
       const card = document.getElementById('profile-card');
@@ -146,6 +392,7 @@
     function userToProfile(user) {
       if (!user) return null;
       const metadata = user.user_metadata || {};
+      // prefer avatar_url in metadata (we'll store public URL here)
       return {
         id: user.id,
         name: metadata.full_name || metadata.name || user.email || '',
@@ -154,17 +401,22 @@
       };
     }
 
+    /* -------------------------
+       Init Auth (session from URL / existing session)
+       ------------------------- */
     async function initAuth() {
       if (!supabase) return;
 
       try {
+        // handle redirect session from OAuth (Google)
         const { data: urlData } = await supabase.auth.getSessionFromUrl({ storeSession: true }).catch(() => ({ data: null }));
         if (urlData?.session) {
           const p = userToProfile(urlData.session.user);
           if (p) showProfile(p);
+          // clean url
           history.replaceState({}, document.title, window.location.pathname);
         }
-      } catch (e) { }
+      } catch (e) { /* ignore */ }
 
       const { data: sessionData } = await supabase.auth.getSession();
       if (sessionData?.session?.user) {
@@ -172,6 +424,7 @@
         if (p) showProfile(p);
       }
 
+      // auth state changes
       supabase.auth.onAuthStateChange((event, session) => {
         if (session?.user) {
           const p = userToProfile(session.user);
@@ -182,21 +435,285 @@
       });
     }
 
+    /* -------------------------
+       Google sign-in (existing)
+       ------------------------- */
     document.getElementById('supabaseSignInBtn').addEventListener('click', async () => {
-      if (!supabase) return alert('Supabase not configured.');
+      if (!supabase) {
+        alert('Supabase not configured.');
+        return;
+      }
       await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: window.location.href }
       });
     });
 
-    document.getElementById('signOutBtn').addEventListener('click', async () => {
-      if (!supabase) return hideProfile();
-      await supabase.auth.signOut();
+    /* -------------------------
+       Open modals
+       ------------------------- */
+    document.getElementById('regularSignInBtn').addEventListener('click', () => openModal('#modal-signin-backdrop'));
+    document.getElementById('createAccountBtn').addEventListener('click', () => openModal('#modal-create-backdrop'));
+    document.getElementById('uploadAvatarBtn').addEventListener('click', () => openModal('#modal-avatar-backdrop'));
+
+    /* -------------------------
+       SIGN IN (email/password)
+       ------------------------- */
+    const signinEmailEl = document.getElementById('signin-email');
+    const signinPasswordEl = document.getElementById('signin-password');
+    const signinErrorEl = document.getElementById('signin-error');
+    const signinSubmitBtn = document.getElementById('signin-submit');
+
+    signinSubmitBtn.addEventListener('click', async (e) => {
+      signinErrorEl.style.display = 'none';
+      signinErrorEl.textContent = '';
+      const email = (signinEmailEl.value || '').trim();
+      const password = (signinPasswordEl.value || '').trim();
+
+      if (!email || !password) {
+        signinErrorEl.style.display = 'block';
+        signinErrorEl.textContent = 'Please enter both email and password.';
+        return;
+      }
+
+      signinSubmitBtn.disabled = true;
+      signinSubmitBtn.textContent = 'Signing in...';
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          signinErrorEl.style.display = 'block';
+          signinErrorEl.textContent = error.message || 'Sign in failed.';
+        } else if (data?.user) {
+          const p = userToProfile(data.user);
+          if (p) showProfile(p);
+          closeModal('#modal-signin-backdrop');
+        }
+      } catch (err) {
+        signinErrorEl.style.display = 'block';
+        signinErrorEl.textContent = err.message || 'Sign in failed.';
+      } finally {
+        signinSubmitBtn.disabled = false;
+        signinSubmitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+      }
+    });
+
+    /* -------------------------
+       CREATE ACCOUNT (email/password)
+       ------------------------- */
+    const createNameEl = document.getElementById('create-name');
+    const createEmailEl = document.getElementById('create-email');
+    const createPasswordEl = document.getElementById('create-password');
+    const createErrorEl = document.getElementById('create-error');
+    const createSubmitBtn = document.getElementById('create-submit');
+
+    createSubmitBtn.addEventListener('click', async () => {
+      createErrorEl.style.display = 'none';
+      createErrorEl.textContent = '';
+
+      const name = (createNameEl.value || '').trim();
+      const email = (createEmailEl.value || '').trim();
+      const password = (createPasswordEl.value || '').trim();
+
+      if (!email || !password) {
+        createErrorEl.style.display = 'block';
+        createErrorEl.textContent = 'Email and password are required.';
+        return;
+      }
+      if (password.length < 6) {
+        createErrorEl.style.display = 'block';
+        createErrorEl.textContent = 'Password should be at least 6 characters.';
+        return;
+      }
+
+      createSubmitBtn.disabled = true;
+      createSubmitBtn.textContent = 'Creating...';
+
+      try {
+        // sign up
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: name || '' } // initial user metadata
+          }
+        });
+
+        if (error) {
+          createErrorEl.style.display = 'block';
+          createErrorEl.textContent = error.message || 'Create account failed.';
+        } else {
+          // supabase returns user or confirmation pending
+          // if user created and signed in, show profile. Otherwise inform user to check email.
+          if (data?.user) {
+            const p = userToProfile(data.user);
+            if (p) showProfile(p);
+            closeModal('#modal-create-backdrop');
+          } else {
+            // e.g., email verification required
+            createErrorEl.style.display = 'block';
+            createErrorEl.textContent = 'Account created — check your email to confirm your address.';
+            // keep modal open so they see message (they can close)
+          }
+        }
+      } catch (err) {
+        createErrorEl.style.display = 'block';
+        createErrorEl.textContent = err.message || 'Create account failed.';
+      } finally {
+        createSubmitBtn.disabled = false;
+        createSubmitBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create';
+      }
+    });
+
+    /* -------------------------
+       SIGN OUT
+       ------------------------- */
+    signOutBtn.addEventListener('click', async () => {
+      if (!supabase) {
+        hideProfile();
+        return;
+      }
+      try {
+        await supabase.auth.signOut();
+      } catch (e) {
+        // ignore
+      }
       hideProfile();
     });
 
+    /* -------------------------
+       AVATAR UPLOAD
+       ------------------------- */
+    const avatarFileEl = document.getElementById('avatar-file');
+    const avatarPreviewEl = document.getElementById('avatar-preview');
+    const avatarErrorEl = document.getElementById('avatar-error');
+    const avatarUploadBtn = document.getElementById('avatar-upload-submit');
+
+    // preview
+    avatarFileEl.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      avatarErrorEl.style.display = 'none';
+      if (!f) {
+        avatarPreviewEl.src = document.getElementById('profile-pic').src || '/images/favicon.png';
+        return;
+      }
+      if (!f.type.startsWith('image/')) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'Please select an image file.';
+        avatarFileEl.value = '';
+        return;
+      }
+      // preview
+      const url = URL.createObjectURL(f);
+      avatarPreviewEl.src = url;
+    });
+
+    avatarUploadBtn.addEventListener('click', async () => {
+      avatarErrorEl.style.display = 'none';
+      if (!supabase) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'Supabase not configured.';
+        return;
+      }
+
+      const file = avatarFileEl.files && avatarFileEl.files[0];
+      if (!file) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'Please choose an image to upload.';
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'Only image files are allowed.';
+        return;
+      }
+      // optional: limit size (e.g., 6 MB)
+      const maxSize = 6 * 1024 * 1024;
+      if (file.size > maxSize) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'Image too large. Please pick a file under 6 MB.';
+        return;
+      }
+
+      // require user session
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData?.session?.user;
+      if (!user) {
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = 'You must be signed in to upload an avatar.';
+        return;
+      }
+
+      avatarUploadBtn.disabled = true;
+      avatarUploadBtn.textContent = 'Uploading...';
+
+      try {
+        // generate path: avatars/<userId>/<timestamp>_<filename>
+        const timestamp = Date.now();
+        const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = `avatars/${user.id}/${timestamp}_${cleanName}`;
+
+        // upload to storage (bucket: avatars). Ensure this bucket exists in your Supabase project.
+        const { data: uploadData, error: uploadError } = await supabase.storage.from('avatars').upload(path, file, { cacheControl: '3600', upsert: false });
+
+        if (uploadError) {
+          // If the bucket is missing or permission denied, show a clear message.
+          avatarErrorEl.style.display = 'block';
+          avatarErrorEl.textContent = uploadError.message || 'Upload failed. Ensure the "avatars" bucket exists and is accessible.';
+          console.error('Upload error:', uploadError);
+          return;
+        }
+
+        // get public URL (if the bucket is public). If private, you'd generate a signed URL instead.
+        const { data: publicUrlData } = supabase.storage.from('avatars').getPublicUrl(path);
+        const publicUrl = publicUrlData?.publicUrl || '';
+
+        if (!publicUrl) {
+          avatarErrorEl.style.display = 'block';
+          avatarErrorEl.textContent = 'Could not get public URL for the uploaded avatar. Check bucket policy.';
+          return;
+        }
+
+        // update user metadata with avatar_url
+        const { data: updateData, error: updateError } = await supabase.auth.updateUser({
+          data: { avatar_url: publicUrl }
+        });
+
+        if (updateError) {
+          avatarErrorEl.style.display = 'block';
+          avatarErrorEl.textContent = updateError.message || 'Failed to update user profile with avatar.';
+          console.error('Update metadata error:', updateError);
+          return;
+        }
+
+        // reflect change in UI immediately
+        document.getElementById('profile-pic').src = publicUrl;
+        avatarPreviewEl.src = publicUrl;
+
+        // also update local profile storage
+        try {
+          const profile = userToProfile(updateData.user || user);
+          if (profile) {
+            localStorage.setItem('nebula_profile', JSON.stringify(profile));
+            showProfile(profile);
+          }
+        } catch (e) { /* ignore */ }
+
+        // success — close modal
+        closeModal('#modal-avatar-backdrop');
+      } catch (err) {
+        console.error('Avatar upload exception', err);
+        avatarErrorEl.style.display = 'block';
+        avatarErrorEl.textContent = err.message || 'Avatar upload failed.';
+      } finally {
+        avatarUploadBtn.disabled = false;
+        avatarUploadBtn.innerHTML = '<i class="fa-solid fa-upload"></i> Upload & Save';
+      }
+    });
+
+    // initialize on load
     window.addEventListener('DOMContentLoaded', initAuth);
   </script>
 </body>
+
 </html>
