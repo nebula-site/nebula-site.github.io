@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Slope.io 2', image: '/images/game-logos/slope-io-2.png', link: '/sourceCode/slope-io-2', path: '/play', favorite: false },
      { name: 'Dadish 2', image: '/images/game-logos/dadish-2.png', link: '/sourceCode/dadish-2', path: '/play', favorite: false },
      { name: 'Dadish 3', image: '/images/game-logos/dadish-3.png', link: '/sourceCode/dadish-3', path: '/play', favorite: false },
+     { name: 'Draw CLimber', image: '/images/game-logos/draw-climber.png', link: '/sourceCode/draw-climber', path: '/play', favorite: false },
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
