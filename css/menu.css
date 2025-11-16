@@ -1,55 +1,8 @@
-/* ===========================
-   GLOBAL STYLING
-=========================== */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Space Grotesk', sans-serif;
-    background: #0d001a;
-    color: #a3f7ff;
-    overflow-x: hidden;
-}
+/* =========================================================
+   SEARCH INPUT
+========================================================= */
 
-/* Centering elements cleanly */
-center {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Containers */
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 60px;
-}
-
-/* ===========================
-   SEARCH + SORT SIDE-BY-SIDE
-=========================== */
-.search-sort-wrapper,
-center > #search + #sortOptions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-}
-
-/* Force search + sort to sit in a row */
-#search {
-    display: inline-block;
-}
-#sortOptions {
-    display: inline-block;
-}
-
-/* ===========================
-   SEARCH BAR
-=========================== */
+/* Modern search box with smooth, glowing hover/focus animation */
 .search {
     width: 320px;
     background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
@@ -78,6 +31,7 @@ center > #search + #sortOptions {
     transition: color 0.4s;
 }
 
+/* Smooth glowing effect */
 .search:hover,
 .search:focus {
     background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
@@ -86,9 +40,10 @@ center > #search + #sortOptions {
     transform: scale(1.06);
 }
 
-/* ===========================
+/* =========================================================
    SORT DROPDOWN
-=========================== */
+========================================================= */
+
 #sortOptions {
     padding: 7px 11px;
     font-size: 1.5rem;
@@ -98,8 +53,10 @@ center > #search + #sortOptions {
     border-radius: 50px;
     outline: none;
     box-shadow: 0 4px 16px #3f00ff55;
+    transition: background 0.7s, box-shadow 0.7s, transform 0.7s;
+    transform: scale(1);
+    margin-left: 12px;
     margin-bottom: 18px;
-    transition: background 0.7s, box-shadow 0.7s, transform 0.7s, color 0.7s;
 }
 
 #sortOptions:hover,
@@ -118,11 +75,27 @@ center > #search + #sortOptions {
     color: #a3f7ff;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    outline: none;
 }
 
-/* ===========================
-   GAME CARD BUTTONS
-=========================== */
+/* =========================================================
+   BUTTON CONTAINER
+========================================================= */
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 60px;
+}
+
+/* =========================================================
+   GAME CARD (HORIZONTAL)
+========================================================= */
+
 .menu-button {
     position: relative;
     display: flex;
@@ -155,9 +128,9 @@ center > #search + #sortOptions {
     margin-left: 8px;
     margin-right: 18px;
     border-radius: 14px;
+    box-shadow: 0 2px 8px #a3f7ff44;
     object-fit: cover;
     transition: transform 0.7s ease;
-    box-shadow: 0 2px 8px #a3f7ff44;
 }
 
 .menu-button:hover img {
@@ -165,22 +138,32 @@ center > #search + #sortOptions {
 }
 
 .overlay {
+    position: static;
+    background: none;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex: 1;
+    opacity: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #a3f7ff;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #a3f7ff;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    transition: none;
 }
 
 .menu-button:hover .overlay {
     color: #ffb3fe;
 }
 
-/* ===========================
+/* =========================================================
    FAVORITE ICON
-=========================== */
+========================================================= */
+
 .favorite-icon {
     margin-left: 12px;
     font-size: 1.7rem;
@@ -189,6 +172,7 @@ center > #search + #sortOptions {
     transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
     display: flex;
     align-items: center;
+    justify-content: center;
     filter: drop-shadow(0 0 6px #a3f7ff88);
 }
 
@@ -197,6 +181,12 @@ center > #search + #sortOptions {
     color: #a3f7ff;
     transform: scale(1.18) rotate(-10deg);
     text-shadow: 0 0 12px #ffb3fe88, 0 0 6px #a3f7ff88;
+    filter: drop-shadow(0 0 12px #ffb3fe88);
+}
+
+.favorite-icon .fa-thumbs-up {
+    transition: color 0.3s, transform 0.3s;
+    margin-right: 15px;
 }
 
 .favorite-icon .fa-solid {
@@ -209,18 +199,44 @@ center > #search + #sortOptions {
     opacity: 0.7;
 }
 
-/* ===========================
+/* =========================================================
+   POPUP TAG
+========================================================= */
+
+.popup {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    background: rgba(30, 0, 60, 0.8);
+    color: #a3f7ff;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    visibility: visible;
+    opacity: 1;
+    box-shadow: 0 0 8px #a3f7ff22;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* =========================================================
    COUNTER DISPLAY
-=========================== */
+========================================================= */
+
 #counterDisplay {
     color: #a3f7ff;
     font-size: 20px;
-    text-shadow: 0 0 8px #3f00ff88;
+    text-shadow: 0 0 8px #3f00ff88, 1px 1px 3px #000a;
 }
 
-/* ===========================
-   BUTTON DEFAULTS
-=========================== */
+#counterDisplay:hover {
+    cursor: default;
+}
+
+/* =========================================================
+   GENERIC BUTTONS
+========================================================= */
+
 button {
     padding: 10px;
     font-size: 16px;
@@ -230,12 +246,13 @@ button {
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 2px 8px #3f00ff55;
+    transition: background 0.7s, color 0.7s;
 }
 
 button:hover {
     background: #1a0033;
     color: #a3f7ff;
-    border-color: #ffb3fe;
+    border: 2px solid #ffb3fe;
 }
 
 .button-animate {
@@ -243,27 +260,25 @@ button:hover {
     transition: transform 0.3s ease;
 }
 
-/* ===========================
-   RESPONSIVE — MOBILE
-=========================== */
+/* =========================================================
+   RESPONSIVE DESIGN — MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
 
-    .search-sort-wrapper,
-    center > #search + #sortOptions {
-        flex-direction: column;
-        gap: 12px;
-    }
-
     .menu-button {
-        width: 96vw;
+        width: 98vw;
         height: 80px;
-        margin: 8px 0;
         border-radius: 12px;
+        margin: 8px 0;
     }
 
     .menu-button img {
         width: 60px;
         height: 60px;
+        margin-left: 6px;
+        margin-right: 12px;
+        border-radius: 8px;
     }
 
     .overlay {
