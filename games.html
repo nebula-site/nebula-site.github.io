@@ -11,18 +11,43 @@
     <link rel="stylesheet" href="/css/menu.css">
     <script src="/js/main.js"></script>
     <script src="/js/navbar.js" defer></script>
+    <style>
+        /* Inline styles for search/sort options layout */
+        .search-sort-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .search {
+            min-width: 220px;
+        }
+        #sortOptions {
+            height: 40px;
+            min-width: 160px;
+        }
+        @media (max-width: 500px) {
+            .search-sort-row {
+                flex-direction: column;
+                gap: 7px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="navbar-container"></div>
     <center>
-        <br><br>
-        <br><br>
-        <input autocomplete="false" name="hidden" type="text" class="search animate__animated animate__fadeInDown" id="search" placeholder="Search for games...">
-        <select id="sortOptions">
-            <option value="alphabetical">Sort Alphabetically</option>
-            <option value="clickCount">Sort by Usage</option>
-        </select>
-        <br><br>
+        <div class="search-sort-row">
+            <input autocomplete="false" name="hidden" type="text" class="search animate__animated animate__fadeInDown" id="search" placeholder="Search for games...">
+            <select id="sortOptions">
+                <option value="alphabetical">Sort Alphabetically</option>
+                <option value="clickCount">Sort by Usage</option>
+            </select>
+        </div>
+        <br>
         <div id="counterDisplay"></div>
         <br>
         <div class="button-container" id="buttonContainer"></div>
@@ -34,4 +59,4 @@
     <script src="/js/particles-config.js"></script>
 </body>
 </html>
-<br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/privacy.html" style="color:white; margin:0 10px;">Privacy Policy</a> <a href="/terms.html" style="color:white; margin:0 10px;">Terms of Service</a> <a href="/contact.html" style="color:white; margin:0 10px;">Contact Us</a> </nav></footer>
+<br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/pri[...]
