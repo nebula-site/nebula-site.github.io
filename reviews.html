@@ -14,18 +14,87 @@
     <script src="/js/profile.js" defer></script>
     <script src="/js/particles.js" defer></script>
     <script src="/js/particles-config.js" defer></script>
+
+    <style>
+        /* CLEAN PAGE LAYOUT IMPROVEMENTS */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        #content-wrapper {
+            text-align: center;
+            margin-top: 120px;
+            max-width: 900px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .waffles {
+            filter: drop-shadow(0 0 12px #3f00ffaa);
+        }
+
+        /* Clean centered POWR reviews container */
+        #reviews-container {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        footer {
+            background-color: #0a0d2b;
+            color: #dbe9ff;
+            padding: 25px 20px;
+            text-align: center;
+            width: 100%;
+            margin-top: 80px;
+            border-top: 1px solid #3f00ff55;
+        }
+
+        footer nav a {
+            color: #b4cdff;
+            margin: 0 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer nav a:hover {
+            text-shadow: 0 0 6px #3f00ff;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Dynamic Navbar (loaded from navbar.js) -->
     <div id="navbar-container"></div>
 
+    <!-- Particles Background -->
     <div id="particles-js"></div>
-    <br><br>
-    <div style="text-align: center; margin-top: 50px;">
+
+    <!-- MAIN CONTENT -->
+    <div id="content-wrapper">
         <img class="waffles" src="/images/favicon.png" width="150" height="150" alt="Waffle Logo">
+
+        <div id="reviews-container">
+            <div class="powr-product-reviews" id="e092e97a_1757876457"></div>
+            <script src="https://www.powr.io/powr.js?platform=google"></script>
+        </div>
     </div>
-    <br><br>
-    <div class="powr-product-reviews" id="e092e97a_1757876457"></div><script src="https://www.powr.io/powr.js?platform=google"></script>
-    <br><br><br>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Nebula — gaming meets reality!</p>
+        <nav>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/contact.html">Contact Us</a>
+        </nav>
+    </footer>
 </body>
 </html>
-<br><br><br><footer style="background-color:lightblue; color:white; padding:20px; text-align:center; position:relative; bottom:0; width:100%;"> <p>Nebula, gaming meets reality!</p> <nav> <a href="/privacy.html" style="color:white; margin:0 10px;">Privacy Policy</a> <a href="/terms.html" style="color:white; margin:0 10px;">Terms of Service</a> <a href="/contact.html" style="color:white; margin:0 10px;">Contact Us</a> </nav></footer>
