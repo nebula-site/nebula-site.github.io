@@ -297,5 +297,12 @@ justify-content: center; /* Center horizontally */
 align-items: center;
 width: 100%;
 }
+#game-container img, /* if your game images are inside the container */
+img.game-image {    /* or use a specific class for the game image */
+    width: 50px;
+    height: 27px;
+    object-fit: cover; /* keeps it from stretching weirdly */
+    border-radius: 4px; /* optional, for a subtle rounded look */
+}
 
 /* ...existing code... */
