@@ -4,98 +4,149 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nebula | Play</title>
+
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/menu.css" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/viewers.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden; /* NO SCROLL ANYWHERE */
-        background: #000;
-    }
+/* =============================
+   GLOBAL
+============================= */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Space Grotesk', sans-serif;
+}
 
-    #game-container {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+/* =============================
+   GAME CONTAINER
+============================= */
+#game-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-    /* HEADER */
-    #game-header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 24px;
-        padding: 16px 0;
-    }
+/* =============================
+   HEADER
+============================= */
+#game-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px 0;
+}
 
-    /* Center game area perfectly */
-    #iframe-container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 0;
-    }
+#game-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px #a3f7ff44;
+    border: 2px solid #3f00ff;
+    background: #1a0033;
+    object-fit: cover;
+    display: none;
+}
 
-    #iframe-container iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        border-radius: 0;
-        background: #000;
-    }
+#game-name {
+    color: #a3f7ff;
+    font-family: "Bebas Neue";
+    margin: 0;
+}
 
-    /* FULLSCREEN MODE */
-    #iframe-container.fullscreen {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background: #000;
-    }
-    #iframe-container.fullscreen iframe {
-        border-radius: 0;
-    }
+/* =============================
+   IFRAME AREA
+============================= */
+#iframe-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+}
 
-    /* Bottom Buttons */
-    .container {
-        padding: 18px 0;
-        text-align: center;
-    }
+#iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #000;
+}
 
-    .buttons-container {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-    }
+/* =============================
+   FULLSCREEN MODE
+============================= */
+#iframe-container.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: #000;
+}
 
-    .buttons-container button {
-        background: #111;
-        color: #a3f7ff;
-        border: 2px solid #3f00ff;
-        padding: 12px 16px;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 0 12px #3f00ff44;
-        transition: 0.15s;
-    }
-    .buttons-container button:hover {
-        background: #1a0033;
-    }
+/* =============================
+   NAVBAR-LIKE BUTTON BAR
+============================= */
+#game-btn-bar {
+    position: fixed;
+    bottom: 90px; /* above main navbar */
+    left: 15px;
+    z-index: 10000;
+}
 
-    #particles-js {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-    }
+#game-btn-bubble {
+    background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
+    padding: 8px 14px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px #a3f7ff22;
+}
+
+/* MATCH NAVBAR BUTTON STYLE */
+#game-btn-bubble button {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #a3f7ff;
+    background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    animation: glow 2.5s infinite;
+    transition: .25s;
+}
+
+#game-btn-bubble button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    border-color: #ffb3fe;
+}
+
+#game-btn-bubble i {
+    color: #e0e6ff;
+    font-size: 1.4rem;
+}
+
+/* Glow Animation */
+@keyframes glow {
+    0%,100% { box-shadow: 0 0 8px #3f00ff55; }
+    50% { box-shadow: 0 0 16px #a3f7ff88; }
+}
+
+/* =============================
+   PARTICLES BG
+============================= */
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
 </style>
 </head>
 
@@ -105,53 +156,54 @@
 
     <!-- TOP HEADER -->
     <div id="game-header">
-        <img id="game-image" src="" alt="Game"
-             style="width:80px; height:80px; border-radius:18px; box-shadow:0 4px 16px #a3f7ff44; background:#1a0033; border:2px solid #3f00ff; object-fit:cover; display:none;">
-
-        <h2 id="game-name" style="margin:0; color:#a3f7ff; font-family:'Bebas Neue', cursive;"></h2>
+        <img id="game-image" alt="Game">
+        <h2 id="game-name"></h2>
     </div>
 
-    <!-- MIDDLE GAME AREA -->
+    <!-- GAME AREA -->
     <div id="iframe-container">
         <iframe id="myIframe"
-            src=""
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture; web-share"
-            sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+            sandbox="allow-scripts allow-same-origin allow-forms">
+        </iframe>
     </div>
+</div>
 
-    <!-- BOTTOM BUTTONS -->
-    <div class="container">
-        <div class="buttons-container">
-            <button onclick="goHome()" title="Back to games">
-                <i class="fa fa-house fa-lg"></i>
-            </button>
+<!-- =============================
+     FLOATING BUTTON BAR (NAVBAR STYLE)
+============================= -->
+<div id="game-btn-bar">
+    <div id="game-btn-bubble">
+        <button onclick="goHome()" title="Back to games">
+            <i class="fa fa-house"></i>
+        </button>
 
-            <button id="fullscreenButton" onclick="makeFullscreen()" title="Fullscreen">
-                <i class="fa-solid fa-up-right-and-down-left-from-center fa-lg"></i>
-            </button>
+        <button id="fullscreenButton" onclick="makeFullscreen()" title="Fullscreen">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+        </button>
 
-            <button id="reloadButton" onclick="reloadIframe()" title="Reload">
-                <i class="fa fa-refresh fa-lg"></i>
-            </button>
-        </div>
+        <button id="reloadButton" onclick="reloadIframe()" title="Reload">
+            <i class="fa fa-refresh"></i>
+        </button>
     </div>
-
 </div>
 
 <div id="particles-js"></div>
 
 <script>
-/* Hide effects to boost performance while a game runs */
+/* =============================
+   PAGE EFFECTS
+============================= */
 function pausePageEffects() {
     const p = document.getElementById('particles-js');
     if (p) p.style.display = 'none';
 }
-
 function restorePageEffects() {
     const p = document.getElementById('particles-js');
     if (p) p.style.display = '';
 }
 
+/* Load Game */
 window.addEventListener('load', function () {
     const gameLink = sessionStorage.getItem('gameLink');
     const gameName = sessionStorage.getItem('gameName');
@@ -173,80 +225,59 @@ window.addEventListener('load', function () {
 });
 
 function startGame() {
-    const gameLink = sessionStorage.getItem('gameLink') || '';
     const iframe = document.getElementById('myIframe');
-
     pausePageEffects();
 
-    let finalSrc = gameLink;
+    let finalSrc = sessionStorage.getItem('gameLink') || '';
     if (!finalSrc.startsWith('http') && !finalSrc.startsWith('/'))
         finalSrc = '/' + finalSrc;
 
     iframe.src = finalSrc;
-    iframe.style.display = 'block';
 }
 
 function reloadIframe() {
     const iframe = document.getElementById('myIframe');
-    const currentSrc = iframe.src || sessionStorage.getItem('gameLink') || '';
-    const reloadButton = document.getElementById('reloadButton');
+    const currentSrc = iframe.src;
+    const reloadIcon = document.querySelector("#reloadButton i");
 
-    reloadButton.querySelector("i").classList.add("fa-spin");
+    reloadIcon.classList.add("fa-spin");
 
     iframe.src = '';
     setTimeout(() => {
         iframe.src = currentSrc;
-        reloadButton.querySelector("i").classList.remove("fa-spin");
+        reloadIcon.classList.remove("fa-spin");
     }, 150);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const reloadButton = document.getElementById('reloadButton');
-    reloadButton.addEventListener("mouseenter", function () {
-        reloadButton.querySelector("i").classList.add("fa-spin");
-    });
-    reloadButton.addEventListener("mouseleave", function () {
-        reloadButton.querySelector("i").classList.remove("fa-spin");
-    });
-});
-
+/* =============================
+   FULLSCREEN LOGIC
+============================= */
 function makeFullscreen() {
-    const container = document.getElementById('iframe-container');
+    const el = document.getElementById('iframe-container');
 
-    if (container.requestFullscreen) container.requestFullscreen();
-    else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
-    else if (container.mozRequestFullScreen) container.mozRequestFullScreen();
-    else if (container.msRequestFullscreen) container.msRequestFullscreen();
+    if (el.requestFullscreen) el.requestFullscreen();
+    if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    if (el.msRequestFullscreen) el.msRequestFullscreen();
 
-    container.classList.add('fullscreen');
+    el.classList.add("fullscreen");
     pausePageEffects();
 }
 
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+        document.getElementById('iframe-container').classList.remove("fullscreen");
+        restorePageEffects();
+    }
+});
+
+/* =============================
+   NAV BUTTONS
+============================= */
 function goHome() {
     restorePageEffects();
     window.location.href = "/games";
 }
-
-const fsEvents = [
-    'fullscreenchange', 'webkitfullscreenchange',
-    'mozfullscreenchange', 'msfullscreenchange'
-];
-
-fsEvents.forEach(eventName => {
-    document.addEventListener(eventName, () => {
-        const container = document.getElementById('iframe-container');
-        const full = document.fullscreenElement || document.webkitFullscreenElement ||
-                     document.mozFullScreenElement || document.msFullscreenElement;
-
-        if (!full && container) {
-            container.classList.remove('fullscreen');
-            setTimeout(restorePageEffects, 300);
-        }
-    });
-});
 </script>
-
-<script src="/js/profile.js"></script>
 
 </body>
 </html>
