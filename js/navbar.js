@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbarHTML = `
     <nav class="navbar">
       <div class="nav-left-bg">
-        <a href="/index.html" class="logo">
+        <a href="/" class="logo">
           <img src="/images/favicon.png">
         </a>
 
