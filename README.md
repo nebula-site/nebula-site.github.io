@@ -2,7 +2,7 @@
 
 Welcome to **Nebula**, a next-generation browser-based **game platform** where you can play fun web games instantly — no downloads, no ads, just pure gameplay.
 
-🎮 **Website:** [nebula.global.ssl.fastly.net](https://nebula.global.ssl.fastly.net)  
+🎮 **Website:** [nebula-site.github.io](https://nebula-site.github.io)  
 
 
 ---
