@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Shell Shockers', image: '/images/game-logos/shell-shockers.png', link: '/sourceCode/shell-shockers', path: '/play', favorite: false },
      { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: 'https://script.google.com/macros/s/AKfycbwmHiH-ifVw054CFLpPM7qyZfLfwebB1KTGCqKzm0iJopITachomI745g6ttdHt2NZ6/exec', path: '/play', favorite: false },
      { name: 'Hole.io', image: '/images/game-logos/hole-io.png', link: '/sourceCode/hole-io', path: '/play', favorite: false },
+     { name: 'Gobble', image: '/images/game-logos/gobble.png', link: '/sourceCode/gobble', path: '/play', favorite: false },
 ];
     const buttonContainer = document.getElementById('buttonContainer');
     const searchInput = document.getElementById('search');
