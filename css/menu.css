@@ -96,6 +96,7 @@
    GAME CARD — MATCHES THE STYLE IN YOUR SCREENSHOT
 ========================================================= */
 
+/* === GAME CARD (same as before) === */
 .menu-button {
     position: relative;
     width: 240px;
@@ -105,13 +106,8 @@
     margin: 14px;
     cursor: pointer;
     text-decoration: none;
-
-    /* Keep your colors */
     background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
-
-    /* Soft glow like screenshot */
     box-shadow: 0 0 14px #3f00ff88;
-
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -120,7 +116,7 @@
     box-shadow: 0 0 22px #a3f7ffaa;
 }
 
-/* === GAME IMAGE === */
+/* === GAME IMAGE — NOW BLURS ON HOVER === */
 .menu-button img {
     position: absolute;
     top: 0;
@@ -128,33 +124,40 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-    /* Rounded image corners */
     border-radius: 22px;
-
-    transition: transform 0.35s ease, opacity 0.35s ease;
+    transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
 }
 
 .menu-button:hover img {
     transform: scale(1.06);
-    opacity: 0.92;
+    opacity: 0.8;
+    filter: blur(4px);   /* ← NEW */
 }
 
-/* === TEXT OVERLAY (bottom centered, like screenshot) === */
+/* === OVERLAY TITLE — HIDDEN UNTIL HOVER === */
 .overlay {
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.05rem;
     font-weight: 700;
     color: white;
-
     text-shadow: 0 0 6px black;
     z-index: 3;
+
+    opacity: 0;                /* ← NEW: hidden by default */
+    transform: translate(-50%, 15px); /* small slide-down hidden */
+    transition: opacity 0.35s ease, transform 0.35s ease;
 }
+
+/* Show title only when hovering */
+.menu-button:hover .overlay {
+    opacity: 1;                     /* fade in */
+    transform: translate(-50%, 0);  /* slide up */
+}
+
 
 /* === FAVORITE ICON (top right corner) === */
 .favorite-icon {
