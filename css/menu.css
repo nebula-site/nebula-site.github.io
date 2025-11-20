@@ -97,7 +97,26 @@
 ========================================================= */
 
 /* === GAME CARD (same as before) === */
-/* === GAME IMAGE — NO MORE BLUR === */
+.menu-button {
+    position: relative;
+    width: 240px;
+    height: 150px;
+    border-radius: 22px;
+    overflow: hidden;
+    margin: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
+    box-shadow: 0 0 14px #3f00ff88;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.menu-button:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 22px #a3f7ffaa;
+}
+
+/* === GAME IMAGE — NOW BLURS ON HOVER === */
 .menu-button img {
     position: absolute;
     top: 0;
@@ -106,12 +125,12 @@
     height: 100%;
     object-fit: cover;
     border-radius: 22px;
-    transition: transform 0.35s ease, opacity 0.35s ease;
+    transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
 }
 
 .menu-button:hover img {
     transform: scale(1.06);
-    opacity: 0.8;   /* still fades slightly, but NOT blurry */
+    opacity: 0.8;
 }
 
 /* === OVERLAY TITLE — HIDDEN UNTIL HOVER === */
@@ -127,14 +146,15 @@
     text-shadow: 0 0 6px black;
     z-index: 3;
 
-    opacity: 0;                
-    transform: translate(-50%, 15px);
+    opacity: 0;                /* ← NEW: hidden by default */
+    transform: translate(-50%, 15px); /* small slide-down hidden */
     transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+/* Show title only when hovering */
 .menu-button:hover .overlay {
-    opacity: 1;
-    transform: translate(-50%, 0);
+    opacity: 1;                     /* fade in */
+    transform: translate(-50%, 0);  /* slide up */
 }
 
 
