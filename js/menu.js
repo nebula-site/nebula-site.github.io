@@ -1,208 +1,405 @@
-document.addEventListener('DOMContentLoaded', function () {
-     const buttons = [
-     { name: 'Block Blast', image: '/images/game-logos/block-blast.png', link: '/sourceCode/block-blast', path: '/play', favorite: false },
-     { name: 'Cookie Clicker', image: '/images/game-logos/cookie-clicker.png', link: '/sourceCode/cookie-clicker', path: '/play', favorite: false },
-     { name: 'Crazy Cattle 3D', image: '/images/game-logos/crazy-cattle-3d.png', link: '/sourceCode/crazy-cattle-3d', path: '/play', favorite: false },
-     { name: 'Crossy Road', image: '/images/game-logos/crossy-road.png', link: '/sourceCode/crossy-road', path: '/play', favorite: false },
-     { name: 'Cut the Rope', image: '/images/game-logos/cut-the-rope.png', link: '/sourceCode/cut-the-rope', path: '/play', favorite: false },
-     { name: 'Dadish', image: '/images/game-logos/dadish.png', link: '/sourceCode/dadish', path: '/play', favorite: false },
-     { name: 'Dino Bros', image: '/images/game-logos/dino-bros.png', link: '/sourceCode/dino-bros', path: '/play', favorite: false },
-     { name: 'Drive Mad', image: '/images/game-logos/drive-mad.png', link: '/sourceCode/drive-mad', path: '/play', favorite: false },
-     { name: 'Fruit Ninja', image: '/images/game-logos/fruit-ninja.png', link: '/sourceCode/fruit-ninja', path: '/play', favorite: false },
-     { name: 'Monkey Mart', image: '/images/game-logos/monkey-mart.png', link: '/sourceCode/monkey-mart', path: '/play', favorite: false },
-     { name: 'Moto X3m', image: '/images/game-logos/moto-x3m.png', link: '/sourceCode/moto-x3m', path: '/play', favorite: false },
-     { name: 'Recoil', image: '/images/game-logos/recoil.png', link: '/sourceCode/recoil', path: '/play', favorite: false },
-     { name: 'Retro Bowl', image: '/images/game-logos/retro-bowl.png', link: '/sourceCode/retro-bowl', path: '/play', favorite: false },
-     { name: 'Slope.IO', image: '/images/game-logos/slope-io.png', link: '/sourceCode/slope-io', path: '/play', favorite: false },
-     { name: 'Slope.IO 3', image: '/images/game-logos/slope-io-3.png', link: '/sourceCode/slope-io-3', path: '/play', favorite: false },
-     { name: 'Stick Archers Battle', image: '/images/game-logos/stick-archers-battle.png', link: '/sourceCode/stick-archers-battle', path: '/play', favorite: false },
-     { name: 'Stickman Hook', image: '/images/game-logos/stickman-hook.png', link: '/sourceCode/stickman-hook', path: '/play', favorite: false },
-     { name: 'Subway Surfers', image: '/images/game-logos/subway-surfers.png', link: '/sourceCode/subway-surfers', path: '/play', favorite: false },
-     { name: 'Tiny Fishing', image: '/images/game-logos/tiny-fishing.png', link: '/sourceCode/tiny-fishing', path: '/play', favorite: false },
-     { name: 'Tomb of the Mask', image: '/images/game-logos/tomb-of-the-mask.png', link: '/sourceCode/tomb-of-the-mask', path: '/play', favorite: false },
-     { name: 'Geometry Dash', image: '/images/game-logos/geometry-dash.png', link: '/sourceCode/geometry-dash', path: '/play', favorite: false },
-     { name: 'Minecraft', image: '/images/game-logos/minecraft.png', link: '/sourceCode/minecraft', path: '/play', favorite: false },
-     { name: 'Worlds Hardest Game', image: '/images/game-logos/worlds-hardest-game.png', link: '/sourceCode/worlds-hardest-game', path: '/play', favorite: false },
-     { name: 'Arena King', image: '/images/game-logos/arena-king.png', link: '/sourceCode/arena-king', path: '/play', favorite: false },
-     { name: 'Slow Roads', image: '/images/game-logos/slow-roads.png', link: '/sourceCode/slow-roads', path: '/play', favorite: false },
-     { name: 'Helix Jump', image: '/images/game-logos/helix-jump.png', link: '/sourceCode/helix-jump', path: '/play', favorite: false },
-     { name: 'Mario Bros', image: '/images/game-logos/mario-bros.png', link: '/sourceCode/mario-bros', path: '/play', favorite: false },
-     { name: 'Core Ball', image: '/images/game-logos/core-ball.png', link: '/sourceCode/core-ball', path: '/play', favorite: false },
-     { name: 'Doodle Jump', image: '/images/game-logos/doodle-jump.png', link: '/sourceCode/doodle-jump', path: '/play', favorite: false },
-     { name: 'Death Run 3D', image: '/images/game-logos/death-run-3d.png', link: '/sourceCode/death-run-3d', path: '/play', favorite: false },
-     { name: 'Thorns and Balloons', image: '/images/game-logos/thorns-and-balloons.png', link: '/sourceCode/thorns-and-balloons', path: '/play', favorite: false },
-     { name: 'Getaway Shootout', image: '/images/game-logos/getaway-shootout.png', link: '/sourceCode/getaway-shootout', path: '/play', favorite: false },
-     { name: 'Bacon may Die', image: '/images/game-logos/bacon-may-die.png', link: '/sourceCode/bacon-may-die', path: '/play', favorite: false },
-     { name: 'Angry Birds', image: '/images/game-logos/angry-birds.png', link: '/sourceCode/angry-birds', path: '/play', favorite: false },
-     { name: '1v1.LOL', image: '/images/game-logos/1v1-lol.png', link: '/sourceCode/1v1.lol', path: '/play', favorite: false },
-     { name: '2048', image: '/images/game-logos/2048.png', link: '/sourceCode/2048', path: '/play', favorite: false },
-     { name: 'Idle Breakout', image: '/images/game-logos/idle-breakout.png', link: '/sourceCode/idle-breakout', path: '/play', favorite: false },
-     { name: 'Snow Rider 3D', image: '/images/game-logos/snow-rider.png', link: '/sourceCode/snow-rider', path: '/play', favorite: false },
-     { name: 'OvO', image: '/images/game-logos/ovo.png', link: '/sourceCode/ovo', path: '/play', favorite: false },
-     { name: 'Slice It', image: '/images/game-logos/slice-it.png', link: '/sourceCode/slice-it', path: '/play', favorite: false },
-     { name: 'Opposite Day', image: '/images/game-logos/opposite-day.png', link: '/sourceCode/opposite-day', path: '/play', favorite: false },
-     { name: 'Infinate Craft', image: '/images/game-logos/infinate-craft.png', link: '/sourceCode/infinate-craft', path: '/play', favorite: false },
-     { name: 'Drift Boss', image: '/images/game-logos/drift-boss.png', link: '/sourceCode/drift-boss', path: '/play', favorite: false },
-     { name: 'Ball Blast', image: '/images/game-logos/ball-blast.png', link: '/sourceCode/ball-blast', path: '/play', favorite: false },
-     { name: 'Pac Man', image: '/images/game-logos/pac-man.png', link: '/sourceCode/pac-man', path: '/play', favorite: false },
-     { name: 'Resizer', image: '/images/game-logos/resizer.png', link: '/sourceCode/resizer', path: '/play', favorite: false },
-     { name: 'Basket Random', image: '/images/game-logos/basket-random.png', link: '/sourceCode/basket-random', path: '/play', favorite: false },
-     { name: 'Flappy Dunk', image: '/images/game-logos/flappy-dunk.png', link: '/sourceCode/flappy-dunk', path: '/play', favorite: false },
-     { name: 'Going Balls', image: '/images/game-logos/going-balls.png', link: '/sourceCode/going-balls', path: '/play', favorite: false },
-     { name: 'Paper.io 2', image: '/images/game-logos/paper-io-2.png', link: '/sourceCode/paper-io-2', path: '/play', favorite: false },
-     { name: 'Flappy Bird', image: '/images/game-logos/flappy-bird.png', link: '/sourceCode/flappy-bird', path: '/play', favorite: false },
-     { name: 'Cluster Rush', image: '/images/game-logos/cluster-rush.png', link: '/sourceCode/cluster-rush', path: '/play', favorite: false },
-     { name: 'Time Shooter', image: '/images/game-logos/time-shooter.png', link: '/sourceCode/time-shooter-3', path: '/play', favorite: false },
-     { name: 'Gunspin', image: '/images/game-logos/gunspin.png', link: '/sourceCode/gunspin', path: '/play', favorite: false },
-     { name: 'Google Baseball', image: '/images/game-logos/google-baseball.png', link: '/sourceCode/google-baseball', path: '/play', favorite: false },
-     { name: 'Clean Up.io', image: '/images/game-logos/clean-up-io.png', link: '/sourceCode/clean-up-io', path: '/play', favorite: false },
-     { name: 'Escape Roads', image: '/images/game-logos/escape-roads.png', link: '/sourceCode/escape-roads', path: '/play', favorite: false },
-     { name: 'Retro Bowl College', image: '/images/game-logos/retro-bowl-college.png', link: '/sourceCode/retro-bowl-college', path: '/play', favorite: false },
-     { name: 'Boxing Random', image: '/images/game-logos/boxing-random.png', link: '/sourceCode/boxing-random', path: '/play', favorite: false },
-     { name: 'Slope.io 2', image: '/images/game-logos/slope-io-2.png', link: '/sourceCode/slope-io-2', path: '/play', favorite: false },
-     { name: 'Dadish 2', image: '/images/game-logos/dadish-2.png', link: '/sourceCode/dadish-2', path: '/play', favorite: false },
-     { name: 'Dadish 3', image: '/images/game-logos/dadish-3.png', link: '/sourceCode/dadish-3', path: '/play', favorite: false },
-     { name: 'Draw Climber', image: '/images/game-logos/draw-climber.png', link: '/sourceCode/draw-climber', path: '/play', favorite: false },
-     { name: 'Shell Shockers', image: '/images/game-logos/shell-shockers.png', link: '/sourceCode/shell-shockers', path: '/play', favorite: false },
-     { name: 'Stickman Parkour', image: '/images/game-logos/stickman-parkour.png', link: 'https://script.google.com/macros/s/AKfycbwmHiH-ifVw054CFLpPM7qyZfLfwebB1KTGCqKzm0iJopITachomI745g6ttdHt2NZ6/exec', path: '/play', favorite: false },
-     { name: 'Hole.io', image: '/images/game-logos/hole-io.png', link: '/sourceCode/hole-io', path: '/play', favorite: false },
-     { name: 'Gobble', image: '/images/game-logos/gobble.png', link: '/sourceCode/gobble', path: '/play', favorite: false },
-];
-    const buttonContainer = document.getElementById('buttonContainer');
-    const searchInput = document.getElementById('search');
-    const counterDisplay = document.getElementById('counterDisplay');
-    const sortOptions = document.getElementById('sortOptions');
+/* app.js
+   Supabase-backed game list with admin tools
+   Uses Supabase project URL & anon key provided by user.
+*/
 
-    function getClickCount(buttonName) {
-        const count = localStorage.getItem(buttonName);
-        return count ? parseInt(count) : 0;
-    }
+// ---------- CONFIG: your Supabase URL / key (you provided these)
+const SUPABASE_URL = "https://yjwipqxgvjbeofnwsiaa.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlqd2lwcXhndmpiZW9mbndzaWFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1Mjg0MTIsImV4cCI6MjA3ODEwNDQxMn0.sxVxT4RGt6YBDNc5k8pl3F77c03gmao_f85TZTf_MqQ";
 
-    function setClickCount(buttonName, count) {
-        localStorage.setItem(buttonName, count);
-    }
+// ---------- Init supabase client
+const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function getFavoriteStatus(buttonName) {
-        const status = localStorage.getItem(buttonName + '_favorite');
-        return status === 'true';
-    }
+// ---------- DOM elements
+const buttonContainer = document.getElementById('buttonContainer');
+const searchInput = document.getElementById('search');
+const sortOptions = document.getElementById('sortOptions');
+const counterDisplay = document.getElementById('counterDisplay');
 
-    function setFavoriteStatus(buttonName, status) {
-        localStorage.setItem(buttonName + '_favorite', status);
-    }
+const btnSignup = document.getElementById('btn-signup');
+const btnSignin = document.getElementById('btn-signin');
+const btnSignout = document.getElementById('btn-signout');
+const authState = document.getElementById('auth-state');
 
-    function toggleFavorite(button) {
-        button.favorite = !button.favorite;
-        setFavoriteStatus(button.name, button.favorite);
-        renderButtons(searchInput.value, sortOptions.value);
-    }
+const btnAddGame = document.getElementById('btn-add-game');
+const modalAddGame = document.getElementById('modal-add-game');
+const gameNameInput = document.getElementById('game-name-input');
+const gameLinkInput = document.getElementById('game-link-input');
+const gameImageInput = document.getElementById('game-image-input');
+const gameAddSubmit = document.getElementById('game-add-submit');
+const gameAddCancel = document.getElementById('game-add-cancel');
+const addGameStatus = document.getElementById('add-game-status');
 
-    function createButton(button) {
-        const a = document.createElement('a');
-        a.className = 'menu-button';
-        a.href = button.path;
+const btnAddAdmin = document.getElementById('btn-add-admin');
+const modalAddAdmin = document.getElementById('modal-add-admin');
+const adminEmailInput = document.getElementById('admin-email-input');
+const adminSubmit = document.getElementById('admin-submit');
+const adminCancel = document.getElementById('admin-cancel');
+const addAdminStatus = document.getElementById('add-admin-status');
 
-        let count = getClickCount(button.name);
+let games = []; // loaded from supabase
 
-        const img = document.createElement('img');
-        img.src = button.image;
-        a.appendChild(img);
+// ---------- Auth helpers
+async function signUpWithEmail(email, password) {
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) throw error;
+  return data;
+}
+async function signInWithEmail(email, password) {
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+  return data;
+}
+async function signOut() {
+  await supabase.auth.signOut();
+}
 
-        const overlay = document.createElement('div');
-        overlay.className = 'overlay';
-        overlay.innerText = button.name;
-        a.appendChild(overlay);
+// ---------- Profile admin check
+async function isCurrentUserAdmin() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+  // look up profiles table for is_admin
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('is_admin')
+    .eq('id', user.id)
+    .single();
+  if (error) {
+    // if profile doesn't exist, treat as not admin
+    return false;
+  }
+  return profile?.is_admin === true;
+}
 
-        const popUp = document.createElement('div');
-        popUp.className = 'popup';
-        popUp.innerText = `Clicked: ${count} clicks`;
-        a.appendChild(popUp);
+// ---------- Promote user to admin (admins only UI)
+async function promoteToAdmin(email) {
+  // find the user in auth.users to get id
+  const { data: usersData, error: usersErr } = await supabase
+    .from('profiles') // profiles table should have user id and email if you created it using the SQL below; try from auth.users is not allowed clientside
+    .select('id,email')
+    .eq('email', email)
+    .limit(1)
+    .single();
 
-        const favoriteIcon = document.createElement('span');
-        favoriteIcon.className = 'favorite-icon';
-        const icon = document.createElement('i');
-        icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
-        favoriteIcon.appendChild(icon);
+  if (usersErr || !usersData) {
+    // As a fallback we try to update by email via RPC/edge function or instruct admin to use SQL dashboard.
+    throw new Error("Could not find user profile with that email. Make sure the user signed up first.");
+  }
 
-        // Prevent navigation when clicking thumbs up
-        favoriteIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            toggleFavorite(button);
-            icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
-            icon.classList.add('animate__animated', 'animate__bounce');
-            setTimeout(() => {
-                icon.classList.remove('animate__animated', 'animate__bounce');
-            }, 1000);
-        });
+  const userId = usersData.id;
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ is_admin: true })
+    .eq('id', userId);
 
-        a.appendChild(favoriteIcon);
+  if (error) throw error;
+  return data;
+}
 
-        a.addEventListener('click', (e) => {
-            // Only navigate if the click is not on the favorite icon
-            if (e.target.closest('.favorite-icon')) return;
-            e.preventDefault();
-            count++;
-            setClickCount(button.name, count);
-            sessionStorage.setItem('gameLink', button.link);
-            sessionStorage.setItem('gameName', button.name);
-            sessionStorage.setItem('gameImage', button.image);
+// ---------- Add game (upload image to storage & insert to games)
+async function addGame(name, link, file) {
+  if (!name || !link || !file) throw new Error("name/link/file required");
 
-            const iframe = document.getElementById('myIframe');
-            const name = document.getElementById('game-name');
-            if (iframe) iframe.src = button.link;
-            if (name) name.innerText = button.name;
+  // upload image to bucket 'game-images'
+  const fileName = `${Date.now()}_${file.name}`;
+  const { error: uploadErr } = await supabase.storage
+    .from('game-images')
+    .upload(fileName, file, { cacheControl: '3600', upsert: false });
 
-            window.location.href = button.path;
-        });
+  if (uploadErr) throw uploadErr;
 
-        return a;
-    }
+  // get public URL
+  const { data: publicData } = supabase.storage.from('game-images').getPublicUrl(fileName);
+  const publicUrl = publicData?.publicUrl ?? null;
 
-    function renderButtons(filter = '', sortBy = 'alphabetical') {
-        buttonContainer.innerHTML = '';
+  // insert game record
+  const { data, error } = await supabase
+    .from('games')
+    .insert([{ name, link, image_url: publicUrl }])
+    .select()
+    .single();
 
-        let sortedButtons = [...buttons]; // clone to avoid in-place sort bugs
+  if (error) throw error;
+  return data;
+}
 
-        if (sortBy === 'liked') {
-            sortedButtons.sort((a, b) => {
-                return getFavoriteStatus(b.name) - getFavoriteStatus(a.name);
-            });
-        } else if (sortBy === 'clickCount') {
-            sortedButtons.sort((a, b) => {
-                return getClickCount(b.name) - getClickCount(a.name);
-            });
-        } else {
-            sortedButtons.sort((a, b) => a.name.localeCompare(b.name));
-        }
+// ---------- Fetch games from DB
+async function loadGamesFromSupabase() {
+  const { data, error } = await supabase
+    .from('games')
+    .select('*')
+    .order('name', { ascending: true });
 
-        const filteredButtons = sortedButtons.filter(button =>
-            button.name.toLowerCase().includes(filter.toLowerCase())
-        );
+  if (error) {
+    console.error("Failed to fetch games:", error);
+    games = [];
+    return;
+  }
+  // normalize structure to match your previous button structure
+  games = data.map(g => ({
+    name: g.name,
+    link: g.link,
+    image: g.image_url,
+    path: '/play', // keep existing behaviour
+    favorite: false
+  }));
+}
 
-        filteredButtons.forEach(button => {
-            button.favorite = getFavoriteStatus(button.name);
-            buttonContainer.appendChild(createButton(button));
-        });
+// ---------- Click count & favorites (localStorage)
+function getClickCount(buttonName) {
+  const count = localStorage.getItem(buttonName);
+  return count ? parseInt(count) : 0;
+}
+function setClickCount(buttonName, count) {
+  localStorage.setItem(buttonName, count);
+}
+function getFavoriteStatus(buttonName) {
+  const status = localStorage.getItem(buttonName + '_favorite');
+  return status === 'true';
+}
+function setFavoriteStatus(buttonName, status) {
+  localStorage.setItem(buttonName + '_favorite', status);
+}
+function toggleFavorite(button) {
+  button.favorite = !button.favorite;
+  setFavoriteStatus(button.name, button.favorite);
+  renderButtons(searchInput.value, sortOptions.value);
+}
 
-        counterDisplay.textContent = `${filteredButtons.length} Games Loaded`;
-    }
+// ---------- Create DOM for a single button (same behavior as before)
+function createButton(button) {
+  const a = document.createElement('a');
+  a.className = 'menu-button';
+  a.href = button.path;
 
-    searchInput.addEventListener('input', (e) => {
-        renderButtons(e.target.value, sortOptions.value);
+  let count = getClickCount(button.name);
+
+  const img = document.createElement('img');
+  img.src = button.image;
+  a.appendChild(img);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerText = button.name;
+  a.appendChild(overlay);
+
+  const popUp = document.createElement('div');
+  popUp.className = 'popup';
+  popUp.innerText = `Clicked: ${count} clicks`;
+  a.appendChild(popUp);
+
+  const favoriteIcon = document.createElement('span');
+  favoriteIcon.className = 'favorite-icon';
+  const icon = document.createElement('i');
+  icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
+  favoriteIcon.appendChild(icon);
+
+  // Prevent navigation when clicking thumbs up
+  favoriteIcon.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    toggleFavorite(button);
+    icon.className = button.favorite ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
+    icon.classList.add('animate__animated', 'animate__bounce');
+    setTimeout(() => {
+      icon.classList.remove('animate__animated', 'animate__bounce');
+    }, 1000);
+  });
+
+  a.appendChild(favoriteIcon);
+
+  a.addEventListener('click', (e) => {
+    // Only navigate if the click is not on the favorite icon
+    if (e.target.closest('.favorite-icon')) return;
+    e.preventDefault();
+    count++;
+    setClickCount(button.name, count);
+    sessionStorage.setItem('gameLink', button.link);
+    sessionStorage.setItem('gameName', button.name);
+    sessionStorage.setItem('gameImage', button.image);
+
+    const iframe = document.getElementById('myIframe');
+    const name = document.getElementById('game-name');
+    if (iframe) iframe.src = button.link;
+    if (name) name.innerText = button.name;
+
+    window.location.href = button.path;
+  });
+
+  return a;
+}
+
+// ---------- Render all buttons
+function renderButtons(filter = '', sortBy = 'alphabetical') {
+  buttonContainer.innerHTML = '';
+
+  let sortedButtons = [...games]; // clone to avoid in-place sort
+
+  if (sortBy === 'liked') {
+    sortedButtons.sort((a, b) => {
+      return (getFavoriteStatus(b.name) ? 1 : 0) - (getFavoriteStatus(a.name) ? 1 : 0);
     });
-
-    sortOptions.addEventListener('change', (e) => {
-        renderButtons(searchInput.value, e.target.value);
+  } else if (sortBy === 'clickCount') {
+    sortedButtons.sort((a, b) => {
+      return getClickCount(b.name) - getClickCount(a.name);
     });
+  } else {
+    sortedButtons.sort((a, b) => a.name.localeCompare(b.name));
+  }
 
-    // Ensure the 'liked' option exists
-    if (!Array.from(sortOptions.options).some(opt => opt.value === 'liked')) {
-        const likedOption = document.createElement('option');
-        likedOption.value = 'liked';
-        likedOption.textContent = 'Sort By Liked';
-        sortOptions.appendChild(likedOption);
-    }
+  const filteredButtons = sortedButtons.filter(button =>
+    button.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
-    renderButtons();
+  filteredButtons.forEach(button => {
+    button.favorite = getFavoriteStatus(button.name);
+    buttonContainer.appendChild(createButton(button));
+  });
+
+  counterDisplay.textContent = `${filteredButtons.length} Games Loaded`;
+}
+
+// ---------- UI wiring & auth flow
+async function updateUiForAuth() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    authState.innerText = "Not signed in";
+    btnSignin.classList.remove('hidden');
+    btnSignup.classList.remove('hidden');
+    btnSignout.classList.add('hidden');
+    btnAddGame.classList.add('hidden');
+    btnAddAdmin.classList.add('hidden');
+    return;
+  }
+  authState.innerText = user.email;
+  btnSignin.classList.add('hidden');
+  btnSignup.classList.add('hidden');
+  btnSignout.classList.remove('hidden');
+
+  const admin = await isCurrentUserAdmin();
+  if (admin) {
+    btnAddGame.classList.remove('hidden');
+    btnAddAdmin.classList.remove('hidden');
+  } else {
+    btnAddGame.classList.add('hidden');
+    btnAddAdmin.classList.add('hidden');
+  }
+}
+
+// Prompt for credentials (quick UI)
+btnSignup.addEventListener('click', async () => {
+  const email = prompt("Sign up - enter email:");
+  if (!email) return;
+  const password = prompt("Choose a password (min length may be required):");
+  if (!password) return;
+  try {
+    await signUpWithEmail(email, password);
+    alert("Sign up successful — check your email if confirmation required. Then sign in.");
+  } catch (err) {
+    alert("Sign up error: " + (err.message || err));
+  }
 });
+btnSignin.addEventListener('click', async () => {
+  const email = prompt("Sign in - email:");
+  if (!email) return;
+  const password = prompt("Password:");
+  if (!password) return;
+  try {
+    await signInWithEmail(email, password);
+    alert("Signed in!");
+    await updateUiForAuth();
+  } catch (err) {
+    alert("Sign in error: " + (err.message || err));
+  }
+});
+btnSignout.addEventListener('click', async () => {
+  await signOut();
+  await updateUiForAuth();
+  alert("Signed out.");
+});
+
+// Add Game modal wiring
+btnAddGame.addEventListener('click', () => {
+  modalAddGame.classList.remove('hidden');
+});
+gameAddCancel.addEventListener('click', () => {
+  modalAddGame.classList.add('hidden');
+  addGameStatus.innerText = '';
+});
+gameAddSubmit.addEventListener('click', async () => {
+  addGameStatus.innerText = "Uploading...";
+  const name = gameNameInput.value.trim();
+  const link = gameLinkInput.value.trim();
+  const file = gameImageInput.files[0];
+
+  try {
+    // check admin
+    const admin = await isCurrentUserAdmin();
+    if (!admin) {
+      throw new Error("You are not an admin.");
+    }
+    const res = await addGame(name, link, file);
+    addGameStatus.innerText = "Game added!";
+    // reload games
+    await refreshGames();
+    // clear modal
+    gameNameInput.value = '';
+    gameLinkInput.value = '';
+    gameImageInput.value = '';
+    setTimeout(() => { modalAddGame.classList.add('hidden'); addGameStatus.innerText = '' }, 900);
+  } catch (err) {
+    addGameStatus.innerText = "Error: " + (err.message || err);
+    console.error(err);
+  }
+});
+
+// Add Admin modal wiring
+btnAddAdmin.addEventListener('click', () => {
+  modalAddAdmin.classList.remove('hidden');
+});
+adminCancel.addEventListener('click', () => {
+  modalAddAdmin.classList.add('hidden');
+  addAdminStatus.innerText = '';
+});
+adminSubmit.addEventListener('click', async () => {
+  const email = adminEmailInput.value.trim();
+  if (!email) return (addAdminStatus.innerText = "Type an email first.");
+  addAdminStatus.innerText = "Promoting...";
+  try {
+    const admin = await isCurrentUserAdmin();
+    if (!admin) throw new Error("You are not an admin.");
+    await promoteToAdmin(email);
+    addAdminStatus.innerText = "User promoted to admin.";
+    adminEmailInput.value = '';
+    setTimeout(() => { modalAddAdmin.classList.add('hidden'); addAdminStatus.innerText = '' }, 900);
+  } catch (err) {
+    addAdminStatus.innerText = "Error: " + (err.message || err);
+    console.error(err);
+  }
+});
+
+// Search & sort handlers
+searchInput.addEventListener('input', (e) => {
+  renderButtons(e.target.value, sortOptions.value);
+});
+sortOptions.addEventListener('change', (e) => {
+  renderButtons(searchInput.value, e.target.value);
+});
+
+// reload games flow
+async function refreshGames() {
+  await loadGamesFromSupabase();
+  renderButtons(searchInput.value, sortOptions.value);
+}
+
+// On load - populate and auth state
+(async function init() {
+  // initial UI
+  await updateUiForAuth();
+  await refreshGames();
+
+  // subscribe to auth state changes to update UI
+  supabase.auth.onAuthStateChange(() => {
+    updateUiForAuth();
+  });
+})();
