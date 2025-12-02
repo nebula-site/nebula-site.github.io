@@ -2,7 +2,7 @@
 
 Welcome to **Nebula**, a next-generation browser-based **game platform** where you can play fun web games instantly — no downloads, no ads, just pure gameplay.
 
-🎮 **Links:** 
+## 🔗 Links
 
 ---
 
