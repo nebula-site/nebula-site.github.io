@@ -8,6 +8,7 @@ Welcome to **Nebula**, a next-generation browser-based **game platform** where y
 
 [nebula-site.github.io](https://nebula-site.github.io)  
 [nebula.freetls.fastly.net](https://nebula.freetls.fastly.net) 
+[nebulasite.codehs.me](https://nebulasite.codehs.me) 
 
 
 ---
