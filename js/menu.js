@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
      { name: 'Recoil', image: '/images/game-logos/recoil.png', link: '/sourceCode/recoil', path: '/play', favorite: false },
      { name: 'Retro Bowl', image: '/images/game-logos/retro-bowl.png', link: '/sourceCode/retro-bowl', path: '/play', favorite: false },
      { name: 'Slope.IO', image: '/images/game-logos/slope-io.png', link: '/sourceCode/slope-io', path: '/play', favorite: false },
-     { name: 'Slope.IO 3', image: '/images/game-logos/slope-io-3.png', link: '/sourceCode/slope-io-3', path: '/play', favorite: false },
      { name: 'Stick Archers Battle', image: '/images/game-logos/stick-archers-battle.png', link: '/sourceCode/stick-archers-battle', path: '/play', favorite: false },
      { name: 'Stickman Hook', image: '/images/game-logos/stickman-hook.png', link: '/sourceCode/stickman-hook', path: '/play', favorite: false },
      { name: 'Subway Surfers', image: '/images/game-logos/subway-surfers.png', link: '/sourceCode/subway-surfers', path: '/play', favorite: false },
