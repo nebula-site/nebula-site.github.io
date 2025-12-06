@@ -71,7 +71,7 @@ function playGame(game) {
   
   // Create slugified game name (lowercase + replace . and space with hyphen)
   const slugifiedName = game.name.toLowerCase().replace(/[. ]+/g, '-')
-  gameLink = `/sourceCode/${slugifiedName}/`
+  gameLink = `/sourceCode/${slugifiedName}`
   
   // Format image path with slugified name
   const gameImage = `/images/game-logos/${slugifiedName}.png`
@@ -81,7 +81,7 @@ function playGame(game) {
   sessionStorage.setItem('gameImage', gameImage)
   
   // Navigate to play.html
-  window.location.href = '/play.html'
+  window.location.href = '/play'
 }
 
 function createButton(game) {
