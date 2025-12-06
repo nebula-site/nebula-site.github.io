@@ -24,9 +24,8 @@
       }
       
       const slug = slugify(name)
-      const links = slugify(link)
-      const link = `/sourceCode/${link}`
-      const image = `/images/game-logos/${linnk}.png`
+      const link = `/sourceCode/${name}`
+      const image = `/images/game-logos/${name}.png`
       
       try {
         const { data, error } = await supabase
