@@ -74,10 +74,7 @@ function playGame(game) {
     gameLink = '/sourceCode/' + gameLink.replace(/^\/+/, '')
   }
   
-  // Ensure the link ends with /
-  if (!gameLink.endsWith('/')) {
-    gameLink += '/'
-  }
+
   
   // Format image path with slugified name
   const slugifiedName = game.name.toLowerCase().replace(/[. ]+/g, '-')
