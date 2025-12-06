@@ -5,192 +5,777 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile – Nebula</title>
-
-  <!-- Favicon and Stylesheets -->
   <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/desc.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/desc.css">
+    <link rel="stylesheet" href="/css/home.css">
 
-  <!-- Scripts -->
-  <script src="/js/main.js" defer></script>
-  <script src="/js/navbar.js" defer></script>
-  <script src="/js/particles.js" defer></script>
-  <script src="/js/particles-config.js" defer></script>
+    <!-- Scripts -->
+    <script src="/js/main.js" defer></script>
+    <script src="/js/game-menu.js" defer></script>
+    <script src="/js/navbar.js" defer></script>
+    <script src="/js/profile.js" defer></script>
+    <script src="/js/home.js" defer></script>
+    <script src="/js/particles.js" defer></script>
+    <script src="/js/particles-config.js" defer></script>
 
-  <!-- ✅ Expose Supabase credentials globally for navbar.js -->
-  <script>
-    window.SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
-    window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc';
-  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Meta Info -->
-  <meta name="description" content="Your Nebula Profile — connect, explore, and manage your account across the Nebula universe.">
-  <meta name="keywords" content="Nebula, Profile, Nebula Games, Gaming Meets Reality, Account, Google Sign-In, Supabase">
-  <meta name="author" content="Nebula Games Team">
-  <meta property="og:title" content="Your Nebula Profile – Gaming Meets Reality">
-  <meta property="og:description" content="Manage your Nebula account, connect via Google, and explore personalized experiences in the Nebula universe.">
-  <meta property="og:image" content="https://yourdomain.com/images/nebula-games-preview.png">
-  <meta property="og:url" content="https://yourdomain.com/profile.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nebula Profile – Gaming Meets Reality">
-  <meta name="twitter:description" content="View and manage your Nebula Games profile and settings.">
-  <meta name="twitter:image" content="https://yourdomain.com/images/nebula-games-preview.png">
+    body {
+      background: linear-gradient(135deg, #1a0033 0%, #0d001f 100%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      flex: 1;
+      width: 90%;
+    }
+
+    h1 {
+      color: #a3f7ff;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      color: #a3f7ff;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #ccc;
+    }
+
+    #profile-status {
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: white;
+      border: 0;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: #1a73e8;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-secondary {
+      background: #6c5ce7;
+    }
+
+    .btn-secondary:hover {
+      background: #5f46d4;
+    }
+
+    .btn-danger {
+      background: #ff6b6b;
+    }
+
+    .btn-danger:hover {
+      background: #ee5a52;
+    }
+
+    .btn-tertiary {
+      background: #00b894;
+    }
+
+    .btn-tertiary:hover {
+      background: #00a584;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #profile-card {
+      display: none;
+      align-items: center;
+      gap: 24px;
+      padding: 24px;
+      border-radius: 12px;
+      background: rgba(30, 0, 60, 0.12);
+      margin-bottom: 24px;
+    }
+
+    #profile-card.show {
+      display: flex;
+    }
+
+    #profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(163, 247, 255, 0.3);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-info div {
+      margin-bottom: 12px;
+    }
+
+    .label {
+      opacity: 0.7;
+      font-size: 0.85rem;
+      color: #a3f7ff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .value {
+      font-weight: 500;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .auth-section {
+      text-align: center;
+    }
+
+    .auth-buttons {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    hr {
+      margin: 24px 0;
+      border: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: rgba(30, 0, 60, 0.95);
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(163, 247, 255, 0.2);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #a3f7ff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(163, 247, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #a3f7ff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(163, 247, 255, 0.3);
+      margin-top: 8px;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    #avatarUpload {
+      display: none;
+    }
+
+    .upload-btn {
+      padding: 10px 16px;
+      background: #6c5ce7;
+      color: white;
+      border: 1px dashed rgba(163, 247, 255, 0.5);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .upload-btn:hover {
+      background: #5f46d4;
+      border-color: #a3f7ff;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .modal-buttons button {
+      flex: 1;
+    }
+
+    footer {
+      background: rgba(30, 0, 60, 0.9);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-top: 2px solid #3f00ff88;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #a3f7ff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: 40px auto 20px;
+      display: block;
+    }
+
+    .error {
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid #ff6b6b;
+      color: #ff8787;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .success {
+      background: rgba(0, 184, 148, 0.1);
+      border: 1px solid #00b894;
+      color: #1dd1a1;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .switch-auth-text {
+      text-align: center;
+      margin-top: 16px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .switch-auth-text button {
+      background: none;
+      border: none;
+      color: #a3f7ff;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .switch-auth-text button:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Navbar Container -->
-  <div id="navbar-container"></div>
+  <img class="icon" src="images/favicon.png" alt="Nebula Icon">
 
-  <!-- Centered Profile Content -->
-  <center>
-    <br><br>
-    <img class="waffles" src="/images/favicon.png" alt="Nebula Icon">
-    <br><br>
+  <main>
+    <h1>Your Profile</h1>
+    <p id="profile-status">Not signed in.</p>
+    <div id="error-message" class="error" style="display: none;"></div>
+    <div id="success-message" class="success" style="display: none;"></div>
 
-    <main style="max-width:900px;margin:auto;padding:24px;text-align:left;background:rgba(255,255,255,0.05);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.2);backdrop-filter:blur(8px);">
-      <h1 style="color:#a3f7ff;text-align:center;">Your Profile</h1>
-      <p id="profile-status" style="text-align:center;color:#ccc;">Not signed in.</p>
-
-      <section id="profile-card" style="display:none;align-items:center;gap:16px;padding:18px;border-radius:12px;background:rgba(30,0,60,0.12);margin-top:20px;">
-        <img id="profile-pic" src="/images/favicon.png" alt="avatar"
-          style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid rgba(163,247,255,0.2);">
+    <!-- Profile Card (when signed in) -->
+    <section id="profile-card">
+      <img id="profile-pic" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23a3f7ff' opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23a3f7ff' stroke-width='2'/%3E%3C/svg%3E" alt="avatar">
+      <div class="profile-info">
         <div>
-          <div id="profile-name" style="font-weight:700;font-size:1.2rem;color:white;"></div>
-          <div id="profile-email" style="opacity:0.85;font-size:0.95rem;color:#a3f7ff;"></div>
-          <div style="margin-top:12px;">
-            <button id="signOutBtn"
-              style="padding:8px 12px;border-radius:8px;background:#ff6b6b;color:white;border:0;cursor:pointer;transition:0.2s;">
-              Sign out
-            </button>
-          </div>
+          <div class="label">Username</div>
+          <div class="value" id="profile-name">User</div>
         </div>
-      </section>
-
-      <hr style="margin:24px 0;border:0;height:1px;background:rgba(255,255,255,0.2);">
-
-      <div style="text-align:center;">
-        <h2 style="color:#a3f7ff;">Sign in with Google</h2>
-        <p style="color:#ccc;">Click below to connect with your Google account</p>
-
-        <div style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center;">
-          <button id="supabaseSignInBtn"
-            style="padding:10px 16px;border-radius:8px;background:#1a73e8;color:white;border:0;cursor:pointer;transition:0.2s;">
-            <i class="fa-brands fa-google"></i> Sign in with Google
-          </button>
-          <span id="auth-note" style="font-size:0.9rem;color:#aaa;">Connecting...</span>
+        <div>
+          <div class="label">Email</div>
+          <div class="value" id="profile-email">user@example.com</div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn btn-secondary" id="editProfileBtn">✎ Edit Profile</button>
+          <button class="btn btn-danger" id="signOutBtn">Sign Out</button>
         </div>
       </div>
-    </main>
+    </section>
 
-    <br><br><br>
-  </center>
+    <hr>
 
-  <!-- Particles Background -->
-  <div id="particles-js"></div>
+    <!-- Auth Section (when not signed in) -->
+    <section id="auth-section" class="auth-section">
+      <h2>Welcome to Nebula</h2>
+      <p>Sign in or create an account to get started</p>
+      <div class="auth-buttons">
+        <button class="btn btn-primary" id="signInBtn">Sign In</button>
+        <button class="btn btn-secondary" id="signUpBtn">Sign Up</button>
+      </div>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer
-    style="background:rgba(30,0,60,0.9);color:white;padding:20px;text-align:center;position:relative;bottom:0;width:100%;border-top:2px solid #3f00ff88;">
-    <p style="margin:0;">Nebula — gaming meets reality!</p>
-    <nav style="margin-top:8px;">
-      <a href="/privacy.html" style="color:#a3f7ff; margin:0 10px;">Privacy Policy</a>
-      <a href="/terms.html" style="color:#a3f7ff; margin:0 10px;">Terms of Service</a>
-      <a href="/contact.html" style="color:#a3f7ff; margin:0 10px;">Contact Us</a>
+  <!-- Sign In Modal -->
+  <div id="signInModal" class="modal">
+    <div class="modal-content">
+      <h2>Sign In</h2>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="signInEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="signInPassword" placeholder="Enter your password">
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-tertiary" id="loginBtn">Sign In</button>
+        <button class="btn btn-danger" id="closeSignInBtn">Cancel</button>
+      </div>
+      <div class="switch-auth-text">
+        Don't have an account? <button id="switchToSignUp">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content">
+      <h2>Create Account</h2>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="signUpEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="signUpUsername" placeholder="Choose a username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="signUpPassword" placeholder="At least 6 characters">
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-tertiary" id="createAccountBtn">Create Account</button>
+        <button class="btn btn-danger" id="closeSignUpBtn">Cancel</button>
+      </div>
+      <div class="switch-auth-text">
+        Already have an account? <button id="switchToSignIn">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h2>Edit Profile</h2>
+      <div class="form-group">
+        <label>Avatar</label>
+        <img id="avatarPreview" class="avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23a3f7ff' opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23a3f7ff' stroke-width='2'/%3E%3C/svg%3E" alt="avatar preview">
+        <div class="file-input-wrapper">
+          <input type="file" id="avatarUpload" accept="image/*">
+          <button type="button" class="upload-btn" id="uploadAvatarBtn">📤 Upload Avatar</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="editUsername" placeholder="Enter your username">
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-tertiary" id="saveProfileBtn">Save Changes</button>
+        <button class="btn btn-danger" id="closeEditBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p style="margin: 0;">Nebula — gaming meets reality!</p>
+    <nav style="margin-top: 8px;">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/contact.html">Contact Us</a>
     </nav>
   </footer>
 
-  <!-- Supabase Auth Logic -->
+  <!-- Supabase Auth Logic with LocalStorage -->
   <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-    const SUPABASE_URL = window.SUPABASE_URL;
-    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
+    const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc';
 
-    const authNoteEl = document.getElementById('auth-note');
-    let supabase = null;
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('Supabase initialized:', !!supabase);
 
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      authNoteEl.textContent = 'Supabase not configured.';
-    } else {
-      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      authNoteEl.textContent = '';
+    const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23a3f7ff" opacity="0.2"/%3E%3Ccircle cx="50" cy="50" r="35" fill="none" stroke="%23a3f7ff" stroke-width="2"/%3E%3C/svg%3E';
+
+    function showError(msg) {
+      const el = document.getElementById('error-message');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 5000);
     }
 
-    function showProfile(profile) {
-      document.getElementById('profile-status').textContent = 'Signed in';
-      const card = document.getElementById('profile-card');
-      document.getElementById('profile-name').textContent = profile.name || profile.email || 'User';
-      document.getElementById('profile-email').textContent = profile.email || '';
-      document.getElementById('profile-pic').src = profile.picture || '/images/favicon.png';
-      card.style.display = 'flex';
-      try { localStorage.setItem('nebula_profile', JSON.stringify(profile)); } catch (e) { }
+    function showSuccess(msg) {
+      const el = document.getElementById('success-message');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 3000);
+    }
+
+    function saveToLocalStorage(username, avatarUrl) {
+      try {
+        localStorage.setItem('nebula_username', username);
+        localStorage.setItem('nebula_avatar', avatarUrl);
+        console.log('Saved to localStorage:', { username });
+      } catch (e) {
+        console.error('Error saving to localStorage:', e);
+      }
+    }
+
+    function getFromLocalStorage() {
+      try {
+        return {
+          username: localStorage.getItem('nebula_username'),
+          avatar: localStorage.getItem('nebula_avatar')
+        };
+      } catch (e) {
+        console.error('Error reading from localStorage:', e);
+        return { username: null, avatar: null };
+      }
+    }
+
+    function clearLocalStorage() {
+      try {
+        localStorage.removeItem('nebula_username');
+        localStorage.removeItem('nebula_avatar');
+        console.log('Cleared localStorage');
+      } catch (e) {
+        console.error('Error clearing localStorage:', e);
+      }
+    }
+
+    function showProfile(user) {
+      const metadata = user.user_metadata || {};
+      const name = metadata.full_name || user.email || 'User';
+      const avatar = metadata.avatar_url || defaultAvatar;
+
+      saveToLocalStorage(name, avatar);
+
+      document.getElementById('profile-status').textContent = `Signed in as ${user.email}`;
+      document.getElementById('profile-name').textContent = name;
+      document.getElementById('profile-email').textContent = user.email || '';
+      document.getElementById('profile-pic').src = avatar;
+      document.getElementById('profile-card').classList.add('show');
+      document.getElementById('auth-section').style.display = 'none';
+
+      document.getElementById('editUsername').value = name;
+      document.getElementById('avatarPreview').src = avatar;
     }
 
     function hideProfile() {
-      document.getElementById('profile-status').textContent = 'Not signed in.';
-      document.getElementById('profile-card').style.display = 'none';
-      try { localStorage.removeItem('nebula_profile'); } catch (e) { }
-    }
+      clearLocalStorage();
 
-    function userToProfile(user) {
-      if (!user) return null;
-      const metadata = user.user_metadata || {};
-      return {
-        id: user.id,
-        name: metadata.full_name || metadata.name || user.email || '',
-        email: user.email || '',
-        picture: metadata.avatar_url || metadata.picture || metadata.avatar || ''
-      };
+      document.getElementById('profile-status').textContent = 'Not signed in.';
+      document.getElementById('profile-card').classList.remove('show');
+      document.getElementById('auth-section').style.display = 'block';
+      document.getElementById('editModal').classList.remove('show');
+      document.getElementById('signInModal').classList.remove('show');
+      document.getElementById('signUpModal').classList.remove('show');
     }
 
     async function initAuth() {
-      if (!supabase) return;
-
-      try {
-        const { data: urlData } = await supabase.auth.getSessionFromUrl({ storeSession: true }).catch(() => ({ data: null }));
-        if (urlData?.session) {
-          const p = userToProfile(urlData.session.user);
-          if (p) showProfile(p);
-          history.replaceState({}, document.title, window.location.pathname);
-        }
-      } catch (e) { }
-
       const { data: sessionData } = await supabase.auth.getSession();
       if (sessionData?.session?.user) {
-        const p = userToProfile(sessionData.session.user);
-        if (p) showProfile(p);
+        showProfile(sessionData.session.user);
+      } else {
+        const stored = getFromLocalStorage();
+        if (stored.username && stored.avatar) {
+          console.log('Restored from localStorage:', stored.username);
+          document.getElementById('profile-name').textContent = stored.username;
+          document.getElementById('profile-pic').src = stored.avatar;
+        }
       }
 
       supabase.auth.onAuthStateChange((event, session) => {
         if (session?.user) {
-          const p = userToProfile(session.user);
-          if (p) showProfile(p);
+          showProfile(session.user);
         } else {
           hideProfile();
         }
       });
     }
 
-    document.getElementById('supabaseSignInBtn').addEventListener('click', async () => {
-      if (!supabase) {
-        alert('Supabase not configured.');
+    document.getElementById('signInBtn').addEventListener('click', () => {
+      document.getElementById('signInModal').classList.add('show');
+      document.getElementById('signInEmail').focus();
+    });
+
+    document.getElementById('closeSignInBtn').addEventListener('click', () => {
+      document.getElementById('signInModal').classList.remove('show');
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('signInEmail').value.trim();
+      const password = document.getElementById('signInPassword').value;
+
+      if (!email || !password) {
+        showError('Please fill in all fields');
         return;
       }
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: window.location.href }
-      });
+
+      try {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          showError('Sign in failed: ' + error.message);
+        } else {
+          showSuccess('Signed in successfully!');
+          document.getElementById('signInModal').classList.remove('show');
+          document.getElementById('signInEmail').value = '';
+          document.getElementById('signInPassword').value = '';
+          const { data: sessionData } = await supabase.auth.getSession();
+          if (sessionData?.session?.user) {
+            showProfile(sessionData.session.user);
+          }
+        }
+      } catch (e) {
+        showError('Error: ' + e.message);
+      }
+    });
+
+    document.getElementById('signUpBtn').addEventListener('click', () => {
+      document.getElementById('signUpModal').classList.add('show');
+      document.getElementById('signUpEmail').focus();
+    });
+
+    document.getElementById('closeSignUpBtn').addEventListener('click', () => {
+      document.getElementById('signUpModal').classList.remove('show');
+    });
+
+    document.getElementById('createAccountBtn').addEventListener('click', async () => {
+      const email = document.getElementById('signUpEmail').value.trim();
+      const username = document.getElementById('signUpUsername').value.trim();
+      const password = document.getElementById('signUpPassword').value;
+
+      if (!email || !password || !username) {
+        showError('Please fill in all fields');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('Password must be at least 6 characters');
+        return;
+      }
+
+      try {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: username,
+              avatar_url: defaultAvatar
+            }
+          }
+        });
+
+        if (error) {
+          showError('Sign up failed: ' + error.message);
+        } else {
+          showSuccess('Account created successfully! You are now signed in.');
+          document.getElementById('signUpModal').classList.remove('show');
+          document.getElementById('signUpEmail').value = '';
+          document.getElementById('signUpPassword').value = '';
+          document.getElementById('signUpUsername').value = '';
+          const { data: sessionData } = await supabase.auth.getSession();
+          if (sessionData?.session?.user) {
+            showProfile(sessionData.session.user);
+          }
+        }
+      } catch (e) {
+        showError('Error: ' + e.message);
+      }
+    });
+
+    document.getElementById('switchToSignUp').addEventListener('click', () => {
+      document.getElementById('signInModal').classList.remove('show');
+      document.getElementById('signUpModal').classList.add('show');
+    });
+
+    document.getElementById('switchToSignIn').addEventListener('click', () => {
+      document.getElementById('signUpModal').classList.remove('show');
+      document.getElementById('signInModal').classList.add('show');
     });
 
     document.getElementById('signOutBtn').addEventListener('click', async () => {
-      if (!supabase) {
+      try {
+        await supabase.auth.signOut();
         hideProfile();
-        return;
+        showSuccess('Signed out successfully');
+      } catch (e) {
+        showError('Sign out failed: ' + e.message);
       }
-      await supabase.auth.signOut();
-      hideProfile();
     });
+
+    document.getElementById('editProfileBtn').addEventListener('click', () => {
+      document.getElementById('editModal').classList.add('show');
+    });
+
+    document.getElementById('closeEditBtn').addEventListener('click', () => {
+      document.getElementById('editModal').classList.remove('show');
+    });
+
+    const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
+    if (uploadAvatarBtn) {
+      uploadAvatarBtn.addEventListener('click', () => {
+        document.getElementById('avatarUpload').click();
+      });
+    }
+
+    const avatarUpload = document.getElementById('avatarUpload');
+    if (avatarUpload) {
+      avatarUpload.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64 = event.target.result;
+          document.getElementById('avatarPreview').src = base64;
+          avatarUpload.dataset.base64 = base64;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    if (saveProfileBtn) {
+      saveProfileBtn.addEventListener('click', async () => {
+        const newUsername = document.getElementById('editUsername').value.trim();
+        const avatarUpload = document.getElementById('avatarUpload');
+        let avatarData = avatarUpload.dataset.base64 || null;
+
+        if (!newUsername) {
+          showError('Username cannot be empty');
+          return;
+        }
+
+        try {
+          const { error } = await supabase.auth.updateUser({
+            data: {
+              full_name: newUsername,
+              avatar_url: avatarData || document.getElementById('avatarPreview').src
+            }
+          });
+
+          if (error) {
+            showError('Error updating profile: ' + error.message);
+          } else {
+            saveToLocalStorage(newUsername, avatarData || document.getElementById('avatarPreview').src);
+            showSuccess('Profile updated successfully!');
+            document.getElementById('editModal').classList.remove('show');
+            avatarUpload.value = '';
+            delete avatarUpload.dataset.base64;
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (sessionData?.session?.user) {
+              showProfile(sessionData.session.user);
+            }
+          }
+        } catch (e) {
+          showError('Error: ' + e.message);
+        }
+      });
+    }
 
     window.addEventListener('DOMContentLoaded', initAuth);
   </script>
