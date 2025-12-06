@@ -69,15 +69,11 @@ function playGame(game) {
   // Store game data in sessionStorage for play.html to access
   let gameLink = game.link
   
-  // Ensure the link starts with /sourceCode/
-  if (!gameLink.startsWith('/sourceCode/')) {
-    gameLink = '/sourceCode/' + gameLink.replace(/^\/+/, '')
-  }
-  
-
+  // Create slugified game name (lowercase + replace . and space with hyphen)
+  const slugifiedName = game.name.toLowerCase().replace(/[. ]+/g, '-')
+  gameLink = `/sourceCode/${slugifiedName}/`
   
   // Format image path with slugified name
-  const slugifiedName = game.name.toLowerCase().replace(/[. ]+/g, '-')
   const gameImage = `/images/game-logos/${slugifiedName}.png`
   
   sessionStorage.setItem('gameLink', gameLink)
