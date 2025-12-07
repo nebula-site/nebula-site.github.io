@@ -2,366 +2,80 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profile – Nebula</title>
-  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/desc.css">
-    <link rel="stylesheet" href="/css/home.css">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/desc.css" />
+  <link rel="stylesheet" href="/css/home.css" />
 
-    <!-- Scripts -->
-    <script src="/js/main.js" defer></script>
-    <script src="/js/game-menu.js" defer></script>
-    <script src="/js/navbar.js" defer></script>
-    <script src="/js/profile.js" defer></script>
-    <script src="/js/home.js" defer></script>
-    <script src="/js/particles.js" defer></script>
-    <script src="/js/particles-config.js" defer></script>
+  <!-- Scripts -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/game-menu.js" defer></script>
+  <script src="/js/navbar.js" defer></script>
+  <script src="/js/profile.js" defer></script>
+  <script src="/js/home.js" defer></script>
+  <script src="/js/particles.js" defer></script>
+  <script src="/js/particles-config.js" defer></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(135deg, #1a0033 0%, #0d001f 100%);
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 24px;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      flex: 1;
-      width: 90%;
-    }
-
-    h1 {
-      color: #a3f7ff;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      color: #a3f7ff;
-      margin-bottom: 12px;
-    }
-
-    p {
-      color: #ccc;
-    }
-
-    #profile-status {
-      text-align: center;
-      color: #ccc;
-      margin-bottom: 24px;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border-radius: 8px;
-      color: white;
-      border: 0;
-      cursor: pointer;
-      transition: 0.2s;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .btn-primary {
-      background: #1a73e8;
-    }
-
-    .btn-primary:hover {
-      background: #1557b0;
-    }
-
-    .btn-secondary {
-      background: #6c5ce7;
-    }
-
-    .btn-secondary:hover {
-      background: #5f46d4;
-    }
-
-    .btn-danger {
-      background: #ff6b6b;
-    }
-
-    .btn-danger:hover {
-      background: #ee5a52;
-    }
-
-    .btn-tertiary {
-      background: #00b894;
-    }
-
-    .btn-tertiary:hover {
-      background: #00a584;
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    #profile-card {
-      display: none;
-      align-items: center;
-      gap: 24px;
-      padding: 24px;
-      border-radius: 12px;
-      background: rgba(30, 0, 60, 0.12);
-      margin-bottom: 24px;
-    }
-
-    #profile-card.show {
-      display: flex;
-    }
-
-    #profile-pic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid rgba(163, 247, 255, 0.3);
-      flex-shrink: 0;
-    }
-
-    .profile-info {
-      flex: 1;
-    }
-
-    .profile-info div {
-      margin-bottom: 12px;
-    }
-
-    .label {
-      opacity: 0.7;
-      font-size: 0.85rem;
-      color: #a3f7ff;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .value {
-      font-weight: 500;
-      color: white;
-      font-size: 1.1rem;
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .auth-section {
-      text-align: center;
-    }
-
-    .auth-buttons {
-      margin-top: 16px;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    hr {
-      margin: 24px 0;
-      border: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal-content {
-      background: rgba(30, 0, 60, 0.95);
-      padding: 32px;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(163, 247, 255, 0.2);
-      max-width: 500px;
-      width: 90%;
-    }
-
-    .modal-content h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #a3f7ff;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid rgba(163, 247, 255, 0.3);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      font-size: 0.95rem;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #a3f7ff;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .avatar-preview {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(163, 247, 255, 0.3);
-      margin-top: 8px;
-    }
-
-    .file-input-wrapper {
-      position: relative;
-      display: inline-block;
-      margin-top: 12px;
-    }
-
-    #avatarUpload {
-      display: none;
-    }
-
-    .upload-btn {
-      padding: 10px 16px;
-      background: #6c5ce7;
-      color: white;
-      border: 1px dashed rgba(163, 247, 255, 0.5);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .upload-btn:hover {
-      background: #5f46d4;
-      border-color: #a3f7ff;
-    }
-
-    .modal-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 24px;
-    }
-
-    .modal-buttons button {
-      flex: 1;
-    }
-
-    footer {
-      background: rgba(30, 0, 60, 0.9);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      border-top: 2px solid #3f00ff88;
-      margin-top: auto;
-    }
-
-    footer a {
-      color: #a3f7ff;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    .icon {
-      width: 80px;
-      height: 80px;
-      margin: 40px auto 20px;
-      display: block;
-    }
-
-    .error {
-      background: rgba(255, 107, 107, 0.1);
-      border: 1px solid #ff6b6b;
-      color: #ff8787;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-    }
-
-    .success {
-      background: rgba(0, 184, 148, 0.1);
-      border: 1px solid #00b894;
-      color: #1dd1a1;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-    }
-
-    .switch-auth-text {
-      text-align: center;
-      margin-top: 16px;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-
-    .switch-auth-text button {
-      background: none;
-      border: none;
-      color: #a3f7ff;
-      cursor: pointer;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-
-    .switch-auth-text button:hover {
-      color: #fff;
-    }
+    /* (your full style block as provided) */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: linear-gradient(135deg, #1a0033 0%, #0d001f 100%); color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+    main { max-width: 900px; margin: 40px auto; padding: 24px; text-align: left; background: rgba(255,255,255,0.05); border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.2); backdrop-filter: blur(8px); flex: 1; width: 90%; }
+    h1 { color: #a3f7ff; text-align: center; margin-bottom: 12px; }
+    h2 { color: #a3f7ff; margin-bottom: 12px; }
+    p { color: #ccc; }
+    #profile-status { text-align: center; color: #ccc; margin-bottom: 24px; }
+    .btn { padding: 10px 16px; border-radius: 8px; color: white; border: 0; cursor: pointer; transition: 0.2s; font-weight: 500; font-size: 0.95rem; }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: #1a73e8; }
+    .btn-primary:hover { background: #1557b0; }
+    .btn-secondary { background: #6c5ce7; }
+    .btn-secondary:hover { background: #5f46d4; }
+    .btn-danger { background: #ff6b6b; }
+    .btn-danger:hover { background: #ee5a52; }
+    .btn-tertiary { background: #00b894; }
+    .btn-tertiary:hover { background: #00a584; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    #profile-card { display: none; align-items: center; gap: 24px; padding: 24px; border-radius: 12px; background: rgba(30,0,60,0.12); margin-bottom: 24px; }
+    #profile-card.show { display: flex; }
+    #profile-pic { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(163,247,255,0.3); flex-shrink: 0; }
+    .profile-info { flex: 1; }
+    .profile-info div { margin-bottom: 12px; }
+    .label { opacity: 0.7; font-size: 0.85rem; color: #a3f7ff; text-transform: uppercase; letter-spacing: 0.5px; }
+    .value { font-weight: 500; color: white; font-size: 1.1rem; }
+    .profile-actions { display: flex; gap: 8px; margin-top: 16px; }
+    .auth-section { text-align: center; }
+    .auth-buttons { margin-top: 16px; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    hr { margin: 24px 0; border: 0; height: 1px; background: rgba(255,255,255,0.2); }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+    .modal.show { display: flex; }
+    .modal-content { background: rgba(30,0,60,0.95); padding: 32px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.3); border: 1px solid rgba(163,247,255,0.2); max-width: 500px; width: 90%; }
+    .modal-content h2 { margin-bottom: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #a3f7ff; font-size: 0.9rem; font-weight: 600; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid rgba(163,247,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.05); color: white; font-size: 0.95rem; }
+    .form-group input:focus { outline: none; border-color: #a3f7ff; background: rgba(255,255,255,0.1); }
+    .avatar-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(163,247,255,0.3); margin-top: 8px; }
+    .file-input-wrapper { position: relative; display: inline-block; margin-top: 12px; }
+    #avatarUpload { display: none; }
+    .upload-btn { padding: 10px 16px; background: #6c5ce7; color: white; border: 1px dashed rgba(163,247,255,0.5); border-radius: 8px; cursor: pointer; transition: 0.2s; }
+    .upload-btn:hover { background: #5f46d4; border-color: #a3f7ff; }
+    .modal-buttons { display: flex; gap: 8px; margin-top: 24px; }
+    .modal-buttons button { flex: 1; }
+    footer { background: rgba(30,0,60,0.9); color: white; padding: 20px; text-align: center; border-top: 2px solid #3f00ff88; margin-top: auto; }
+    footer a { color: #a3f7ff; margin: 0 10px; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .icon { width: 80px; height: 80px; margin: 40px auto 20px; display: block; }
+    .error { background: rgba(255,107,107,0.1); border: 1px solid #ff6b6b; color: #ff8787; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; }
+    .success { background: rgba(0,184,148,0.1); border: 1px solid #00b894; color: #1dd1a1; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; }
+    .switch-auth-text { text-align: center; margin-top: 16px; color: #aaa; font-size: 0.9rem; }
+    .switch-auth-text button { background: none; border: none; color: #a3f7ff; cursor: pointer; text-decoration: underline; font-weight: 600; }
+    .switch-auth-text button:hover { color: #fff; }
+    /* Removed admin panel related styles */
   </style>
 </head>
 
@@ -412,11 +126,11 @@
       <h2>Sign In</h2>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="signInEmail" placeholder="your@email.com">
+        <input type="email" id="signInEmail" placeholder="your@email.com" />
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="signInPassword" placeholder="Enter your password">
+        <input type="password" id="signInPassword" placeholder="Enter your password" />
       </div>
       <div class="modal-buttons">
         <button class="btn btn-tertiary" id="loginBtn">Sign In</button>
@@ -434,15 +148,15 @@
       <h2>Create Account</h2>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="signUpEmail" placeholder="your@email.com">
+        <input type="email" id="signUpEmail" placeholder="your@email.com" />
       </div>
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="signUpUsername" placeholder="Choose a username">
+        <input type="text" id="signUpUsername" placeholder="Choose a username" />
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="signUpPassword" placeholder="At least 6 characters">
+        <input type="password" id="signUpPassword" placeholder="At least 6 characters" />
       </div>
       <div class="modal-buttons">
         <button class="btn btn-tertiary" id="createAccountBtn">Create Account</button>
@@ -462,13 +176,13 @@
         <label>Avatar</label>
         <img id="avatarPreview" class="avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23a3f7ff' opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23a3f7ff' stroke-width='2'/%3E%3C/svg%3E" alt="avatar preview">
         <div class="file-input-wrapper">
-          <input type="file" id="avatarUpload" accept="image/*">
+          <input type="file" id="avatarUpload" accept="image/*" />
           <button type="button" class="upload-btn" id="uploadAvatarBtn">📤 Upload Avatar</button>
         </div>
       </div>
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="editUsername" placeholder="Enter your username">
+        <input type="text" id="editUsername" placeholder="Enter your username" />
       </div>
       <div class="modal-buttons">
         <button class="btn btn-tertiary" id="saveProfileBtn">Save Changes</button>
@@ -544,22 +258,36 @@
       }
     }
 
-    function showProfile(user) {
-      const metadata = user.user_metadata || {};
-      const name = metadata.full_name || user.email || 'User';
-      const avatar = metadata.avatar_url || defaultAvatar;
+    function showProfile(userOrFake) {
+      // userOrFake may be a real Supabase user object or a local "fake" object
+      const metadata = (userOrFake && userOrFake.user_metadata) ? userOrFake.user_metadata : {};
+      const name = metadata.full_name || userOrFake?.full_name || userOrFake?.username || userOrFake?.name || userOrFake?.email || 'User';
+      const avatar = metadata.avatar_url || userOrFake?.avatar || userOrFake?.avatar_url || defaultAvatar;
+      const email = userOrFake?.email || '(restored session)';
 
+      // persist locally
       saveToLocalStorage(name, avatar);
 
-      document.getElementById('profile-status').textContent = `Signed in as ${user.email}`;
+      document.getElementById('profile-status').textContent = `Signed in as ${email}`;
       document.getElementById('profile-name').textContent = name;
-      document.getElementById('profile-email').textContent = user.email || '';
+      document.getElementById('profile-email').textContent = email;
       document.getElementById('profile-pic').src = avatar;
       document.getElementById('profile-card').classList.add('show');
       document.getElementById('auth-section').style.display = 'none';
 
       document.getElementById('editUsername').value = name;
       document.getElementById('avatarPreview').src = avatar;
+
+      // dispatch a site-wide event for nav sync
+      try {
+        const profileObj = { name, username: name, email, picture: avatar, avatar };
+        window.dispatchEvent(new CustomEvent('nebulaProfileUpdated', { detail: profileObj }));
+      } catch (e) {
+        console.warn('Could not dispatch nebulaProfileUpdated event', e);
+      }
+
+      // init admin UI if present
+      try { if (typeof initAdminUI === 'function') initAdminUI(); } catch(e){ /* ignore */ }
     }
 
     function hideProfile() {
@@ -571,30 +299,259 @@
       document.getElementById('editModal').classList.remove('show');
       document.getElementById('signInModal').classList.remove('show');
       document.getElementById('signUpModal').classList.remove('show');
+
+      // Remove any admin button if previously inserted (safe-guard)
+      try {
+        const adminBtn = document.getElementById('adminBtn');
+        if (adminBtn && adminBtn.parentNode) adminBtn.parentNode.removeChild(adminBtn);
+        window.dispatchEvent(new CustomEvent('nebulaProfileUpdated', { detail: null }));
+      } catch (e) {
+        console.warn('Could not dispatch nebulaProfileUpdated event', e);
+      }
     }
 
-    async function initAuth() {
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (sessionData?.session?.user) {
-        showProfile(sessionData.session.user);
-      } else {
-        const stored = getFromLocalStorage();
-        if (stored.username && stored.avatar) {
-          console.log('Restored from localStorage:', stored.username);
-          document.getElementById('profile-name').textContent = stored.username;
-          document.getElementById('profile-pic').src = stored.avatar;
-        }
-      }
+    // =========================
+    // Admin-related helpers (kept from your original)
+    // =========================
+    let adminUsersCache = [];
+    let adminSelected = new Set();
+    let adminInitialized = false;
 
-      supabase.auth.onAuthStateChange((event, session) => {
-        if (session?.user) {
-          showProfile(session.user);
-        } else {
-          hideProfile();
-        }
+    function showAdminStatus(msg, ok = true, timeout = 3000) {
+      const el = document.getElementById('admin-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.style.color = ok ? '#bff3df' : '#ffb3b3';
+      if (timeout) setTimeout(()=> { el.textContent = '' }, timeout);
+    }
+
+    async function fetchAdminUsers() {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('id, username, email, avatar, avatar_url, banned, created_at')
+          .order('created_at', { ascending: false })
+          .limit(1000);
+        if (error) throw error;
+        adminUsersCache = (data || []).map(u => ({
+          id: u.id,
+          username: u.username || u.full_name || '',
+          email: u.email || '',
+          avatar: u.avatar || u.avatar_url || '/images/user.png',
+          banned: !!u.banned,
+          created_at: u.created_at || null
+        }));
+        renderAdminUsers(adminUsersCache);
+      } catch (err) {
+        console.error('fetchAdminUsers error', err);
+        showAdminStatus('Error loading users', false, 5000);
+      }
+    }
+
+    function renderAdminUsers(list) {
+      const container = document.getElementById('admin-users');
+      const empty = document.getElementById('admin-empty');
+      adminSelected.clear();
+      updateAdminBulkButtons();
+
+      if (!list || list.length === 0) {
+        if (empty) empty.style.display = 'block';
+        if (container) container.style.display = 'none';
+        return;
+      }
+      if (empty) empty.style.display = 'none';
+      if (container) container.style.display = 'grid';
+      container.innerHTML = '';
+
+      list.forEach(u => {
+        const card = document.createElement('div');
+        card.className = 'admin-user';
+
+        const img = document.createElement('img');
+        img.className = 'admin-avatar';
+        img.src = u.avatar;
+        img.alt = u.username || u.email || 'avatar';
+
+        const meta = document.createElement('div');
+        meta.className = 'admin-meta';
+
+        const top = document.createElement('div');
+        top.style.display = 'flex';
+        top.style.justifyContent = 'space-between';
+        top.style.alignItems = 'center';
+
+        const name = document.createElement('div');
+        name.className = 'admin-name';
+        name.textContent = u.username || '(no name)';
+
+        const badge = document.createElement('div');
+        badge.className = 'badge ' + (u.banned ? 'banned' : 'ok');
+        badge.textContent = u.banned ? 'BANNED' : 'OK';
+
+        top.appendChild(name);
+        top.appendChild(badge);
+
+        const email = document.createElement('div');
+        email.className = 'admin-email';
+        email.textContent = u.email || '';
+
+        const controls = document.createElement('div');
+        controls.className = 'admin-controls-row';
+
+        const chk = document.createElement('input');
+        chk.type = 'checkbox';
+        chk.addEventListener('change', (e) => {
+          if (e.target.checked) adminSelected.add(u.id);
+          else adminSelected.delete(u.id);
+          updateAdminBulkButtons();
+        });
+        controls.appendChild(chk);
+
+        const banBtn = document.createElement('button');
+        banBtn.className = 'btn';
+        banBtn.style.background = u.banned ? '#444' : '#ff6b6b';
+        banBtn.style.color = '#fff';
+        banBtn.textContent = u.banned ? 'Unban' : 'Ban';
+        banBtn.onclick = () => adminToggleBan(u.id, !u.banned);
+        controls.appendChild(banBtn);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn';
+        delBtn.style.background = '#6c5ce7';
+        delBtn.style.color = '#fff';
+        delBtn.textContent = 'Delete';
+        delBtn.onclick = () => adminDeleteUser(u.id, u.username || u.email);
+        controls.appendChild(delBtn);
+
+        meta.appendChild(top);
+        meta.appendChild(email);
+        meta.appendChild(controls);
+
+        card.appendChild(img);
+        card.appendChild(meta);
+        container.appendChild(card);
       });
     }
 
+    function updateAdminBulkButtons() {
+      const any = adminSelected.size > 0;
+      const banBtn = document.getElementById('admin-bulk-ban');
+      const unbanBtn = document.getElementById('admin-bulk-unban');
+      if (banBtn) banBtn.disabled = !any;
+      if (unbanBtn) unbanBtn.disabled = !any;
+    }
+
+    async function adminToggleBan(id, banState) {
+      if (!confirm(`Are you sure you want to ${banState ? 'ban' : 'unban'} this user?`)) return;
+      try {
+        const { error } = await supabase
+          .from('profiles')
+          .update({ banned: banState })
+          .eq('id', id);
+        if (error) throw error;
+        showAdminStatus(banState ? 'User banned' : 'User unbanned');
+        adminUsersCache = adminUsersCache.map(u => u.id === id ? {...u, banned: banState} : u);
+        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
+      } catch (err) {
+        console.error('adminToggleBan error', err);
+        showAdminStatus('Failed to update ban status', false);
+      }
+    }
+
+    async function adminDeleteUser(id, display) {
+      if (!confirm(`Delete user "${display}"? This cannot be undone (profile row only).`)) return;
+      try {
+        const { error } = await supabase
+          .from('profiles')
+          .delete()
+          .eq('id', id);
+        if (error) throw error;
+        showAdminStatus('User deleted');
+        adminUsersCache = adminUsersCache.filter(u => u.id !== id);
+        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
+      } catch (err) {
+        console.error('adminDeleteUser error', err);
+        showAdminStatus('Failed to delete user', false);
+      }
+    }
+
+    function filterAdminUsers(list, q) {
+      if (!q) return list;
+      const term = q.toLowerCase();
+      return list.filter(u =>
+        (u.username || '').toLowerCase().includes(term) ||
+        (u.email || '').toLowerCase().includes(term)
+      );
+    }
+
+    async function adminBulkBan(banState) {
+      if (adminSelected.size === 0) { showAdminStatus('No users selected', false); return; }
+      if (!confirm(`Are you sure you want to ${banState ? 'ban' : 'unban'} ${adminSelected.size} user(s)?`)) return;
+      try {
+        const idsArr = Array.from(adminSelected);
+        const { error } = await supabase
+          .from('profiles')
+          .update({ banned: banState })
+          .in('id', idsArr);
+        if (error) throw error;
+        showAdminStatus(`${banState ? 'Banned' : 'Unbanned'} ${idsArr.length} users`);
+        adminUsersCache = adminUsersCache.map(u => adminSelected.has(u.id) ? {...u, banned: banState} : u);
+        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
+      } catch (err) {
+        console.error('adminBulkBan error', err);
+        showAdminStatus('Bulk update failed', false);
+      }
+    }
+
+    async function initAdminUI() {
+      if (adminInitialized) return;
+      adminInitialized = true;
+      const ui = document.getElementById('admin-ui');
+      if (ui) ui.style.display = 'block';
+
+      document.getElementById('admin-go-to-site')?.addEventListener('click', () => {
+        const panel = document.getElementById('admin-panel');
+        if (panel) { panel.scrollIntoView({ behavior: 'smooth', block: 'center' }); panel.classList.add('show'); }
+        const ui = document.getElementById('admin-ui'); if (ui) ui.style.display = 'block';
+      });
+      document.getElementById('admin-refresh-games')?.addEventListener('click', () => {
+        window.dispatchEvent(new Event('refreshGamesRequested'));
+        showAdminStatus('Refresh requested.');
+      });
+      document.getElementById('admin-manage-users')?.addEventListener('click', () => {
+        const ui = document.getElementById('admin-ui'); if (ui) ui.style.display = 'block';
+        document.getElementById('admin-search')?.focus();
+      });
+
+      document.getElementById('admin-refresh')?.addEventListener('click', () => fetchAdminUsers());
+      document.getElementById('admin-bulk-ban')?.addEventListener('click', () => adminBulkBan(true));
+      document.getElementById('admin-bulk-unban')?.addEventListener('click', () => adminBulkBan(false));
+      document.getElementById('admin-search')?.addEventListener('input', (e) => {
+        const q = e.target.value.trim();
+        renderAdminUsers(filterAdminUsers(adminUsersCache, q));
+      });
+
+      await fetchAdminUsers();
+    }
+
+    // Ensure admin UI will init on auth changes as well
+    supabase.auth.onAuthStateChange((event, session) => {
+      // when user signs in/out, showProfile/hideProfile logic will handle UI
+      // nothing else needed here because showProfile triggers initAdminUI()
+      if (session?.user) {
+        showProfile(session.user);
+      } else {
+        // session ended: we'll keep localStorage fallback but hide Supabase-dependent UI
+        const saved = getFromLocalStorage();
+        if (!saved.username) hideProfile();
+        else {
+          // keep local UI visible (restored) but indicate limited session
+          showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+        }
+      }
+    });
+
+    // ---------- DOM event wiring ----------
     document.getElementById('signInBtn').addEventListener('click', () => {
       document.getElementById('signInModal').classList.add('show');
       document.getElementById('signInEmail').focus();
@@ -614,22 +571,34 @@
       }
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
         if (error) {
           showError('Sign in failed: ' + error.message);
-        } else {
+          return;
+        }
+
+        // data may contain session and user
+        const user = data?.user || data?.session?.user;
+        if (user) {
+          // save locally
+          const name = user.user_metadata?.full_name || user.email || email;
+          const avatar = user.user_metadata?.avatar_url || defaultAvatar;
+          saveToLocalStorage(name, avatar);
+
+          showProfile(user);
           showSuccess('Signed in successfully!');
           document.getElementById('signInModal').classList.remove('show');
           document.getElementById('signInEmail').value = '';
           document.getElementById('signInPassword').value = '';
-          const { data: sessionData } = await supabase.auth.getSession();
-          if (sessionData?.session?.user) {
-            showProfile(sessionData.session.user);
-          }
+        } else {
+          // fallback
+          saveToLocalStorage(email, defaultAvatar);
+          showProfile({ full_name: email, email });
+          showSuccess('Signed in (no detailed session returned).');
         }
       } catch (e) {
-        showError('Error: ' + e.message);
+        showError('Error: ' + (e.message || e));
       }
     });
 
@@ -658,7 +627,7 @@
       }
 
       try {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -671,19 +640,22 @@
 
         if (error) {
           showError('Sign up failed: ' + error.message);
-        } else {
-          showSuccess('Account created successfully! You are now signed in.');
-          document.getElementById('signUpModal').classList.remove('show');
-          document.getElementById('signUpEmail').value = '';
-          document.getElementById('signUpPassword').value = '';
-          document.getElementById('signUpUsername').value = '';
-          const { data: sessionData } = await supabase.auth.getSession();
-          if (sessionData?.session?.user) {
-            showProfile(sessionData.session.user);
-          }
+          return;
         }
+
+        // get created user if available
+        const user = data?.user || data?.session?.user;
+        const nameToSave = username || user?.user_metadata?.full_name || email;
+        saveToLocalStorage(nameToSave, defaultAvatar);
+
+        showProfile(user || { full_name: nameToSave, email });
+        showSuccess('Account created successfully! You are now signed in.');
+        document.getElementById('signUpModal').classList.remove('show');
+        document.getElementById('signUpEmail').value = '';
+        document.getElementById('signUpPassword').value = '';
+        document.getElementById('signUpUsername').value = '';
       } catch (e) {
-        showError('Error: ' + e.message);
+        showError('Error: ' + (e.message || e));
       }
     });
 
@@ -700,10 +672,11 @@
     document.getElementById('signOutBtn').addEventListener('click', async () => {
       try {
         await supabase.auth.signOut();
+      } catch (e) {
+        console.warn('Sign out error from supabase:', e);
+      } finally {
         hideProfile();
         showSuccess('Signed out successfully');
-      } catch (e) {
-        showError('Sign out failed: ' + e.message);
       }
     });
 
@@ -751,7 +724,7 @@
         }
 
         try {
-          const { error } = await supabase.auth.updateUser({
+          const { data, error } = await supabase.auth.updateUser({
             data: {
               full_name: newUsername,
               avatar_url: avatarData || document.getElementById('avatarPreview').src
@@ -760,25 +733,62 @@
 
           if (error) {
             showError('Error updating profile: ' + error.message);
+            return;
+          }
+
+          const savedAvatar = avatarData || document.getElementById('avatarPreview').src;
+          saveToLocalStorage(newUsername, savedAvatar);
+          showSuccess('Profile updated successfully!');
+          document.getElementById('editModal').classList.remove('show');
+          avatarUpload.value = '';
+          delete avatarUpload.dataset.base64;
+
+          // refresh session user info if available
+          const { data: sessionData } = await supabase.auth.getSession();
+          if (sessionData?.session?.user) {
+            showProfile(sessionData.session.user);
           } else {
-            saveToLocalStorage(newUsername, avatarData || document.getElementById('avatarPreview').src);
-            showSuccess('Profile updated successfully!');
-            document.getElementById('editModal').classList.remove('show');
-            avatarUpload.value = '';
-            delete avatarUpload.dataset.base64;
-            const { data: sessionData } = await supabase.auth.getSession();
-            if (sessionData?.session?.user) {
-              showProfile(sessionData.session.user);
-            }
+            // fallback to local display
+            showProfile({ full_name: newUsername, avatar: savedAvatar, email: '(restored session)' });
           }
         } catch (e) {
-          showError('Error: ' + e.message);
+          showError('Error: ' + (e.message || e));
         }
       });
     }
 
+    // Bootstrapping auth UI: check Supabase session then localStorage fallback
+    async function initAuth() {
+      try {
+        // Try to restore from a real Supabase session first
+        const { data: sessionData } = await supabase.auth.getSession();
+        const supaUser = sessionData?.session?.user;
+        if (supaUser) {
+          showProfile(supaUser);
+          return;
+        }
+
+        // If no supabase session, try localStorage
+        const saved = getFromLocalStorage();
+        if (saved.username) {
+          // Show local fallback UI (limited)
+          showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+          console.log('Restored UI from localStorage');
+          return;
+        }
+
+        // Nothing to restore
+        hideProfile();
+      } catch (e) {
+        console.error('initAuth error', e);
+        // fallback to localStorage if supabase call failed
+        const saved = getFromLocalStorage();
+        if (saved.username) showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+      }
+    }
+
+    // Initialize on DOM ready
     window.addEventListener('DOMContentLoaded', initAuth);
   </script>
 </body>
-
 </html>

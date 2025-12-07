@@ -110,6 +110,64 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFloatingProfile(storedProfile);
   }
 
+  // AUTH HELPERS + UX
+  function isSignedIn() {
+    try {
+      const p = getProfileFromStorage();
+      return !!(p && (p.email || p.username || p.name));
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function showAuthToast(msg = 'Sign in required') {
+    let t = document.getElementById('nebula-auth-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'nebula-auth-toast';
+      t.style = 'position:fixed;right:20px;bottom:90px;background:#1a73e8;color:white;padding:10px 14px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.4);z-index:2000;font-weight:600';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._hideTimer);
+    t._hideTimer = setTimeout(() => { t.style.opacity = '0'; }, 2200);
+  }
+
+  // Delegate clicks on anchors to enforce auth for internal navigation
+  document.addEventListener('click', (ev) => {
+    const a = ev.target.closest && ev.target.closest('a');
+    if (!a) return;
+
+    // allow external links and links with target blank
+    if (a.target === '_blank') return;
+    const href = a.getAttribute('href');
+    if (!href) return;
+    // allow mailto/tel/hash
+    if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
+    // allow absolute external
+    try {
+      const url = new URL(href, window.location.origin);
+      if (url.origin !== window.location.origin) return; // external
+
+      // allow access to profile page so users can sign in
+      const path = url.pathname || '/';
+      const allowedPublic = ['/', '/profile', '/privacy', '/terms', '/contact'];
+      if (isSignedIn()) return; // signed in -> allow
+
+      if (!allowedPublic.includes(path)) {
+        ev.preventDefault();
+        // optionally remember where to go after sign-in
+        try { sessionStorage.setItem('postAuthRedirect', path + url.search); } catch(e) {}
+        showAuthToast('Please sign in first — redirecting to Profile');
+        window.location.href = '/profile';
+      }
+    } catch (e) {
+      // If parsing fails, allow default behavior
+      return;
+    }
+  });
+
   // Listen for profile updates from other tabs/windows
   window.addEventListener('storage', (e) => {
     if (e.key === STORAGE_KEY) {

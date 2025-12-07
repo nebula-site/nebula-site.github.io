@@ -2,14 +2,30 @@ const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc'
 
 let supabase = null
+let supabasePublic = null
 
-function initSupabase() {
-  if (typeof supabase !== 'undefined' && window.supabase) {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    console.log('✓ Supabase initialized')
+// Replace the old initSupabase implementation with a dynamic import so we don't depend on globals
+async function initSupabase() {
+  try {
+    // Dynamically import supabase client module — keeps this file isolated and avoids touching window
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2')
+
+    // client that may carry user session (if needed)
+    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    // a dedicated public/anon client that will NOT pick up the user's session/localStorage token
+    supabasePublic = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+        detectSessionInUrl: false
+      }
+    })
+
+    console.log('✓ Supabase initialized (menu.js) — public client ready')
     renderButtons()
-  } else {
-    console.error('✗ Supabase library not loaded')
+  } catch (err) {
+    console.error('✗ Supabase init failed (menu.js):', err)
   }
 }
 
@@ -18,7 +34,8 @@ function slugify(name) {
 }
 
 async function addGame(name) {
-  if (!supabase) {
+  const client = supabasePublic || supabase
+  if (!client) {
     console.error('Supabase not initialized')
     return
   }
@@ -28,7 +45,7 @@ async function addGame(name) {
   const image = `/images/game-logos/${name}.png`
   
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from('games')
       .insert([{ name, link, image }])
       .select()
@@ -43,14 +60,15 @@ async function addGame(name) {
 }
 
 async function fetchGames() {
-  if (!supabase) {
+  const client = supabasePublic || supabase
+  if (!client) {
     console.error('Supabase not initialized')
     return []
   }
   
   try {
-    console.log('Fetching games from Supabase...')
-    const { data, error } = await supabase
+    console.log('Fetching games from Supabase (public client)...')
+    const { data, error } = await client
       .from('games')
       .select('*')
       .order('name', { ascending: true })
@@ -66,20 +84,35 @@ async function fetchGames() {
 }
 
 function playGame(game) {
+  // require auth: check unified profile key
+  try {
+    const raw = localStorage.getItem('nebula_profile');
+    const profile = raw ? JSON.parse(raw) : null;
+    if (!profile || !(profile.email || profile.username || profile.name)) {
+      // remember desired target and send to profile to sign in
+      try { sessionStorage.setItem('postAuthRedirect', `/play?game=${encodeURIComponent(game.name)}`); } catch (e) {}
+      window.location.href = '/profile';
+      return;
+    }
+  } catch (e) {
+    window.location.href = '/profile';
+    return;
+  }
+
   // Store game data in sessionStorage for play.html to access
   let gameLink = game.link
-  
+
   // Create slugified game name (lowercase + replace . and space with hyphen)
   const slugifiedName = game.name.toLowerCase().replace(/[. ]+/g, '-')
   gameLink = `/sourceCode/${slugifiedName}`
-  
+
   // Format image path with slugified name
   const gameImage = `/images/game-logos/${slugifiedName}.png`
-  
+
   sessionStorage.setItem('gameLink', gameLink)
   sessionStorage.setItem('gameName', game.name)
   sessionStorage.setItem('gameImage', gameImage)
-  
+
   // Navigate to play.html
   window.location.href = '/play'
 }
