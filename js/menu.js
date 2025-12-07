@@ -34,22 +34,23 @@ function slugify(name) {
 }
 
 async function addGame(name) {
-  const client = supabasePublic || supabase
+  // Require authentication
+  const client = supabase
   if (!client) {
     console.error('Supabase not initialized')
     return
   }
-  
+
   const slug = slugify(name)
   const link = `/sourceCode/${name}`
   const image = `/images/game-logos/${name}.png`
-  
+
   try {
     const { data, error } = await client
       .from('games')
       .insert([{ name, link, image }])
       .select()
-    
+
     if (error) throw error
     console.log('✓ Game added:', data)
     return data
@@ -58,6 +59,7 @@ async function addGame(name) {
     throw error
   }
 }
+
 
 async function fetchGames() {
   const client = supabasePublic || supabase
@@ -153,7 +155,6 @@ async function renderButtons() {
   }
   
   console.log('Rendering buttons...')
-  container.innerHTML = '<p>Loading games...</p>'
   
   try {
     const games = await fetchGames()

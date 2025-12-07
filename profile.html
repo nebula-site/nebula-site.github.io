@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile – Nebula</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
   <link rel="stylesheet" href="/css/main.css" />
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/desc.css" />
   <link rel="stylesheet" href="/css/home.css" />
 
-  <!-- Scripts -->
+  <!-- Optional site scripts (kept deferred) -->
   <script src="/js/main.js" defer></script>
   <script src="/js/game-menu.js" defer></script>
   <script src="/js/navbar.js" defer></script>
@@ -21,7 +21,7 @@
   <script src="/js/particles-config.js" defer></script>
 
   <style>
-    /* (your full style block as provided) */
+    /* Styles (kept from original file) */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: linear-gradient(135deg, #1a0033 0%, #0d001f 100%); color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
     main { max-width: 900px; margin: 40px auto; padding: 24px; text-align: left; background: rgba(255,255,255,0.05); border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.2); backdrop-filter: blur(8px); flex: 1; width: 90%; }
@@ -75,7 +75,6 @@
     .switch-auth-text { text-align: center; margin-top: 16px; color: #aaa; font-size: 0.9rem; }
     .switch-auth-text button { background: none; border: none; color: #a3f7ff; cursor: pointer; text-decoration: underline; font-weight: 600; }
     .switch-auth-text button:hover { color: #fff; }
-    /* Removed admin panel related styles */
   </style>
 </head>
 
@@ -116,6 +115,7 @@
       <div class="auth-buttons">
         <button class="btn btn-primary" id="signInBtn">Sign In</button>
         <button class="btn btn-secondary" id="signUpBtn">Sign Up</button>
+        <!-- GitHub OAuth button (saves email to localStorage after login) -->
       </div>
     </section>
   </main>
@@ -200,10 +200,11 @@
     </nav>
   </footer>
 
-  <!-- Supabase Auth Logic with LocalStorage -->
+  <!-- Supabase Auth Logic with LocalStorage (saves email too) -->
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
+    // Supabase config (leave as-is or replace)
     const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc';
 
@@ -212,6 +213,47 @@
 
     const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23a3f7ff" opacity="0.2"/%3E%3Ccircle cx="50" cy="50" r="35" fill="none" stroke="%23a3f7ff" stroke-width="2"/%3E%3C/svg%3E';
 
+    // --------------------------
+    // localStorage helpers (email included)
+    // --------------------------
+    function saveToLocalStorage(username, avatarUrl, email) {
+      try {
+        if (username !== undefined && username !== null) localStorage.setItem('nebula_username', username);
+        if (avatarUrl !== undefined && avatarUrl !== null) localStorage.setItem('nebula_avatar', avatarUrl);
+        if (email !== undefined && email !== null) localStorage.setItem('nebula_email', email);
+        console.log('Saved to localStorage:', { username, email });
+      } catch (e) {
+        console.error('Error saving to localStorage:', e);
+      }
+    }
+
+    function getFromLocalStorage() {
+      try {
+        return {
+          username: localStorage.getItem('nebula_username'),
+          avatar: localStorage.getItem('nebula_avatar'),
+          email: localStorage.getItem('nebula_email')
+        };
+      } catch (e) {
+        console.error('Error reading from localStorage:', e);
+        return { username: null, avatar: null, email: null };
+      }
+    }
+
+    function clearLocalStorage() {
+      try {
+        localStorage.removeItem('nebula_username');
+        localStorage.removeItem('nebula_avatar');
+        localStorage.removeItem('nebula_email');
+        console.log('Cleared localStorage');
+      } catch (e) {
+        console.error('Error clearing localStorage:', e);
+      }
+    }
+
+    // --------------------------
+    // UI helpers
+    // --------------------------
     function showError(msg) {
       const el = document.getElementById('error-message');
       el.textContent = msg;
@@ -226,47 +268,15 @@
       setTimeout(() => { el.style.display = 'none'; }, 3000);
     }
 
-    function saveToLocalStorage(username, avatarUrl) {
-      try {
-        localStorage.setItem('nebula_username', username);
-        localStorage.setItem('nebula_avatar', avatarUrl);
-        console.log('Saved to localStorage:', { username });
-      } catch (e) {
-        console.error('Error saving to localStorage:', e);
-      }
-    }
-
-    function getFromLocalStorage() {
-      try {
-        return {
-          username: localStorage.getItem('nebula_username'),
-          avatar: localStorage.getItem('nebula_avatar')
-        };
-      } catch (e) {
-        console.error('Error reading from localStorage:', e);
-        return { username: null, avatar: null };
-      }
-    }
-
-    function clearLocalStorage() {
-      try {
-        localStorage.removeItem('nebula_username');
-        localStorage.removeItem('nebula_avatar');
-        console.log('Cleared localStorage');
-      } catch (e) {
-        console.error('Error clearing localStorage:', e);
-      }
-    }
-
     function showProfile(userOrFake) {
-      // userOrFake may be a real Supabase user object or a local "fake" object
+      // Accept Supabase user object OR local saved object
       const metadata = (userOrFake && userOrFake.user_metadata) ? userOrFake.user_metadata : {};
       const name = metadata.full_name || userOrFake?.full_name || userOrFake?.username || userOrFake?.name || userOrFake?.email || 'User';
       const avatar = metadata.avatar_url || userOrFake?.avatar || userOrFake?.avatar_url || defaultAvatar;
-      const email = userOrFake?.email || '(restored session)';
+      const email = userOrFake?.email || userOrFake?.user?.email || userOrFake?.user_email || userOrFake?.user_metadata?.email || getFromLocalStorage().email || '(no email)';
 
-      // persist locally
-      saveToLocalStorage(name, avatar);
+      // persist locally (username/avatar/email)
+      saveToLocalStorage(name, avatar, email);
 
       document.getElementById('profile-status').textContent = `Signed in as ${email}`;
       document.getElementById('profile-name').textContent = name;
@@ -285,9 +295,6 @@
       } catch (e) {
         console.warn('Could not dispatch nebulaProfileUpdated event', e);
       }
-
-      // init admin UI if present
-      try { if (typeof initAdminUI === 'function') initAdminUI(); } catch(e){ /* ignore */ }
     }
 
     function hideProfile() {
@@ -300,253 +307,29 @@
       document.getElementById('signInModal').classList.remove('show');
       document.getElementById('signUpModal').classList.remove('show');
 
-      // Remove any admin button if previously inserted (safe-guard)
-      try {
-        const adminBtn = document.getElementById('adminBtn');
-        if (adminBtn && adminBtn.parentNode) adminBtn.parentNode.removeChild(adminBtn);
-        window.dispatchEvent(new CustomEvent('nebulaProfileUpdated', { detail: null }));
-      } catch (e) {
-        console.warn('Could not dispatch nebulaProfileUpdated event', e);
-      }
+      // dispatch cleared profile
+      try { window.dispatchEvent(new CustomEvent('nebulaProfileUpdated', { detail: null })); } catch(e){}
     }
 
-    // =========================
-    // Admin-related helpers (kept from your original)
-    // =========================
-    let adminUsersCache = [];
-    let adminSelected = new Set();
-    let adminInitialized = false;
-
-    function showAdminStatus(msg, ok = true, timeout = 3000) {
-      const el = document.getElementById('admin-status');
-      if (!el) return;
-      el.textContent = msg;
-      el.style.color = ok ? '#bff3df' : '#ffb3b3';
-      if (timeout) setTimeout(()=> { el.textContent = '' }, timeout);
-    }
-
-    async function fetchAdminUsers() {
-      try {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('id, username, email, avatar, avatar_url, banned, created_at')
-          .order('created_at', { ascending: false })
-          .limit(1000);
-        if (error) throw error;
-        adminUsersCache = (data || []).map(u => ({
-          id: u.id,
-          username: u.username || u.full_name || '',
-          email: u.email || '',
-          avatar: u.avatar || u.avatar_url || '/images/user.png',
-          banned: !!u.banned,
-          created_at: u.created_at || null
-        }));
-        renderAdminUsers(adminUsersCache);
-      } catch (err) {
-        console.error('fetchAdminUsers error', err);
-        showAdminStatus('Error loading users', false, 5000);
-      }
-    }
-
-    function renderAdminUsers(list) {
-      const container = document.getElementById('admin-users');
-      const empty = document.getElementById('admin-empty');
-      adminSelected.clear();
-      updateAdminBulkButtons();
-
-      if (!list || list.length === 0) {
-        if (empty) empty.style.display = 'block';
-        if (container) container.style.display = 'none';
-        return;
-      }
-      if (empty) empty.style.display = 'none';
-      if (container) container.style.display = 'grid';
-      container.innerHTML = '';
-
-      list.forEach(u => {
-        const card = document.createElement('div');
-        card.className = 'admin-user';
-
-        const img = document.createElement('img');
-        img.className = 'admin-avatar';
-        img.src = u.avatar;
-        img.alt = u.username || u.email || 'avatar';
-
-        const meta = document.createElement('div');
-        meta.className = 'admin-meta';
-
-        const top = document.createElement('div');
-        top.style.display = 'flex';
-        top.style.justifyContent = 'space-between';
-        top.style.alignItems = 'center';
-
-        const name = document.createElement('div');
-        name.className = 'admin-name';
-        name.textContent = u.username || '(no name)';
-
-        const badge = document.createElement('div');
-        badge.className = 'badge ' + (u.banned ? 'banned' : 'ok');
-        badge.textContent = u.banned ? 'BANNED' : 'OK';
-
-        top.appendChild(name);
-        top.appendChild(badge);
-
-        const email = document.createElement('div');
-        email.className = 'admin-email';
-        email.textContent = u.email || '';
-
-        const controls = document.createElement('div');
-        controls.className = 'admin-controls-row';
-
-        const chk = document.createElement('input');
-        chk.type = 'checkbox';
-        chk.addEventListener('change', (e) => {
-          if (e.target.checked) adminSelected.add(u.id);
-          else adminSelected.delete(u.id);
-          updateAdminBulkButtons();
-        });
-        controls.appendChild(chk);
-
-        const banBtn = document.createElement('button');
-        banBtn.className = 'btn';
-        banBtn.style.background = u.banned ? '#444' : '#ff6b6b';
-        banBtn.style.color = '#fff';
-        banBtn.textContent = u.banned ? 'Unban' : 'Ban';
-        banBtn.onclick = () => adminToggleBan(u.id, !u.banned);
-        controls.appendChild(banBtn);
-
-        const delBtn = document.createElement('button');
-        delBtn.className = 'btn';
-        delBtn.style.background = '#6c5ce7';
-        delBtn.style.color = '#fff';
-        delBtn.textContent = 'Delete';
-        delBtn.onclick = () => adminDeleteUser(u.id, u.username || u.email);
-        controls.appendChild(delBtn);
-
-        meta.appendChild(top);
-        meta.appendChild(email);
-        meta.appendChild(controls);
-
-        card.appendChild(img);
-        card.appendChild(meta);
-        container.appendChild(card);
-      });
-    }
-
-    function updateAdminBulkButtons() {
-      const any = adminSelected.size > 0;
-      const banBtn = document.getElementById('admin-bulk-ban');
-      const unbanBtn = document.getElementById('admin-bulk-unban');
-      if (banBtn) banBtn.disabled = !any;
-      if (unbanBtn) unbanBtn.disabled = !any;
-    }
-
-    async function adminToggleBan(id, banState) {
-      if (!confirm(`Are you sure you want to ${banState ? 'ban' : 'unban'} this user?`)) return;
-      try {
-        const { error } = await supabase
-          .from('profiles')
-          .update({ banned: banState })
-          .eq('id', id);
-        if (error) throw error;
-        showAdminStatus(banState ? 'User banned' : 'User unbanned');
-        adminUsersCache = adminUsersCache.map(u => u.id === id ? {...u, banned: banState} : u);
-        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
-      } catch (err) {
-        console.error('adminToggleBan error', err);
-        showAdminStatus('Failed to update ban status', false);
-      }
-    }
-
-    async function adminDeleteUser(id, display) {
-      if (!confirm(`Delete user "${display}"? This cannot be undone (profile row only).`)) return;
-      try {
-        const { error } = await supabase
-          .from('profiles')
-          .delete()
-          .eq('id', id);
-        if (error) throw error;
-        showAdminStatus('User deleted');
-        adminUsersCache = adminUsersCache.filter(u => u.id !== id);
-        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
-      } catch (err) {
-        console.error('adminDeleteUser error', err);
-        showAdminStatus('Failed to delete user', false);
-      }
-    }
-
-    function filterAdminUsers(list, q) {
-      if (!q) return list;
-      const term = q.toLowerCase();
-      return list.filter(u =>
-        (u.username || '').toLowerCase().includes(term) ||
-        (u.email || '').toLowerCase().includes(term)
-      );
-    }
-
-    async function adminBulkBan(banState) {
-      if (adminSelected.size === 0) { showAdminStatus('No users selected', false); return; }
-      if (!confirm(`Are you sure you want to ${banState ? 'ban' : 'unban'} ${adminSelected.size} user(s)?`)) return;
-      try {
-        const idsArr = Array.from(adminSelected);
-        const { error } = await supabase
-          .from('profiles')
-          .update({ banned: banState })
-          .in('id', idsArr);
-        if (error) throw error;
-        showAdminStatus(`${banState ? 'Banned' : 'Unbanned'} ${idsArr.length} users`);
-        adminUsersCache = adminUsersCache.map(u => adminSelected.has(u.id) ? {...u, banned: banState} : u);
-        renderAdminUsers(filterAdminUsers(adminUsersCache, document.getElementById('admin-search')?.value?.trim() || ''));
-      } catch (err) {
-        console.error('adminBulkBan error', err);
-        showAdminStatus('Bulk update failed', false);
-      }
-    }
-
-    async function initAdminUI() {
-      if (adminInitialized) return;
-      adminInitialized = true;
-      const ui = document.getElementById('admin-ui');
-      if (ui) ui.style.display = 'block';
-
-      document.getElementById('admin-go-to-site')?.addEventListener('click', () => {
-        const panel = document.getElementById('admin-panel');
-        if (panel) { panel.scrollIntoView({ behavior: 'smooth', block: 'center' }); panel.classList.add('show'); }
-        const ui = document.getElementById('admin-ui'); if (ui) ui.style.display = 'block';
-      });
-      document.getElementById('admin-refresh-games')?.addEventListener('click', () => {
-        window.dispatchEvent(new Event('refreshGamesRequested'));
-        showAdminStatus('Refresh requested.');
-      });
-      document.getElementById('admin-manage-users')?.addEventListener('click', () => {
-        const ui = document.getElementById('admin-ui'); if (ui) ui.style.display = 'block';
-        document.getElementById('admin-search')?.focus();
-      });
-
-      document.getElementById('admin-refresh')?.addEventListener('click', () => fetchAdminUsers());
-      document.getElementById('admin-bulk-ban')?.addEventListener('click', () => adminBulkBan(true));
-      document.getElementById('admin-bulk-unban')?.addEventListener('click', () => adminBulkBan(false));
-      document.getElementById('admin-search')?.addEventListener('input', (e) => {
-        const q = e.target.value.trim();
-        renderAdminUsers(filterAdminUsers(adminUsersCache, q));
-      });
-
-      await fetchAdminUsers();
-    }
-
-    // Ensure admin UI will init on auth changes as well
+    // --------------------------
+    // Auth state listener (capture OAuth / sign-ins)
+    // --------------------------
     supabase.auth.onAuthStateChange((event, session) => {
-      // when user signs in/out, showProfile/hideProfile logic will handle UI
-      // nothing else needed here because showProfile triggers initAdminUI()
       if (session?.user) {
-        showProfile(session.user);
+        // Save email on any successful sign-in (including OAuth)
+        const u = session.user;
+        const name = u.user_metadata?.full_name || u.email || getFromLocalStorage().username;
+        const avatar = u.user_metadata?.avatar_url || getFromLocalStorage().avatar || defaultAvatar;
+        const email = u.email || getFromLocalStorage().email || '';
+        saveToLocalStorage(name, avatar, email);
+        showProfile(u);
       } else {
-        // session ended: we'll keep localStorage fallback but hide Supabase-dependent UI
+        // session ended: fallback to localStorage UI if present
         const saved = getFromLocalStorage();
-        if (!saved.username) hideProfile();
-        else {
-          // keep local UI visible (restored) but indicate limited session
-          showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+        if (saved.username || saved.email) {
+          showProfile({ full_name: saved.username, avatar: saved.avatar, email: saved.email || '(restored)' });
+        } else {
+          hideProfile();
         }
       }
     });
@@ -572,31 +355,28 @@
 
       try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
         if (error) {
           showError('Sign in failed: ' + error.message);
           return;
         }
 
-        // data may contain session and user
+        // user info may be in data.user or data.session.user
         const user = data?.user || data?.session?.user;
         if (user) {
-          // save locally
-          const name = user.user_metadata?.full_name || user.email || email;
+          const name = user.user_metadata?.full_name || email;
           const avatar = user.user_metadata?.avatar_url || defaultAvatar;
-          saveToLocalStorage(name, avatar);
-
+          saveToLocalStorage(name, avatar, email);
           showProfile(user);
-          showSuccess('Signed in successfully!');
-          document.getElementById('signInModal').classList.remove('show');
-          document.getElementById('signInEmail').value = '';
-          document.getElementById('signInPassword').value = '';
         } else {
-          // fallback
-          saveToLocalStorage(email, defaultAvatar);
+          // fallback minimal save
+          saveToLocalStorage(email, defaultAvatar, email);
           showProfile({ full_name: email, email });
-          showSuccess('Signed in (no detailed session returned).');
         }
+
+        showSuccess('Signed in successfully!');
+        document.getElementById('signInModal').classList.remove('show');
+        document.getElementById('signInEmail').value = '';
+        document.getElementById('signInPassword').value = '';
       } catch (e) {
         showError('Error: ' + (e.message || e));
       }
@@ -643,12 +423,9 @@
           return;
         }
 
-        // get created user if available
-        const user = data?.user || data?.session?.user;
-        const nameToSave = username || user?.user_metadata?.full_name || email;
-        saveToLocalStorage(nameToSave, defaultAvatar);
-
-        showProfile(user || { full_name: nameToSave, email });
+        // Save locally the new account's details (email included)
+        saveToLocalStorage(username, defaultAvatar, email);
+        showProfile(data?.user || { full_name: username, email });
         showSuccess('Account created successfully! You are now signed in.');
         document.getElementById('signUpModal').classList.remove('show');
         document.getElementById('signUpEmail').value = '';
@@ -667,6 +444,17 @@
     document.getElementById('switchToSignIn').addEventListener('click', () => {
       document.getElementById('signUpModal').classList.remove('show');
       document.getElementById('signInModal').classList.add('show');
+    });
+
+    // GitHub OAuth button: opens Supabase OAuth flow. onAuthStateChange saves email automatically.
+    document.getElementById('githubBtn').addEventListener('click', async () => {
+      try {
+        // This will redirect the user to GitHub for authentication (or open popup depending on your Supabase settings)
+        await supabase.auth.signInWithOAuth({ provider: 'github' });
+        // after redirect/callback, onAuthStateChange will run and save email
+      } catch (e) {
+        showError('GitHub sign-in failed: ' + (e.message || e));
+      }
     });
 
     document.getElementById('signOutBtn').addEventListener('click', async () => {
@@ -715,8 +503,8 @@
     if (saveProfileBtn) {
       saveProfileBtn.addEventListener('click', async () => {
         const newUsername = document.getElementById('editUsername').value.trim();
-        const avatarUpload = document.getElementById('avatarUpload');
-        let avatarData = avatarUpload.dataset.base64 || null;
+        const avatarUploadEl = document.getElementById('avatarUpload');
+        let avatarData = avatarUploadEl.dataset.base64 || null;
 
         if (!newUsername) {
           showError('Username cannot be empty');
@@ -737,19 +525,20 @@
           }
 
           const savedAvatar = avatarData || document.getElementById('avatarPreview').src;
-          saveToLocalStorage(newUsername, savedAvatar);
+          // keep current email if present
+          const savedEmail = getFromLocalStorage().email || (data?.user?.email) || '(restored)';
+          saveToLocalStorage(newUsername, savedAvatar, savedEmail);
+
           showSuccess('Profile updated successfully!');
           document.getElementById('editModal').classList.remove('show');
-          avatarUpload.value = '';
-          delete avatarUpload.dataset.base64;
+          avatarUploadEl.value = '';
+          delete avatarUploadEl.dataset.base64;
 
-          // refresh session user info if available
           const { data: sessionData } = await supabase.auth.getSession();
           if (sessionData?.session?.user) {
             showProfile(sessionData.session.user);
           } else {
-            // fallback to local display
-            showProfile({ full_name: newUsername, avatar: savedAvatar, email: '(restored session)' });
+            showProfile({ full_name: newUsername, avatar: savedAvatar, email: savedEmail });
           }
         } catch (e) {
           showError('Error: ' + (e.message || e));
@@ -764,15 +553,19 @@
         const { data: sessionData } = await supabase.auth.getSession();
         const supaUser = sessionData?.session?.user;
         if (supaUser) {
+          // ensure local saved values updated from real user
+          const name = supaUser.user_metadata?.full_name || supaUser.email;
+          const avatar = supaUser.user_metadata?.avatar_url || defaultAvatar;
+          saveToLocalStorage(name, avatar, supaUser.email);
           showProfile(supaUser);
           return;
         }
 
         // If no supabase session, try localStorage
         const saved = getFromLocalStorage();
-        if (saved.username) {
+        if (saved.username || saved.email) {
           // Show local fallback UI (limited)
-          showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+          showProfile({ full_name: saved.username, avatar: saved.avatar, email: saved.email });
           console.log('Restored UI from localStorage');
           return;
         }
@@ -783,7 +576,7 @@
         console.error('initAuth error', e);
         // fallback to localStorage if supabase call failed
         const saved = getFromLocalStorage();
-        if (saved.username) showProfile({ full_name: saved.username, avatar: saved.avatar, email: '(restored session)' });
+        if (saved.username || saved.email) showProfile({ full_name: saved.username, avatar: saved.avatar, email: saved.email });
       }
     }
 
@@ -791,4 +584,5 @@
     window.addEventListener('DOMContentLoaded', initAuth);
   </script>
 </body>
+
 </html>
