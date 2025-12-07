@@ -392,36 +392,55 @@
     });
 
     document.getElementById('createAccountBtn').addEventListener('click', async () => {
-      const email = document.getElementById('signUpEmail').value.trim();
-      const username = document.getElementById('signUpUsername').value.trim();
-      const password = document.getElementById('signUpPassword').value;
+    document.getElementById('createAccountBtn').addEventListener('click', async () => {
+  const email = document.getElementById('signUpEmail').value.trim();
+  const username = document.getElementById('signUpUsername').value.trim();
+  const password = document.getElementById('signUpPassword').value;
 
-      if (!email || !password || !username) {
-        showError('Please fill in all fields');
-        return;
-      }
+  if (!email || !password || !username) {
+    showError('Please fill in all fields');
+    return;
+  }
 
-      if (password.length < 6) {
-        showError('Password must be at least 6 characters');
-        return;
-      }
+  if (password.length < 6) {
+    showError('Password must be at least 6 characters');
+    return;
+  }
 
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: username,
-              avatar_url: defaultAvatar
-            }
-          }
-        });
-
-        if (error) {
-          showError('Sign up failed: ' + error.message);
-          return;
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: window.location.origin + '/profile.html', 
+        data: {
+          full_name: username,
+          avatar_url: defaultAvatar
         }
+      }
+    });
+
+    if (error) {
+      showError('Sign up failed: ' + error.message);
+      return;
+    }
+
+    // Show message that the user MUST check email
+    showSuccess('Account created! Please check your email to verify your account.');
+
+    // Do NOT auto sign them in until verified
+    document.getElementById('signUpModal').classList.remove('show');
+
+    // Clear fields
+    document.getElementById('signUpEmail').value = '';
+    document.getElementById('signUpPassword').value = '';
+    document.getElementById('signUpUsername').value = '';
+
+  } catch (e) {
+    showError('Error: ' + (e.message || e));
+  }
+});
+
 
         // Save locally the new account's details (email included)
         saveToLocalStorage(username, defaultAvatar, email);
