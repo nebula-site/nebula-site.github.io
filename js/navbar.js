@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const defaultAvatar = "/images/user.png";
   const STORAGE_KEY = 'nebula_profile';
 
+  // --- CONSTANT FOR ADMIN CHECK ---
+  const ADMIN_EMAIL_CHECK = 'REESDOLSEN@GMAIL.COM'.toUpperCase().trim();
+
+
   /* ==================================
      SYNC UTILITY FUNCTIONS
   ================================== */
@@ -11,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
       updateFloatingProfile(profile);
+      checkAdminStatusAndDispatch(profile); 
       return profile;
     } catch (e) {
       console.error('Storage error:', e);
@@ -31,10 +36,31 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       localStorage.removeItem(STORAGE_KEY);
       updateFloatingProfile(null);
+      checkAdminStatusAndDispatch(null);
     } catch (e) {
       console.error('Storage error:', e);
     }
   }
+
+  /* ==================================
+     ADMIN STATUS CHECK AND DISPATCHER
+  ================================== */
+
+  function checkAdminStatusAndDispatch(profile) {
+      const currentProfile = profile || getProfileFromStorage();
+      
+      const currentUserEmail = currentProfile?.email?.toUpperCase().trim() || null;
+      
+      const isAdmin = currentUserEmail === ADMIN_EMAIL_CHECK;
+
+      console.log(`[Admin Check Dispatch - Navbar] User: ${currentUserEmail || 'None'} | IsAdmin: ${isAdmin}`);
+
+      window.dispatchEvent(new CustomEvent('adminStatusChecked', {
+          detail: { isAdmin: isAdmin, email: currentUserEmail }
+      }));
+  }
+  // -------------------------------------------------
+
 
   /* ==================================
      NEW NAVBAR (BOTTOM-LEFT)
@@ -54,6 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/forms"><i class="fa fa-clipboard-list"></i></a>
           <a href="/profile"><i class="fa fa-user"></i></a>
           <a href="/reviews"><i class="fa fa-star"></i></a>
+
+          <!-- ADMIN NAV BUTTON (only appears if admin) -->
+          <a href="/admin" id="admin-nav-btn" style="display:none;">
+            <i class="fa fa-crown"></i>
+          </a>
+
           <a class="extra"><i class="fa fa-plus"></i></a>
 
           <div class="extra-buttons">
@@ -109,8 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (storedProfile) {
     updateFloatingProfile(storedProfile);
   }
+  
+  checkAdminStatusAndDispatch(storedProfile);
 
-  // AUTH HELPERS + UX
+
+  /* ==================================
+     AUTH HELPERS + UX
+  ================================== */
+
   function isSignedIn() {
     try {
       const p = getProfileFromStorage();
@@ -134,49 +172,43 @@ document.addEventListener('DOMContentLoaded', () => {
     t._hideTimer = setTimeout(() => { t.style.opacity = '0'; }, 2200);
   }
 
-  // Delegate clicks on anchors to enforce auth for internal navigation
   document.addEventListener('click', (ev) => {
     const a = ev.target.closest && ev.target.closest('a');
     if (!a) return;
 
-    // allow external links and links with target blank
     if (a.target === '_blank') return;
     const href = a.getAttribute('href');
     if (!href) return;
-    // allow mailto/tel/hash
+
     if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
-    // allow absolute external
+
     try {
       const url = new URL(href, window.location.origin);
-      if (url.origin !== window.location.origin) return; // external
+      if (url.origin !== window.location.origin) return;
 
-      // allow access to profile page so users can sign in
       const path = url.pathname || '/';
       const allowedPublic = ['/', '/profile', '/privacy', '/terms', '/contact'];
-      if (isSignedIn()) return; // signed in -> allow
+      if (isSignedIn()) return;
 
       if (!allowedPublic.includes(path)) {
         ev.preventDefault();
-        // optionally remember where to go after sign-in
         try { sessionStorage.setItem('postAuthRedirect', path + url.search); } catch(e) {}
         showAuthToast('Please sign in first — redirecting to Profile');
         window.location.href = '/profile';
       }
     } catch (e) {
-      // If parsing fails, allow default behavior
       return;
     }
   });
 
-  // Listen for profile updates from other tabs/windows
   window.addEventListener('storage', (e) => {
     if (e.key === STORAGE_KEY) {
       const updated = e.newValue ? JSON.parse(e.newValue) : null;
       updateFloatingProfile(updated);
+      checkAdminStatusAndDispatch(updated);
     }
   });
 
-  // Listen for custom profile update events (from profile page)
   window.addEventListener('nebulaProfileUpdated', (e) => {
     const profile = e.detail;
     if (profile) {
@@ -188,12 +220,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     MAKE FUNCTIONS GLOBALLY AVAILABLE
+     ADMIN NAV ICON VISIBILITY
   ================================== */
 
-  window.nebulaSaveProfile = saveProfileToStorage;
-  window.nebulaClearProfile = clearProfileStorage;
-  window.nebulaGetProfile = getProfileFromStorage;
+  window.addEventListener('adminStatusChecked', (e) => {
+    const btn = document.getElementById('admin-nav-btn');
+    if (!btn) return;
+
+    btn.style.display = e.detail.isAdmin ? "inline-flex" : "none";
+  });
 
 
   /* ==================================
