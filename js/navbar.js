@@ -299,12 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ADMIN NAV ICON VISIBILITY
   ================================== */
 
-  window.addEventListener('adminStatusChecked', (e) => {
-    const btn = document.getElementById('admin-nav-btn');
-    if (!btn) return;
-
-    btn.style.display = e.detail.isAdmin ? "inline-flex" : "none";
-  });
 
 
   /* ==================================
