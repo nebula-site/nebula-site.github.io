@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     SYNC UTILITY FUNCTIONS
+      SYNC UTILITY FUNCTIONS
   ================================== */
 
   function saveProfileToStorage(profile) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
       updateFloatingProfile(profile);
-      checkAdminStatusAndDispatch(profile); 
+      checkAdminStatusAndDispatch(profile);
       return profile;
     } catch (e) {
       console.error('Storage error:', e);
@@ -43,7 +43,86 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==================================
-     ADMIN STATUS CHECK AND DISPATCHER
+      PROFILE FETCHING - ADDED SECTION
+      *** REPLACE THIS WITH YOUR ACTUAL AUTH FLOW ***
+  ================================== */
+
+  /**
+   * MOCK FUNCTION: Simulates getting the profile from an API or Auth library.
+   *
+   * In a real application, this would:
+   * 1. Check if the user has an active session (e.g., check for a cookie or an active auth token).
+   * 2. Make an AJAX call to your server or use an SDK (like Firebase, Google Auth)
+   * to get the current user's details.
+   *
+   * @returns {Promise<Object | null>} The profile object or null if not signed in.
+   */
+  async function fetchUserProfileFromAuthSource() {
+    // --- START: Mock Data/Logic for Demonstration ---
+    console.log("[AUTH] Attempting to fetch profile from server...");
+
+    // 1. Check for a hypothetical 'auth_token' cookie or session variable
+    // For this example, let's assume a token exists for a mock user 50% of the time
+    // and for the Admin 10% of the time.
+    const mockIsSignedIn = Math.random() < 0.6;
+    if (!mockIsSignedIn) {
+        console.log("[AUTH] No active session found.");
+        return null;
+    }
+
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Simulate getting a signed-in user's data
+    let mockProfile = {
+      id: "user12345",
+      name: "Nebula User",
+      email: "user@example.com",
+      picture: "https://i.pravatar.cc/150?img=1" // Placeholder avatar
+    };
+
+    // Simulate Admin being signed in sometimes
+    const mockIsAdmin = Math.random() < 0.1;
+    if (mockIsAdmin) {
+        mockProfile.name = "Site Administrator";
+        mockProfile.email = ADMIN_EMAIL_CHECK;
+        mockProfile.picture = "https://i.pravatar.cc/150?img=5";
+    }
+
+    console.log("[AUTH] Profile fetched successfully:", mockProfile.email);
+    return mockProfile;
+    // --- END: Mock Data/Logic for Demonstration ---
+  }
+
+  /**
+   * The new primary initialization function.
+   */
+  async function initializeProfile() {
+    const storedProfile = getProfileFromStorage();
+
+    if (storedProfile) {
+      console.log("[INIT] Using profile from Local Storage.");
+      updateFloatingProfile(storedProfile);
+      checkAdminStatusAndDispatch(storedProfile);
+      return;
+    }
+
+    // If no profile in storage, attempt to fetch from the authentication source
+    console.log("[INIT] No profile in storage. Attempting to fetch from Auth Source.");
+    const fetchedProfile = await fetchUserProfileFromAuthSource();
+
+    if (fetchedProfile) {
+      // Save the fetched profile to storage for next time
+      saveProfileToStorage(fetchedProfile);
+    } else {
+      // Still no profile, ensure UI is set to 'Guest'/'Sign In'
+      updateFloatingProfile(null);
+      checkAdminStatusAndDispatch(null);
+    }
+  }
+
+  /* ==================================
+      ADMIN STATUS CHECK AND DISPATCHER
   ================================== */
 
   function checkAdminStatusAndDispatch(profile) {
@@ -63,47 +142,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     NEW NAVBAR (BOTTOM-LEFT)
+      NEW NAVBAR (BOTTOM-LEFT)
   ================================== */
 
   const navbarHTML = `
-    <nav class="navbar">
-      <div class="nav-left-bg">
-        <a href="/" class="logo">
-          <img src="/images/favicon.png">
-        </a>
+      <nav class="navbar">
+          <div class="nav-left-bg">
+              <a href="/" class="logo">
+                  <img src="/images/favicon.png">
+              </a>
 
-        <div class="nav-links">
-          <a href="/home"><i class="fa fa-home"></i></a>
-          <a href="/games"><i class="fa fa-gamepad"></i></a>
-          <a href="/ai"><i class="fa fa-robot"></i></a>
-          <a href="/forms"><i class="fa fa-clipboard-list"></i></a>
-          <a href="/profile"><i class="fa fa-user"></i></a>
-          <a href="/reviews"><i class="fa fa-star"></i></a>
+              <div class="nav-links">
+                  <a href="/home"><i class="fa fa-home"></i></a>
+                  <a href="/games"><i class="fa fa-gamepad"></i></a>
+                  <a href="/ai"><i class="fa fa-robot"></i></a>
+                  <a href="/forms"><i class="fa fa-clipboard-list"></i></a>
+                  <a href="/profile"><i class="fa fa-user"></i></a>
+                  <a href="/reviews"><i class="fa fa-star"></i></a>
 
-          <!-- ADMIN NAV BUTTON (only appears if admin) -->
-          <a href="/admin" id="admin-nav-btn" style="display:none;">
-            <i class="fa fa-crown"></i>
-          </a>
+                  <a href="/admin" id="admin-nav-btn" style="display:none;">
+                      <i class="fa fa-crown"></i>
+                  </a>
 
-          <a class="extra"><i class="fa fa-plus"></i></a>
+                  <a class="extra"><i class="fa fa-plus"></i></a>
 
-          <div class="extra-buttons">
-            <a href="https://github.com/nebula-site" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="/terms"><i class="fa fa-clipboard-check"></i></a>
-            <a href="/privacy"><i class="fa fa-user-lock"></i></a>
-            <a href="/contact"><i class="fa fa-envelope"></i></a>
+                  <div class="extra-buttons">
+                      <a href="https://github.com/nebula-site" target="_blank"><i class="fa-brands fa-github"></i></a>
+                      <a href="/terms"><i class="fa fa-clipboard-check"></i></a>
+                      <a href="/privacy"><i class="fa fa-user-lock"></i></a>
+                      <a href="/contact"><i class="fa fa-envelope"></i></a>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </nav>
+      </nav>
   `;
 
   document.body.insertAdjacentHTML("afterbegin", navbarHTML);
 
 
   /* ==================================
-     FLOATING PROFILE — BOTTOM-RIGHT
+      FLOATING PROFILE — BOTTOM-RIGHT
   ================================== */
 
   const profileLink = document.createElement("a");
@@ -117,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     UPDATE FLOATING PROFILE WIDGET
+      UPDATE FLOATING PROFILE WIDGET
   ================================== */
 
   function updateFloatingProfile(profile) {
@@ -127,26 +205,24 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = defaultAvatar;
       name.textContent = "Sign In";
     } else {
+      // Use the first available avatar property
       img.src = profile.picture || profile.avatar || defaultAvatar;
+      // Use the first available name property
       name.textContent = profile.name || profile.username || "User";
     }
   }
 
 
   /* ==================================
-     INITIALIZE FROM LOCAL STORAGE
+      INITIALIZE PROFILE STATE
+      *** NOW CALLS THE ASYNC INITIALIZER ***
   ================================== */
 
-  const storedProfile = getProfileFromStorage();
-  if (storedProfile) {
-    updateFloatingProfile(storedProfile);
-  }
-  
-  checkAdminStatusAndDispatch(storedProfile);
+  initializeProfile();
 
 
   /* ==================================
-     AUTH HELPERS + UX
+      AUTH HELPERS + UX
   ================================== */
 
   function isSignedIn() {
@@ -220,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     ADMIN NAV ICON VISIBILITY
+      ADMIN NAV ICON VISIBILITY
   ================================== */
 
   window.addEventListener('adminStatusChecked', (e) => {
@@ -232,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ==================================
-     EXTRAS MENU
+      EXTRAS MENU
   ================================== */
 
   const extraBtn = document.querySelector(".extra");
