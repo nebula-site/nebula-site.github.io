@@ -278,11 +278,17 @@ window.addEventListener('load', () => {
     // Retrieve dynamic data from sessionStorage
     const link = sessionStorage.getItem('gameLink');
     const name = sessionStorage.getItem('gameName') || "Galaxy Quest";
-    const img = sessionStorage.getItem('gameImage') || "https://via.placeholder.com/60x40?text=Icon"; // Updated placeholder size for 60x40
+    const img = sessionStorage.getItem('gameImage') || "https://via.placeholder.com/60x40?text=Icon"; 
 
-    // 1. Set the Iframe source immediately
-    const gameSource = link || 'https://neal.fun/deep-sea/'; // Fallback for demonstration
-    myIframe.src = gameSource;
+    // NEW FALLBACK LOGIC: If no gameLink is found, redirect to /games immediately
+    if (!link) {
+        console.warn("No gameLink found in sessionStorage. Redirecting to home.");
+        window.location.href = "/games";
+        return; // Stop execution
+    }
+
+    // 1. Set the Iframe source
+    myIframe.src = link;
 
     // 2. Populate Bottom Bar
     document.getElementById('game-name').innerText = name;
@@ -293,9 +299,7 @@ window.addEventListener('load', () => {
     
     // Note: Due to cross-origin security, the 'error' event on an iframe
     // often doesn't fire for content loading issues (like blocked content). 
-    // It's mainly useful for DOM errors. A more robust solution for content 
-    // failure often involves server-side checks or custom communication 
-    // between the parent and child (which is complex and outside the scope here).
+    // It's mainly useful for DOM errors.
 });
 
 // --- ERROR HANDLING ---
