@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const STORAGE_KEY = 'nebula_profile';
 
   // --- CONSTANT FOR ADMIN CHECK ---
-  const ADMIN_EMAIL_CHECK = 'REESDOLSEN@GMAIL.COM'.toUpperCase().trim();
 
 
   /* ==================================
@@ -75,10 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulate getting a signed-in user's data
     let mockProfile = {
-      id: "user12345",
-      name: "Nebula User",
+      id: "Guest",
+      name: "Guest",
       email: "user@example.com",
-      picture: "https://i.pravatar.cc/150?img=1" // Placeholder avatar
+      picture: "/images/user.png" // Placeholder avatar
     };
 
     // Simulate Admin being signed in sometimes
