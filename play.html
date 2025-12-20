@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Game Console</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 
@@ -11,28 +11,25 @@
 /* --- 1. CORE VARIABLES --- */
 :root{
     /* Deep Space Palette */
-    --bg-900: #02011b; /* Near Black */
-    --bg-800: #0a0420; /* Darker Purple-Blue */
-    --nebula-900: #3f00ff; /* Primary Blue/Purple */
+    --bg-900: #02011b; 
+    --bg-800: #0a0420; 
+    --nebula-900: #3f00ff; 
     --nebula-500: #6400ff;
-    --nebula-300: #a3f7ff; /* Primary Highlight (Cyan/Light Blue) */
-    --text-100: #f0f8ff; /* Off-White */
-    --card-bg-dark: rgba(20,0,40,0.5); /* Dark Glass base */
-    --radius: 18px; /* Larger radius for modern look */
+    --nebula-300: #a3f7ff; 
+    --text-100: #f0f8ff; 
+    --card-bg-dark: rgba(20,0,40,0.5); 
+    --radius: 18px; 
     --transition-speed: 0.4s;
-    --pop-speed: 0.2s; /* Faster speed for clicks/pops */
+    --pop-speed: 0.2s; 
     --error-red: #ff3333;
 }
 
 /* --- 2. KEYFRAME ANIMATIONS --- */
-
-/* Smooth, endless background panning */
 @keyframes background-pulse {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
 }
 
-/* Icon spin on reload */
 .fa-spin-custom {
     animation: fa-spin 0.5s linear infinite;
 }
@@ -48,6 +45,8 @@ body {
     overflow: hidden;
     font-family: 'Inter', Arial, sans-serif;
     color: var(--text-100);
+    /* OPTIMIZATION: Prevent rubber-banding on Mac/Mobile to save resources */
+    overscroll-behavior: none; 
 }
 
 #wrapper {
@@ -61,6 +60,8 @@ body {
     animation: background-pulse 60s ease infinite alternate;
     position: relative;
     perspective: 1000px;
+    /* OPTIMIZATION: Hardware accelerate the background to separate it from the iframe rendering */
+    transform: translateZ(0); 
 }
 
 /* --- 4. GAME FRAME & IFRAME --- */
@@ -75,12 +76,19 @@ body {
     box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 40px rgba(63,0,255,0.25);
     border: 1px solid rgba(163,247,255,0.08);
     position: relative;
-    transform: scale(1);
+    
+    /* OPTIMIZATION: Isolate the game layout from the rest of the page */
+    contain: layout paint; 
+    /* OPTIMIZATION: Tell browser this element changes, prompting GPU layer creation */
+    will-change: transform; 
+    transform: translateZ(0); 
+    
     transition: transform var(--transition-speed) ease-out, box-shadow var(--transition-speed) ease-out;
 }
 
 #game-frame:hover {
-    transform: scale(1.01);
+    /* OPTIMIZATION: Adjusted scale slightly to prevent sub-pixel rendering blur */
+    transform: scale(1.01) translateZ(0); 
     box-shadow: 0 0 120px rgba(0,0,0,1), 0 0 60px rgba(63,0,255,0.5);
 }
 
@@ -89,6 +97,7 @@ body {
     height: 100%;
     border: none;
     opacity: 1; 
+    display: block; /* Removes inline spacing gaps */
 }
 
 /* --- 5. BOTTOM BAR (Controls) --- */
@@ -102,6 +111,8 @@ body {
     align-items: center;
     z-index: 10;
     transition: transform var(--transition-speed) ease-out, opacity var(--transition-speed) ease-out;
+    /* OPTIMIZATION: Ensure controls are on their own layer */
+    transform: translateZ(0); 
 }
 
 #game-info {
@@ -111,21 +122,22 @@ body {
     gap: 18px;
     background: rgba(0,0,0,0.4);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
     border-radius: var(--radius);
     border: 1px solid rgba(163,247,255,0.1);
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     transition: background var(--transition-speed);
 }
 
-/* ICON SIZE ADJUSTMENT (2X BIGGER: 30x20 -> 60x40) */
 #game-info img {
-    width: 60px; /* New Width */
-    height: 40px; /* New Height */
+    width: 60px;
+    height: 40px;
     min-width: 60px;
     border-radius: 6px; 
     object-fit: cover;
     box-shadow: 0 0 10px rgba(0,0,0,0.7);
     transition: transform var(--transition-speed) ease;
+    backface-visibility: hidden; /* Smoother animation */
 }
 
 #game-info:hover img {
@@ -149,7 +161,6 @@ body {
     gap: 10px;
 }
 
-/* Control Buttons */
 #button-group button {
     background: rgba(20,0,60,0.6);
     border: 1px solid rgba(163,247,255,0.1);
@@ -185,7 +196,7 @@ body {
 #error-overlay {
     position: absolute;
     inset: 0;
-    display: none; /* Initially hidden */
+    display: none; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -223,7 +234,6 @@ body {
 }
 
 #error-overlay button {
-    /* Reuse control button styling but with a red theme */
     background: var(--error-red);
     border: 1px solid var(--text-100);
     box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
@@ -249,7 +259,14 @@ body {
             <button onclick="window.location.reload()">Try Reloading Page</button>
         </div>
         
-        <iframe id="myIframe" src=""></iframe>
+        <iframe 
+            id="myIframe" 
+            src=""
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; gamepad; vibration; xr-spatial-tracking" 
+            allowfullscreen="true"
+            loading="eager"
+            scrolling="no">
+        </iframe>
     </div>
 
     <div id="bottom-bar">
@@ -280,11 +297,11 @@ window.addEventListener('load', () => {
     const name = sessionStorage.getItem('gameName') || "Error 404! No Game Found.";
     const img = sessionStorage.getItem('gameImage') || "/images/favicon.png"; 
 
-    // NEW FALLBACK LOGIC: If no gameLink is found, redirect to /games immediately
+    // FALLBACK LOGIC
     if (!link) {
         console.warn("No gameLink found in sessionStorage. Redirecting to home.");
         window.location.href = "/games";
-        return; // Stop execution
+        return; 
     }
 
     // 1. Set the Iframe source
@@ -297,28 +314,27 @@ window.addEventListener('load', () => {
     // 3. Attach error listener
     myIframe.addEventListener('error', handleError);
 
+    // OPTIMIZATION: Focus the iframe immediately so keyboard controls work without clicking
+    myIframe.onload = function() {
+        myIframe.contentWindow.focus();
+    };
+
     document.title = name;
 
     function changeFavicon(src) {
-         // Try to find an existing link, otherwise create a new one
          var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
          link.type = 'image/x-icon';
          link.rel = 'shortcut icon';
-         link.href = img; // Path to the new image
+         link.href = img; 
          document.getElementsByTagName('head')[0].appendChild(link);
     }
 
-// Usage:
-changeFavicon('/path/to/new-favicon.png');
-    // Note: Due to cross-origin security, the 'error' event on an iframe
-    // often doesn't fire for content loading issues (like blocked content). 
-    // It's mainly useful for DOM errors.
+    changeFavicon(img);
 });
 
 // --- ERROR HANDLING ---
 function handleError() {
     console.error("Iframe failed to load content. Displaying error overlay.");
-    // Hide the iframe and show the error overlay
     myIframe.style.opacity = '0';
     errorOverlay.style.display = 'flex';
 }
@@ -330,16 +346,17 @@ function reloadIframe() {
     
     if (src === 'about:blank' || src === '') return;
 
-    // If the error overlay is visible, hide it on reload attempt
     errorOverlay.style.display = 'none';
     myIframe.style.opacity = '1';
 
     reloadButtonIcon.classList.add('fa-spin-custom'); 
 
-    // Use contentWindow.location.replace for a cleaner reload
+    // OPTIMIZATION: Re-focus after reload
     iframe.contentWindow.location.replace(src); 
+    setTimeout(() => {
+        iframe.contentWindow.focus();
+    }, 200);
 
-    // Stop the spin after a short delay
     setTimeout(() => {
         reloadButtonIcon.classList.remove('fa-spin-custom');
     }, 1200); 
@@ -351,7 +368,13 @@ function makeFullscreen() {
     const requestFS = frame.requestFullscreen || frame.webkitRequestFullscreen || frame.mozRequestFullScreen || frame.msRequestFullscreen;
 
     if (requestFS) {
-        requestFS.call(frame).catch(err => {
+        requestFS.call(frame).then(() => {
+             // OPTIMIZATION: Ensure focus when entering fullscreen
+            setTimeout(() => {
+                const iframe = document.getElementById('myIframe');
+                if(iframe) iframe.contentWindow.focus();
+            }, 100);
+        }).catch(err => {
             console.warn('Fullscreen request failed:', err);
             alert('Fullscreen is not available for this content in your browser or device settings.');
         });
