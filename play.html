@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nebula | Play - Automatic Load with Error Handling</title>
+    <title></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 
@@ -277,8 +277,8 @@ const errorOverlay = document.getElementById('error-overlay');
 window.addEventListener('load', () => {
     // Retrieve dynamic data from sessionStorage
     const link = sessionStorage.getItem('gameLink');
-    const name = sessionStorage.getItem('gameName') || "Galaxy Quest";
-    const img = sessionStorage.getItem('gameImage') || "https://via.placeholder.com/60x40?text=Icon"; 
+    const name = sessionStorage.getItem('gameName') || "Error 404! No Game Found.";
+    const img = sessionStorage.getItem('gameImage') || "/images/favicon.png"; 
 
     // NEW FALLBACK LOGIC: If no gameLink is found, redirect to /games immediately
     if (!link) {
@@ -296,7 +296,20 @@ window.addEventListener('load', () => {
     
     // 3. Attach error listener
     myIframe.addEventListener('error', handleError);
-    
+
+    document.title = name;
+
+    function changeFavicon(src) {
+         // Try to find an existing link, otherwise create a new one
+         var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+         link.type = 'image/x-icon';
+         link.rel = 'shortcut icon';
+         link.href = img; // Path to the new image
+         document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+// Usage:
+changeFavicon('/path/to/new-favicon.png');
     // Note: Due to cross-origin security, the 'error' event on an iframe
     // often doesn't fire for content loading issues (like blocked content). 
     // It's mainly useful for DOM errors.
@@ -372,6 +385,7 @@ fsEvents.forEach(ev => {
         }
     });
 });
+
 </script>
 
 </body>
