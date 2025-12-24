@@ -34,13 +34,13 @@
 }
 
 .nav-left-bg {
-  background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
+  background: #1a2a4a;
   padding: 6px 12px;
   border-radius: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 16px #a3f7ff22;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .logo img {
@@ -62,16 +62,16 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
-  border: 2px solid #a3f7ff;
+  background: #3a6fb5;
+  border: 1px solid rgba(163,247,255,0.12);
   text-decoration: none;
   transition: .3s;
   animation: glow 2.5s infinite;
 }
 
 .nav-links a:hover {
-  background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
-  border-color: #ffb3fe;
+  background: #2b5a9a;
+  border-color: #cfe6ff;
   transform: scale(1.1);
 }
 
@@ -88,10 +88,10 @@
   right: 0;
   flex-direction: column;
   align-items: flex-start;
-  background: rgba(30,0,60,0.92);
+  background: rgba(15, 20, 35, 0.92);
   padding: 8px 10px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateY(10px);
   pointer-events: none;
@@ -110,10 +110,10 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: rgba(30,0,60,0.85);
+  background: rgba(15, 20, 35, 0.85);
   backdrop-filter: blur(6px);
   border-radius: 999px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   text-decoration: none;
   z-index: 10000;
   transition: .12s ease;

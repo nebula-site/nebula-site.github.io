@@ -4,8 +4,7 @@ body {
   margin-top: 6%;
   margin-bottom: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* Match Nebula purple-blue gradient */
-  background: linear-gradient(135deg, #1a0033, #2b1a4f);
+  background: #0a0e1a;
   color: #e0e6ff;
   display: flex;
   height: 88vh;
@@ -93,7 +92,7 @@ body {
 #inputs {
   display: flex;
   padding: 12px;
-  background: rgba(20, 6, 50, 0.55);
+  background: rgba(15, 20, 35, 0.55);
   border-top: 1px solid rgba(163,247,255,0.04);
   backdrop-filter: blur(8px);
   align-items: center;
@@ -114,20 +113,20 @@ body {
 #send {
   margin-left: 10px;
   padding: 12px 18px;
-  background: linear-gradient(90deg,#3f00ff 0%,#a3f7ff 100%);
+  background: #4a7ac5;
   border: none;
   border-radius: 12px;
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
-  color: #1a0033;
-  box-shadow: 0 6px 18px rgba(63,0,255,0.18);
-  transition: transform 0.1s ease, filter 0.2s ease;
+  color: #f0f7ff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.1s ease, background 0.2s ease;
   margin-right: 200px;
 }
 
 #send:hover {
-  filter: brightness(1.1);
+  background: #3a6fb5;
 }
 
 #send:active {

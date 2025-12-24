@@ -1,308 +1,236 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+/* --- 1. CORE VARIABLES --- */
+:root{
+    /* Deep Space Palette */
+    --bg-900: #0a0e1a; 
+    --bg-800: #0f1425; 
+    --nebula-900: #3a6fb5; 
+    --nebula-500: #4a7ac5;
+    --nebula-300: #7aa7d8; 
+    --text-100: #e8f9ff; 
+    --card-bg-dark: rgba(20,30,50,0.4); 
+    --radius: 18px; 
+    --transition-speed: 0.4s;
+    --pop-speed: 0.2s; 
+    --error-red: #c53030;
+}
 
-/* Space background and font */
+/* --- 2. KEYFRAME ANIMATIONS --- */
+@keyframes background-pulse {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.fa-spin-custom {
+    animation: fa-spin 0.5s linear infinite;
+}
+@keyframes fa-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- 3. BASE STYLES --- */
 body {
-margin: 0;
-width: 100%;
-min-height: 100vh;
-font-family: 'Space Grotesk', Arial, sans-serif;
-margin-top: 60px;
-overflow-x: hidden;
-color: #e0e6ff;
-text-decoration: none;
-letter-spacing: 0.03em;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+    margin: 0;
+    background: var(--bg-900);
+    overflow: hidden;
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--text-100);
+    /* OPTIMIZATION: Prevent rubber-banding on Mac/Mobile to save resources */
+    overscroll-behavior: none; 
 }
 
-/* Particle background stays behind everything */
-#particles-js {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-z-index: -1;
+#wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0d1226;
+    background-size: 200% 200%;
+    position: relative;
+    perspective: 1000px;
+    /* OPTIMIZATION: Hardware accelerate the background to separate it from the iframe rendering */
+    transform: translateZ(0); 
 }
 
-/* Center the main game container */
-#game-container {
-margin: 0 auto;
-    width: 95vw;
-    max-width: 900px;
+/* --- 4. GAME FRAME & IFRAME --- */
+#game-frame {
+    width: 78vw;
+    max-width: 1400px;
+    height: 72vh;
+    max-height: 800px;
+    background: rgba(20,30,50,0.4);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    border: 1px solid rgba(163,247,255,0.08);
+    position: relative;
+    
+    /* OPTIMIZATION: Isolate the game layout from the rest of the page */
+    contain: layout paint; 
+    /* OPTIMIZATION: Tell browser this element changes, prompting GPU layer creation */
+    will-change: transform; 
+    transform: translateZ(0); 
+    
+    transition: transform var(--transition-speed) ease-out, box-shadow var(--transition-speed) ease-out;
+}
+
+#game-frame:hover {
+    /* OPTIMIZATION: Adjusted scale slightly to prevent sub-pixel rendering blur */
+    transform: scale(1.01) translateZ(0); 
+    box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+}
+
+#game-frame iframe {
     width: 100%;
-    max-width: 100%;
-min-height: 600px;
-border-radius: 32px;
-background: rgba(30, 0, 60, 0.92);
-box-shadow: 0 0 64px #3f00ff88, 0 8px 32px #a3f7ff44;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-animation: begin 0.7s cubic-bezier(0.4,0.2,0.2,1);
-position: relative;
-padding: 40px 32px 32px 32px;
-backdrop-filter: blur(16px);
-border: 2px solid #3f00ff;
-gap: 24px;
+    height: 100%;
+    border: none;
+    opacity: 1; 
+    display: block; /* Removes inline spacing gaps */
 }
 
-/* Responsive centering for all screen sizes */
-body, html {
-height: 100%;
-width: 100%;
+/* --- 5. BOTTOM BAR (Controls) --- */
+#bottom-bar {
+    position: absolute;
+    bottom: 40px;
+    width: 78vw;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    transition: transform var(--transition-speed) ease-out, opacity var(--transition-speed) ease-out;
+    /* OPTIMIZATION: Ensure controls are on their own layer */
+    transform: translateZ(0); 
 }
 
-/* Game name/title */
-#game-container #game-name {
-color: #a3f7ff;
-font-size: 2.8rem;
-font-family: 'Bebas Neue', Arial, sans-serif;
-text-shadow: 0 0 18px #3f00ff, 2px 2px 8px #000a;
-margin-bottom: 18px;
-letter-spacing: 3px;
-text-align: center;
-font-weight: 700;
-background: linear-gradient(90deg, #3f00ff44 0%, #1a003344 100%);
-border-radius: 18px;
-padding: 12px 0;
-width: 100%;
+#game-info {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 18px;
+    background: rgba(15,20,35,0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    border: 1px solid rgba(163,247,255,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transition: background var(--transition-speed);
 }
 
-/* Game iframe container */
-#game-container #iframe-container,
-#iframe-container {
-width: 100%;
-height: 60vh;
-min-height: 350px;
-border: 4px solid #a3f7ff;
-border-radius: 24px;
-background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
-box-shadow: 0 4px 32px #a3f7ff44;
-overflow: hidden;
-margin-bottom: 24px;
-transition: box-shadow 0.3s;
-display: flex;
-align-items: center;
-justify-content: center;
+#game-info img {
+    width: 60px;
+    height: 40px;
+    min-width: 60px;
+    border-radius: 6px; 
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    transition: transform var(--transition-speed) ease;
+    backface-visibility: hidden; /* Smoother animation */
 }
 
-#game-container iframe,
-#iframe-container iframe,
-#myIframe {
-width: 100%;
-height: 100%;
-border: none;
-border-radius: 24px;
-background: #0d1b3f;
-box-shadow: 0 4px 24px #3f00ff55;
-display: block;
+#game-info:hover img {
+    transform: scale(1.1);
 }
 
-/* Button row */
-#game-container .container {
-display: flex;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-padding: 12px 0;
-gap: 18px;
+#game-info span {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: var(--nebula-300);
+    transition: color var(--transition-speed) ease;
 }
 
-/* Button group */
-#game-container .buttons-container {
-display: flex;
-gap: 20px;
+#game-info:hover span {
+    color: var(--text-100);
 }
 
-/* Modern space-themed buttons */
-#game-container .buttons-container button,
-#pauseButton {
-padding: 14px 36px;
-background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
-color: #1a0033;
-font-family: 'Space Grotesk', Arial, sans-serif;
-font-size: 1.15rem;
-font-weight: 700;
-border: 2px solid #a3f7ff;
-border-radius: 14px;
-box-shadow: 0 4px 16px #3f00ff55;
-transition: background 0.3s, box-shadow 0.3s, transform 0.3s, color 0.3s, border 0.3s;
-cursor: pointer;
-outline: none;
-letter-spacing: 0.05em;
+#button-group {
+    display: flex;
+    gap: 10px;
 }
 
-#game-container .buttons-container button:hover,
-#pauseButton:hover {
-background: linear-gradient(135deg, #1a0033 0%, #3f00ff 100%);
-color: #a3f7ff;
-border: 2px solid #ffb3fe;
-box-shadow: 0 8px 32px #a3f7ff44;
-transform: scale(1.07);
+#button-group button {
+    background: #1a2a4a;
+    border: 1px solid rgba(163,247,255,0.08);
+    color: #e8f9ff;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background var(--pop-speed) ease, 
+                border-color var(--pop-speed) ease, 
+                box-shadow var(--pop-speed) ease,
+                transform var(--pop-speed) ease;
+    min-width: 50px;
+    text-align: center;
 }
 
-/* Play button */
-#playButton {
-position: absolute;
-top: 38%;
-left: 50%;
-transform: translate(-50%, -50%);
-padding: 16px 44px;
-font-size: 1.5rem;
-background: linear-gradient(135deg, #ffb3fe 0%, #3f00ff 100%);
-color: #1a0033;
-border: none;
-cursor: pointer;
-border-radius: 16px;
-font-family: 'Space Grotesk', Arial, sans-serif;
-font-weight: 700;
-box-shadow: 0 4px 16px #a3f7ff44;
-transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
-z-index: 2;
-letter-spacing: 0.07em;
+#button-group button:hover {
+    background: #3a6fb5;
+    border-color: rgba(163,247,255,0.12);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transform: translateY(-4px); 
 }
 
-#playButton:hover {
-background: linear-gradient(135deg, #3f00ff 0%, #a3f7ff 100%);
-color: #ffb3fe;
-box-shadow: 0 8px 32px #ffb3fe44;
-transform: scale(1.09);
+#button-group button:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    background: #2b5a9a;
+    transition: transform 0.1s;
 }
 
-/* Pause button */
-#pauseButton {
-position: absolute;
-top: 24px;
-right: 24px;
-z-index: 10;
+/* --- 6. ERROR OVERLAY STYLES --- */
+#error-overlay {
+    position: absolute;
+    inset: 0;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(10px);
+    z-index: 6; 
+    text-align: center;
+    padding: 20px;
+    border-radius: var(--radius);
 }
 
-/* Game title overlay */
-.game-title {
-position: absolute;
-top: 12%;
-left: 50%;
-transform: translateX(-50%);
-font-family: 'Bebas Neue', Arial, sans-serif;
-color: #a3f7ff;
-font-weight: bold;
-font-size: 2.3rem;
-text-shadow: 0 0 16px #3f00ff, 2px 2px 8px #000a;
-letter-spacing: 2px;
-z-index: 2;
-background: rgba(30,0,60,0.7);
-padding: 8px 32px;
-border-radius: 16px;
-border: 1.5px solid #3f00ff;
-box-shadow: 0 2px 12px #a3f7ff22;
+#error-overlay i {
+    font-size: 4rem;
+    color: #c53030;
+    margin-bottom: 20px;
+    animation: shake 0.5s infinite;
 }
 
-/* Hide iframe initially */
-#myIframe {
-display: none;
-width: 100%;
-height: 100%;
-border-radius: 24px;
-background: #0d1b3f;
-box-shadow: 0 4px 24px #3f00ff55;
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
 }
 
-/* Animation for fade-in */
-@keyframes begin {
-0% {
-opacity: 0;
-transform: translateY(40px) scale(0.98);
-}
-100% {
-opacity: 1;
-transform: translateY(0) scale(1);
-}
+#error-overlay h2 {
+    color: #c53030;
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 900px) {
-#game-container {
-width: 99vw;
-padding: 18px 4vw 12px 4vw;
-min-height: 350px;
-border-radius: 18px;
-}
-#game-container #iframe-container,
-#iframe-container {
-border-radius: 12px;
-min-height: 220px;
-}
-#game-container #game-name,
-.game-title {
-font-size: 1.5rem;
-padding: 6px 12px;
-}
-#playButton {
-font-size: 1rem;
-padding: 10px 18px;
-}
-#pauseButton {
-font-size: 1rem;
-padding: 8px 16px;
-}
+#error-overlay p {
+    color: #a0b0ce;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
 }
 
-@media (max-width: 600px) {
-#game-container {
-width: 100vw;
-padding: 8px 2vw 4px 2vw;
-min-height: 220px;
-border-radius: 10px;
-}
-#game-container #iframe-container,
-#iframe-container {
-border-radius: 8px;
-min-height: 120px;
-}
-#game-container #game-name,
-.game-title {
-font-size: 1.1rem;
-padding: 4px 6px;
-}
-#playButton {
-font-size: 0.9rem;
-padding: 8px 12px;
-}
-#pauseButton {
-font-size: 0.9rem;
-padding: 6px 10px;
-}
-}
-/* ...existing code... */
-
-.container {
-display: flex;
-justify-content: center; /* Center horizontally */
-align-items: center;
-width: 100%;
-padding: 12px 0;
-gap: 18px;
+#error-overlay button {
+    background: #c53030;
+    border: 1px solid #e8f9ff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    color: #e8f9ff;
 }
 
-.buttons-container {
-display: flex;
-gap: 20px;
-justify-content: center; /* Center horizontally */
-align-items: center;
-width: 100%;
+#error-overlay button:hover {
+    background: #a01e1e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
-#game-container img, /* if your game images are inside the container */
-img.game-image {    /* or use a specific class for the game image */
-    width: 50px;
-    height: 27px;
-    object-fit: cover; /* keeps it from stretching weirdly */
-    border-radius: 4px; /* optional, for a subtle rounded look */
-}
-
-/* ...existing code... */
