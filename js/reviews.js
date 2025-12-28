@@ -1,34 +1,31 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-// Ensure your Key is the "anon" "public" key
 const supabaseUrl = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc'; 
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-const badWords = ['hate', 'stupid', 'jerk']; 
+const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     loadUserProfile();
     setupStarRating();
     fetchReviews();
-
+    
     const postBtn = document.getElementById('post-review-btn');
     if (postBtn) postBtn.onclick = handlePostReview;
 });
 
-// Get user data from your navbar's localStorage
 function loadUserProfile() {
     const profile = JSON.parse(localStorage.getItem('nebula_profile') || '{}');
     const nameEl = document.getElementById('profile-display-name');
     const imgEl = document.getElementById('profile-display-img');
-
+    
     if (profile.name || profile.username) {
         if (nameEl) nameEl.textContent = profile.name || profile.username;
         if (imgEl) imgEl.src = profile.picture || profile.avatar || "/images/user.png";
     }
 }
 
-// Interactive Stars
 function setupStarRating() {
     const stars = document.querySelectorAll('.star');
     stars.forEach(star => {
@@ -47,47 +44,61 @@ function setupStarRating() {
 
 async function fetchReviews() {
     const container = document.getElementById('reviews-container');
+    if (!container) return;
+
     try {
-        // Use select('*') to ensure we don't hit a column naming error
         const { data, error } = await supabase
             .from('reviews')
             .select('*') 
             .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error("Supabase Error Object:", error);
-            throw error;
-        }
-
+        if (error) throw error;
         if (!data || data.length === 0) {
-            container.innerHTML = '<p style="color:#888;">No reviews yet.</p>';
+            container.innerHTML = '<p style="color:#888; text-align:center; padding: 20px;">No reviews yet.</p>';
             return;
         }
 
         container.innerHTML = '';
         data.forEach(review => {
-            const stars = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+            const starCount = parseInt(review.stars) || 0;
+            let starHTML = '';
+            for(let i=1; i<=5; i++) {
+                starHTML += i <= starCount ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+            }
+
             container.innerHTML += `
-                <div class="review-item">
+                <div class="review-card">
                     <div class="review-header">
-                        <div class="review-user-info">
-                            <img src="${review.avatar_url || '/images/user.png'}">
-                            <span>${review.username || 'Anonymous'}</span>
+                        <div class="user-meta">
+                            <img src="${review.avatar_url || '/images/user.png'}" class="user-avatar">
+                            <span class="user-name">${review.username || 'Anonymous'}</span>
                         </div>
-                        <div style="color: #f5b301;">${stars}</div>
+                        <div class="star-rating">${starHTML}</div>
                     </div>
-                    <h3>${review.title}</h3>
-                    <p>${review.content}</p>
+                    <div class="review-body">
+                        <h3 class="review-title">${review.title}</h3>
+                        <p class="review-text">${review.content}</p>
+                    </div>
                 </div>`;
         });
     } catch (err) {
-        console.error("Detailed Fetch Error:", err);
-        container.innerHTML = `<p class="error">Connection Reset. Try disabling Ad-Blockers or checking RLS Policies.</p>`;
-        container.innerHTML = `<p class="error">Connection Reset. Try disabling Ad-Blockers.</p>`;
+        console.error("Fetch Error:", err);
+        container.innerHTML = `<p class="error">Failed to load community feedback.</p>`;
     }
 }
 
-// POST REVIEW
+// PROFANITY CHECK API FUNCTION
+async function isContentToxic(text) {
+    try {
+        const response = await fetch(`https://www.purgomalum.com/service/containsprofanity?text=${encodeURIComponent(text)}`);
+        const result = await response.text();
+        return result === 'true'; 
+    } catch (err) {
+        console.error("Filter API failed, skipping check...");
+        return false; // Fail open if API is down
+    }
+}
+
 async function handlePostReview() {
     const title = document.getElementById('review-title').value.trim();
     const body = document.getElementById('review-body').value.trim();
@@ -97,9 +108,11 @@ async function handlePostReview() {
     if (!profile) return alert("Please sign in to Nebula first!");
     if (!title || !body || stars === "0") return alert("Please fill out all fields!");
 
-    // Basic profanity check
-    const isBad = badWords.some(word => (title + body).toLowerCase().includes(word));
-    if (isBad) return alert("Your review contains restricted language.");
+    // Use the API for checking
+    const combinedText = title + " " + body;
+    const isBad = await isContentToxic(combinedText);
+    
+    if (isBad) return alert("Your review contains restricted language. Please keep it clean!");
 
     const { error } = await supabase.from('reviews').insert([{
         username: profile.name || profile.username,
@@ -110,8 +123,7 @@ async function handlePostReview() {
     }]);
 
     if (error) {
-        alert("Error posting review. Check console.");
-        console.error(error);
+        alert(`Error: ${error.message}`);
     } else {
         location.reload(); 
     }
