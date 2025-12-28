@@ -2,7 +2,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // Ensure your Key is the "anon" "public" key
 const supabaseUrl = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; 
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc'; 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const badWords = ['hate', 'stupid', 'jerk']; 
@@ -82,7 +82,7 @@ async function fetchReviews() {
         });
     } catch (err) {
         console.error("Detailed Fetch Error:", err);
-        container.innerHTML = `<p class="error">Connection Reset. Try disabling Ad-Blockers or checking RLS Policies.</p>`;
+        container.innerHTML = `<p class="error">Connection Reset. Try disabling Ad-Blockers.</p>`;
     }
 }
 
