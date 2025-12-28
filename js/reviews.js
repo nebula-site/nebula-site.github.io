@@ -66,7 +66,7 @@ async function fetchReviews() {
 
         container.innerHTML = '';
         data.forEach(review => {
-            const stars = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+            const stars = '★'.repeat(review.stars) + '<i class="fa-solid fa-star"></i>'.repeat(5 - review.stars);
             container.innerHTML += `
                 <div class="review-item">
                     <div class="review-header">
