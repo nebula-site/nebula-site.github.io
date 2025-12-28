@@ -11,6 +11,10 @@
 	--radius: 12px;
 }
 
+* {
+	overflow-y: hidden;
+}
+
 .home-hero{
 	max-width:1180px;
 	margin:32px auto;
