@@ -1,28 +1,28 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
+/* --- COLOR PALETTE SYNC --- */
 :root {
-    --bg-900: #0a0e1a;
-    --nebula-900: #3a6fb5;
-    --nebula-500: #4a7ac5;
-    --nebula-300: #a3f7ff;
-    --accent: #3f00ff;
-    --text-100: #e8f9ff;
-    --radius: 24px;
-    --transition-speed: 0.3s;
+    --bg-dark: #0a0e1a;
+    --card-bg: #1a2a4a; /* Matching .reviews-form */
+    --accent-cyan: #a3f7ff; /* Matching h1 and user-names */
+    --accent-blue: #244466; /* Matching buttons and star states */
+    --accent-pink: #ffb3fe; /* Matching profile borders */
+    --text-main: #d9e8f7;
+    --text-dim: #a0a0a0;
+    --border-light: rgba(163, 247, 255, 0.12);
+    --radius-lg: 22px;
 }
 
-/* 1. Base Reset & Background */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+    background-color: var(--bg-dark);
+    font-family: 'Space Grotesk', sans-serif;
     overflow: hidden;
-    background-color: var(--bg-900);
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
 #wrapper {
@@ -32,54 +32,53 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, #1a0033 0%, #0a0e1a 100%);
+    background: radial-gradient(circle at center, #1a2a4a 0%, #0a0e1a 100%);
     position: relative;
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* 2. Game Frame (The Iframe Container) */
+/* --- GAME FRAME (The Container) --- */
 #game-frame {
     width: 85vw;
     max-width: 1200px;
     height: 70vh;
-    background: rgba(30, 0, 60, 0.8);
-    border-radius: var(--radius);
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     position: relative;
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 50px rgba(63, 0, 255, 0.3), 0 0 20px rgba(163, 247, 255, 0.1);
     overflow: hidden;
-    backdrop-filter: blur(12px);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    animation: begin 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 #game-frame:hover {
-    box-shadow: 0 0 65px rgba(63, 0, 255, 0.5);
-    transform: scale(1.005);
+    border-color: rgba(163, 247, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 #myIframe {
     width: 100%;
     height: 100%;
     border: none;
-    display: block;
     background: #000;
+    display: block;
 }
 
-/* 3. Bottom Bar & Info */
+/* --- BOTTOM BAR --- */
 #bottom-bar {
     width: 85vw;
     max-width: 1200px;
-    margin-top: 24px;
+    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 25px;
-    background: rgba(15, 20, 35, 0.7);
-    border-radius: 20px;
-    border: 1px solid rgba(163, 247, 255, 0.15);
-    backdrop-filter: blur(10px);
+    background: rgba(26, 42, 74, 0.6); /* Matching .review-item background */
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
 }
 
 #game-info {
@@ -89,106 +88,105 @@ body, html {
 }
 
 #game-image {
-    width: 55px;
-    height: 35px;
+    width: 45px;
+    height: 30px;
     object-fit: cover;
-    border-radius: 8px;
-    border: 1.5px solid var(--nebula-300);
+    border-radius: 6px;
+    border: 1.5px solid var(--accent-pink); /* Matching review user avatar border */
 }
 
 #game-name {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem;
-    color: var(--nebula-300);
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 10px var(--accent);
+    color: var(--accent-cyan);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(163, 247, 255, 0.3);
 }
 
-/* 4. Controls/Buttons */
+/* --- BUTTON GROUP (Control Buttons) --- */
 #button-group {
     display: flex;
     gap: 12px;
 }
 
 #button-group button {
-    background: linear-gradient(135deg, #3f00ff 0%, #1a0033 100%);
-    border: 1px solid var(--nebula-300);
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+    background: var(--accent-blue); /* Matching .btn-primary */
+    color: var(--accent-cyan);
+    border: 1px solid rgba(163, 247, 255, 0.2);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%; /* Matching the round profile/button style */
     cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 0.2s ease;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
 #button-group button:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, var(--nebula-300) 0%, #3f00ff 100%);
-    color: #0a0e1a;
-    box-shadow: 0 5px 15px rgba(163, 247, 255, 0.4);
+    background: #2d5580;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(163, 247, 255, 0.2);
+    color: #ffffff;
 }
 
-#button-group button:active {
-    transform: scale(0.95);
-}
-
-/* 5. Error Overlay */
+/* --- ERROR OVERLAY --- */
 #error-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(10, 14, 26, 0.98);
-    display: none; /* Controlled by JS */
+    background: rgba(10, 14, 26, 0.95);
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 10;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
 }
 
 #error-overlay i {
-    font-size: 4rem;
-    color: #ff4d4d;
-    margin-bottom: 20px;
-    animation: shake 0.5s infinite;
+    font-size: 3.5rem;
+    color: #ffb3b3; /* Matching .error color */
+    margin-bottom: 15px;
 }
 
-#error-overlay h2 { color: #ff4d4d; margin: 10px 0; }
-#error-overlay p { color: #a0b0ce; margin-bottom: 25px; max-width: 400px; }
+#error-overlay h2 {
+    color: var(--accent-cyan);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+}
+
+#error-overlay p {
+    color: var(--text-dim);
+    max-width: 400px;
+    line-height: 1.5;
+}
 
 #error-overlay button {
-    padding: 12px 30px;
-    background: #ff4d4d;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
+    margin-top: 20px;
+    background: var(--accent-blue);
+    color: var(--accent-cyan);
+    border: 1px solid var(--border-light);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
     cursor: pointer;
 }
 
-/* 6. Animations */
-@keyframes begin {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
+/* Animation for the reload icon */
 .fa-spin-custom {
-    animation: fa-spin 1s linear infinite;
+    animation: fa-spin 0.8s linear infinite;
 }
 
-/* 7. Responsive Fixes */
+@keyframes fa-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    #game-frame { width: 95vw; height: 50vh; }
-    #bottom-bar { width: 95vw; flex-direction: column; gap: 15px; }
+    #game-frame { width: 95vw; height: 55vh; }
+    #bottom-bar { width: 95vw; flex-direction: column; padding: 15px; text-align: center; }
     #game-name { font-size: 1.4rem; }
 }
