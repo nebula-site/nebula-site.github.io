@@ -197,6 +197,80 @@
     line-height: 1.6;
     margin: 0;
 }
+/* Container spacing */
+#reviews-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* The Review Card - Matching the "Leave a Review" box style */
+.review-card {
+    background-color: #162441; /* Midnight blue matching your image */
+    border-radius: 15px;
+    padding: 20px; /* 20px margins inside the paper */
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.user-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    color: #4cc9f0; /* Cyan name color */
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.star-rating {
+    color: #f5b301; /* Gold stars */
+    font-size: 0.8rem;
+}
+
+/* Content Indentation */
+.review-body {
+    padding-left: 5px;
+}
+
+.review-title {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+}
+
+.review-text {
+    color: #a0a0a0; /* Dimmed text for the body */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Matching the "Community Feedback" Heading */
+h2.section-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin: 40px 0 20px 20px;
+    border-left: 4px solid #3a6799;
+    padding-left: 15px;
+    text-transform: capitalize;
+}
 
 /* Messages */
 .success { color: #a3ffb3; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 8px; display: block; }
