@@ -10,9 +10,7 @@
 	--glass: rgba(255,255,255,0.03);
 	--radius: 12px;
 }
-* {
-	overflow-y: hidden;
-}
+
 .home-hero{
 	max-width:1180px;
 	margin:32px auto;
@@ -77,9 +75,6 @@
 .feature h3{color:var(--nebula-300);margin-bottom:6px;font-size:1rem}
 .feature p{color:var(--muted);font-size:13px;flex:1}
 
-.site-footer{margin:24px auto 12px;padding:10px 0;background:#0d1226;color:#7aa7d8;text-align:center;border-top:1px solid rgba(163,247,255,0.06)}
-.site-footer nav{margin-top:6px}
-.site-footer a{color:var(--text-100);margin:0 6px;text-decoration:none;font-size:0.95rem}
 
 /* small helpers */
 .container{max-width:1180px;margin:0 auto;padding:0 18px}
@@ -91,13 +86,6 @@
 /* subtle animation for entrance */
 @keyframes floatIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .home-hero, .feature, .hero-card{animation:floatIn .45s ease both}
-
-/* Footer layout */
-.footer-inner{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;padding:10px 8px}
-.footer-col{flex:1;min-width:140px}
-.footer-col h4{color:var(--nebula-300);margin-bottom:8px}
-.footer-col a{display:block;color:var(--text-100);margin:6px 0;text-decoration:none}
-.footer-about p{max-width:28ch;color:var(--text-100);font-size:0.95rem}
 
 /* Back to top button */
 #back-to-top{position:fixed;right:18px;bottom:22px;width:44px;height:44px;border-radius:999px;border:none;background:#4a7ac5;color:#f0f7ff;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.35);cursor:pointer;display:none;align-items:center;justify-content:center}
