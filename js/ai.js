@@ -35,25 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Enforce sign-in: show overlay if no profile
-  (async function ensureSignedIn() {
-    const profile = await getProfile();
-    if (!profile) {
-      // show overlay and disable inputs
-      if (authOverlay) authOverlay.style.display = 'flex';
-      if (input) input.disabled = true;
-      if (sendBtn) sendBtn.disabled = true;
-      if (greeting) greeting.textContent = 'Sign in to start a conversation with Lunar Copilot.';
-    } else {
-      // hide overlay and personalize
-      if (authOverlay) authOverlay.style.display = 'none';
-      if (input) input.disabled = false;
-      if (sendBtn) sendBtn.disabled = false;
-      if (greeting) greeting.textContent = `Hello, ${profile.name}! Lunar Copilot is ready.`;
-      // Add an initial bot greeting
-      await addMessage(`Hello ${profile.name}! I'm Lunar Copilot — ask me about games, tips, or generate images.`, 'bot');
-    }
-  })();
+  
 
   if (loginBtn) {
     loginBtn.addEventListener('click', () => {
