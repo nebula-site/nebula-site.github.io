@@ -45,43 +45,44 @@ function setupStarRating() {
     });
 }
 
-// FETCH REVIEWS
 async function fetchReviews() {
     const container = document.getElementById('reviews-container');
     try {
+        // Use select('*') to ensure we don't hit a column naming error
         const { data, error } = await supabase
             .from('reviews')
-            .select('*')
+            .select('*') 
             .order('created_at', { ascending: false });
 
-        if (error) throw error;
+        if (error) {
+            console.error("Supabase Error Object:", error);
+            throw error;
+        }
 
         if (!data || data.length === 0) {
-            container.innerHTML = '<p style="color:#888;">No reviews yet. Be the first!</p>';
+            container.innerHTML = '<p style="color:#888;">No reviews yet.</p>';
             return;
         }
 
         container.innerHTML = '';
         data.forEach(review => {
-            const starIcons = '<i class="fa-solid fa-star"></i>'.repeat(review.stars) + 
-                             '<i class="fa-regular fa-star"></i>'.repeat(5 - review.stars);
-            
+            const stars = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
             container.innerHTML += `
                 <div class="review-item">
                     <div class="review-header">
                         <div class="review-user-info">
                             <img src="${review.avatar_url || '/images/user.png'}">
-                            <span>${review.username}</span>
+                            <span>${review.username || 'Anonymous'}</span>
                         </div>
-                        <div class="review-stars">${starIcons}</div>
+                        <div style="color: #f5b301;">${stars}</div>
                     </div>
                     <h3>${review.title}</h3>
                     <p>${review.content}</p>
                 </div>`;
         });
     } catch (err) {
-        console.error("Supabase Error:", err);
-        container.innerHTML = `<p class="error">Database connection failed. Please check if project is paused.</p>`;
+        console.error("Detailed Fetch Error:", err);
+        container.innerHTML = `<p class="error">Connection Reset. Try disabling Ad-Blockers or checking RLS Policies.</p>`;
     }
 }
 
