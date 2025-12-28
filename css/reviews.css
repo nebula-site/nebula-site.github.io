@@ -1,0 +1,203 @@
+/* =========================================================
+   REVIEWS CONTAINER & FORM
+========================================================= */
+
+.page-content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.reviews-form {
+    background: #1a2a4a;
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: 22px;
+    border: 1px solid rgba(163,247,255,0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
+}
+
+.reviews-form h1 {
+    color: #a3f7ff;
+    margin-top: 0;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(163,247,255,0.3);
+}
+
+/* Star Rating */
+.rating {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #244466; 
+}
+
+/* Star states */
+.star {
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    margin-right: 5px;
+    color: rgba(163,247,255,0.3); /* Default empty color */
+}
+
+.star.active {
+    color: #3a6799; /* Gold for filled stars */
+    font-weight: 900; /* Makes FontAwesome stars solid */
+}
+
+.star:hover {
+    transform: scale(1.2);
+    color: #3a6799;
+}
+
+/* Container for the profile inside the form */
+#profile-display {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 6px 14px;
+    background: #1a2a4a; 
+    border: 1px solid rgba(163,247,255,0.2);
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s;
+    position: static !important;
+}
+
+#profile-display:hover {
+    background: #244466;
+    transform: translateY(-2px);
+}
+
+/* The Image styling */
+#profile-display-img {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    border: 2px solid #ffb3fe !important; 
+    object-fit: cover;
+}
+
+/* The Name styling */
+#profile-display-name {
+    color: #a3f7ff !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Form Inputs */
+.form-group {
+    margin-bottom: 15px;
+}
+
+#review-title, 
+#review-body {
+    width: 100%;
+    background: rgba(10, 14, 26, 0.6);
+    border: 1px solid rgba(163,247,255,0.12);
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: #d9e8f7;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+#review-title:focus, 
+#review-body:focus {
+    border-color: rgba(163,247,255,0.4);
+    box-shadow: 0 0 12px rgba(163,247,255,0.1);
+}
+
+/* Post Button */
+.btn-primary {
+    background: #244466;
+    color: #a3f7ff;
+    border: 1px solid rgba(163,247,255,0.2);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.btn-primary:hover {
+    background: #2d5580;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(163,247,255,0.2);
+}
+
+/* =========================================================
+   REVIEWS LIST & CARDS
+========================================================= */
+
+.reviews-list h2 {
+    color: #7aa7d8;
+    border-left: 4px solid #244466;
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+
+.review-item {
+    background: rgba(26, 42, 74, 0.6);
+    border: 1px solid rgba(163,247,255,0.08);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: transform 0.3s ease;
+}
+
+.review-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(163,247,255,0.2);
+    background: rgba(26, 42, 74, 0.8);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-user-info img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #ffb3fe;
+}
+
+.review-user-info span {
+    color: #a3f7ff;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.review-stars {
+    color: #244466;
+}
+
+.review-item h3 {
+    margin: 5px 0 8px 0;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.review-item p {
+    color: #bbb;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Messages */
+.success { color: #a3ffb3; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 8px; display: block; }
+.error { color: #ffb3b3; background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 8px; display: block; }
