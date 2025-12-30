@@ -31,46 +31,54 @@
     <br /><br />
     <div class="info">
   <h1>Privacy Policy for Nebula</h1>
-      <br />
-  <p>This Privacy Policy explains how Nebula (the "Site") collects, uses, stores, and shares information when you visit <code>/</code> or other pages on this site. The Site is a static website that offers games, content pages, and forms for contacting the site owner. By using the Site you agree to the practices described here.</p>
-      <br />
-      <h3>What information we collect</h3>
-      <br />
-      <p><strong>Personal information you provide:</strong> When you submit the contact form (or other forms such as bug reports, suggestions or reviews), you may provide personal information such as your name, email address, and the message content. The contact form on this site is handled by a third-party form service (Formspree, Supabase). When you submit the form, that data is transmitted to and stored by Formspree, and Supabase. Please review Formspree's privacy policy for details about how they process form submissions.</p>
-      <br />
-      <p><strong>Local data stored in your browser:</strong> The Site uses browser storage (localStorage and sessionStorage) for client-side features only. Examples include:
-        <ul>
-          <li>Favorites, view counts, and short-lived session values used to navigate between pages (stored in <code>localStorage</code> or <code>sessionStorage</code>).</li>
-        </ul>
-      These items are stored only on your device and are not sent to the Site's server by the site itself unless you submit them intentionally (for example, by submitting the contact form).</p>
-      <br />
-      <p><strong>Automated / non-personal information:</strong> The Site does not currently use third-party analytics, tracking pixels, or ad networks. We do not collect aggregated pageview analytics on the server side. If this changes we will update this policy.</p>
-      <br />
-      <h3>How we use information</h3>
-      <p>We use information you provide to respond to messages, process requests (e.g., bug reports or game suggestions), and to operate and improve the Site. Local browser storage is used to improve your experience (remembering favorites, profile info for autofill, and short-term session state).</p>
-      <br />
-      <h3>Sharing and third parties</h3>
-      <p>We do not sell personal data. Information you submit via the contact form is transmitted to a third-party form processor (Formspree). Aside from that service and standard content delivery (images, scripts loaded from this repository), we do not share personal information with other third parties. Third-party services used by the Site may have their own privacy policies and may set cookies or store data; please consult their policies directly.</p>
-      <br />
-      <h3>Cookies and similar technologies</h3>
-      <p>The Site itself does not set tracking cookies. Browser storage (localStorage and sessionStorage) is used for features described above. Third parties (for example, the form processor) may set cookies or use tracking; check their privacy pages for details.</p>
-      <br />
-      <h3>Your choices and rights</h3>
-      <p>You control the data stored in your browser — you can clear localStorage/sessionStorage or use your browser settings to remove stored data. To request access to, correction of, or deletion of personal information processed by the Site owner (not including data held by third parties such as Formspree), please contact us via the <a href="/contact.html">Contact page</a> and specify your request. We will respond as required by applicable law.</p>
-      <br />
-      <h3>Security</h3>
-      <p>We take reasonable measures to protect information within our control. However, no internet transmission or storage is completely secure. If you have concerns about security, please contact us and consider not including extremely sensitive information in form submissions.</p>
-      <br />
-      <h3>Data retention</h3>
-      <p>Local data remains on your device until you remove it. Messages sent through the contact form are retained according to Formspree's retention policies and may also be kept in any inbox or archive used by the site operator. If you need specific retention information, please contact us.</p>
-      <br />
-      <h3>Changes to this policy</h3>
-  <p>We may update this policy occasionally to reflect changes in the Site or applicable law. When material changes are made we will post the revised policy here with an updated effective date.</p>
-      <br />
-      <h3>Contact</h3>
-  <p>If you have questions or requests about this policy or your data, please use the <a href="/contact.html">Contact page</a> to reach us.</p>
-    </div>
-  </div>
+  <br />
+  <p>This Privacy Policy explains how Nebula (the "Site") collects, uses, stores, and shares information when you visit <code>/</code> or use the Nebula Chat service. By using the Site, you agree to the practices described here.</p>
+  <br />
+
+  <h3>1. Information We Collect</h3>
+  <br />
+  <p><strong>Chat & Profile Data:</strong> When you use the chat feature, we collect and store the following in our database (Supabase):</p>
+  <ul>
+    <li><strong>Messages:</strong> The text content of your chat messages.</li>
+    <li><strong>Profile Info:</strong> Your chosen username and avatar URL.</li>
+    <li><strong>Metadata:</strong> Timestamps of when messages were sent.</li>
+  </ul>
+  <p><em>Note: Chat messages are public to all users of the Nebula network. Do not share private or sensitive information in the chat.</em></p>
+  <br />
+
+  <p><strong>Personal Information via Forms:</strong> When you submit contact forms, bug reports, or suggestions, you may provide your name and email. This data is handled by third-party services (Formspree and Supabase).</p>
+  <br />
+
+  <p><strong>Local Data:</strong> We use <code>localStorage</code> to store your profile settings (<code>nebula_profile</code>) and site preferences (favorites, view counts). This stays on your device and is used to identify you when you post messages.</p>
+  <br />
+
+  <h3>2. How We Use Information</h3>
+  <p>We use your data to facilitate the live chat experience, display your identity alongside your messages, respond to your inquiries, and improve site features. Your profile information is used to "autofill" your identity in the chat interface.</p>
+  <br />
+
+  <h3>3. Sharing and Third Parties</h3>
+  <p>We do not sell your personal data. However, your chat messages and profile display name are shared <strong>publicly</strong> with other visitors to the site. We use the following third-party processors:</p>
+  <ul>
+    <li><strong>Supabase:</strong> For database storage and real-time message delivery.</li>
+    <li><strong>Formspree:</strong> For processing contact form submissions.</li>
+  </ul>
+  <br />
+
+  <h3>4. Your Choices and Rights</h3>
+  <p>You can clear your <code>localStorage</code> at any time through your browser settings to remove your profile from your device. Since chat messages are stored persistently in our database, if you wish to have a specific message deleted, please contact us via the <a href="/contact.html">Contact page</a>.</p>
+  <br />
+
+  <h3>5. Security</h3>
+  <p>We take reasonable measures to protect your data. However, because chat messages are designed to be viewed by other users, the "Security" of chat content is limited to its public visibility. Please use the network responsibly.</p>
+  <br />
+
+  <h3>6. Data Retention</h3>
+  <p>Chat messages are retained indefinitely to provide a continuous conversation history for the community. We may periodically clear older messages to maintain system performance.</p>
+  <br />
+
+  <h3>Contact</h3>
+  <p>If you have questions about this policy or your data, please use the <a href="/contact.html">Contact page</a>.</p>
+</div>
 
   <div id="navbar-container"></div>
   <div id="particles-js"></div>

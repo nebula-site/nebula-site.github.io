@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const defaultAvatar = "/images/user.png";
   const STORAGE_KEY = 'nebula_profile';
+  const UNREAD_KEY = 'nebula_unread_count'; // Matches the key from your chat script
 
   function getProfileFromStorage() {
     try {
@@ -9,16 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) { return null; }
   }
 
-  // Updated initialization without Admin Logic
   function initializeProfile() {
     const storedProfile = getProfileFromStorage();
-    if (storedProfile) {
-      updateFloatingProfile(storedProfile);
-    } else {
-      updateFloatingProfile(null);
-    }
+    updateFloatingProfile(storedProfile);
+    syncUnreadBadge(); // Check unread count on load
   }
 
+  // UPDATED NAVBAR HTML: Added <span id="msg-badge">
   const navbarHTML = `
       <nav class="navbar">
           <div class="nav-left-bg">
@@ -26,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="nav-links">
                   <a href="/home"><i class="fa fa-home"></i></a>
                   <a href="/games"><i class="fa fa-gamepad"></i></a>
+                  <a href="/messages" style="position: relative;">
+                      <i class="fa-solid fa-message"></i>
+                      <span id="msg-badge" class="nav-badge"></span>
+                  </a>
                   <a href="/ai"><i class="fa fa-robot"></i></a>
                   <a href="/forms"><i class="fa fa-clipboard-list"></i></a>
                   <a href="/profile"><i class="fa fa-user"></i></a>
@@ -42,6 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
       </nav>
   `;
   document.body.insertAdjacentHTML("afterbegin", navbarHTML);
+
+  // --- UNREAD BADGE LOGIC ---
+  function syncUnreadBadge() {
+    const badge = document.getElementById('msg-badge');
+    const count = parseInt(localStorage.getItem(UNREAD_KEY) || '0');
+    
+    if (badge) {
+      if (count > 0) {
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.style.display = 'flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+  }
+
+  // Listen for changes in localStorage from other tabs
+  window.addEventListener('storage', (e) => {
+    if (e.key === UNREAD_KEY) syncUnreadBadge();
+  });
 
   const profileLink = document.createElement("a");
   profileLink.href = "/profile";

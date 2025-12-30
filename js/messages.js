@@ -1,10 +1,12 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+// --- CONFIGURATION ---
 const supabaseUrl = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc'; 
 const supabase = createClient(supabaseUrl, supabaseKey, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
 });
+const PERSPECTIVE_API_KEY = "885618591034-hphuiote1kotis5lt5cagm9810hleiid.apps.googleusercontent.com";
 
 // --- CONTENT FILTER CLASS ---
 class FamilyFriendlyFilter {
@@ -158,16 +160,68 @@ class FamilyFriendlyFilter {
 // --- INITIALIZE FILTER ---
 const contentFilter = new FamilyFriendlyFilter();
 
+// --- UNREAD TRACKING VARIABLE ---
+let unreadCount = parseInt(localStorage.getItem('nebula_unread_count') || '0');
+
 document.addEventListener('DOMContentLoaded', () => {
-    loadUserProfile();
-    setupStarRating();
-    fetchReviews();
-    
-    const postBtn = document.getElementById('post-review-btn');
-    if (postBtn) postBtn.onclick = handlePostReview;
+    initChat();
 });
 
-function loadUserProfile() {
+async function initChat() {
+    loadProfile();
+    await fetchMessages();
+    subscribeToLiveUpdates();
+
+    const sendBtn = document.getElementById('send-btn');
+    const input = document.getElementById('chat-input');
+
+    if (sendBtn) sendBtn.onclick = postMessage;
+    
+    if (input) {
+        // Reset unread count when user clicks into the input to type
+        input.onfocus = () => clearUnreadCount();
+        
+        input.onkeypress = (e) => { 
+            if (e.key === 'Enter') postMessage(); 
+        };
+    }
+
+    // Also reset count if the user simply switches back to this tab
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            clearUnreadCount();
+        }
+    });
+
+    // Initial UI sync
+    updateUnreadUI();
+}
+
+// --- UNREAD LOGIC FUNCTIONS ---
+function incrementUnreadCount() {
+    unreadCount++;
+    localStorage.setItem('nebula_unread_count', unreadCount);
+    updateUnreadUI();
+}
+
+function clearUnreadCount() {
+    unreadCount = 0;
+    localStorage.setItem('nebula_unread_count', '0');
+    updateUnreadUI();
+}
+
+function updateUnreadUI() {
+    const badge = document.getElementById('unread-badge');
+    if (badge) {
+        badge.textContent = unreadCount > 0 ? unreadCount : '';
+        badge.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+    // Optional: Update Document Title to show count
+    document.title = unreadCount > 0 ? `(${unreadCount}) Nebula Chat` : 'Nebula Chat';
+}
+
+// --- CORE CHAT FUNCTIONS ---
+function loadProfile() {
     const profile = JSON.parse(localStorage.getItem('nebula_profile') || '{}');
     const nameEl = document.getElementById('profile-display-name');
     const imgEl = document.getElementById('profile-display-img');
@@ -178,101 +232,81 @@ function loadUserProfile() {
     }
 }
 
-function setupStarRating() {
-    const stars = document.querySelectorAll('.star');
-    stars.forEach(star => {
-        star.onclick = () => {
-            const val = star.getAttribute('data-value');
-            document.getElementById('rating-value').value = val;
-            stars.forEach(s => {
-                const sVal = s.getAttribute('data-value');
-                s.classList.toggle('active', sVal <= val);
-                s.classList.toggle('fa-solid', sVal <= val);
-                s.classList.toggle('fa-regular', sVal > val);
-            });
-        };
-    });
-}
+async function fetchMessages() {
+    const { data, error } = await supabase
+        .from('messages')
+        .select('*')
+        .order('created_at', { ascending: true });
 
-async function fetchReviews() {
-    const container = document.getElementById('reviews-container');
-    if (!container) return;
-
-    try {
-        const { data, error } = await supabase
-            .from('reviews')
-            .select('*') 
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        if (!data || data.length === 0) {
-            container.innerHTML = '<p style="color:#888; text-align:center; padding: 20px;">No reviews yet.</p>';
-            return;
-        }
-
-        container.innerHTML = '';
-        data.forEach(review => {
-            const starCount = parseInt(review.stars) || 0;
-            let starHTML = '';
-            for(let i=1; i<=5; i++) {
-                starHTML += i <= starCount ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
-            }
-
-            container.innerHTML += `
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="user-meta">
-                            <img src="${review.avatar_url || '/images/user.png'}" class="user-avatar">
-                            <span class="user-name">${review.username || 'Anonymous'}</span>
-                        </div>
-                        <div class="star-rating">${starHTML}</div>
-                    </div>
-                    <div class="review-body">
-                        <h3 class="review-title">${review.title}</h3>
-                        <p class="review-text">${review.content}</p>
-                    </div>
-                </div>`;
-        });
-    } catch (err) {
-        console.error("Fetch Error:", err);
-        container.innerHTML = `<p class="error">Failed to load community feedback.</p>`;
+    if (!error && data) {
+        const container = document.getElementById('chat-messages');
+        container.innerHTML = data.map(m => renderMessage(m)).join('');
+        scrollDown();
     }
 }
 
-async function handlePostReview() {
-    const title = document.getElementById('review-title').value.trim();
-    const body = document.getElementById('review-body').value.trim();
-    const stars = document.getElementById('rating-value').value;
+function subscribeToLiveUpdates() {
+    supabase.channel('nebula-chat')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+            const container = document.getElementById('chat-messages');
+            container.innerHTML += renderMessage(payload.new);
+            scrollDown();
+
+            // Increment count if user is not looking at the tab
+            if (document.visibilityState === 'hidden') {
+                incrementUnreadCount();
+            }
+        })
+        .subscribe();
+}
+
+function renderMessage(msg) {
+    const profile = JSON.parse(localStorage.getItem('nebula_profile') || '{}');
+    const currentUsername = profile.name || profile.username;
+    
+    const sideClass = msg.username === currentUsername ? 'me' : 'others';
+
+    return `
+        <div class="message-row ${sideClass}">
+            <img src="${msg.avatar_url || '/images/user.png'}" 
+                 class="chat-avatar" 
+                 onerror="this.src='/images/user.png'">
+            <div class="message-content">
+                <span class="chat-username">${msg.username}</span>
+                <p class="chat-text">${msg.content}</p>
+            </div>
+        </div>`;
+}
+
+async function postMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
     const profile = JSON.parse(localStorage.getItem('nebula_profile') || 'null');
 
-    if (!profile) return alert("Please sign in to Nebula first!");
-    if (!title || !body || stars === "0") return alert("Please fill out all fields!");
+    if (!profile) return alert("Identify yourself to the Nebula network first!");
+    if (!text) return;
 
     // --- CONTENT FILTERING CHECK ---
-    const combinedText = title + " " + body;
-    const filterResult = contentFilter.filterContent(combinedText);
+    const filterResult = contentFilter.filterContent(text);
     
     if (!filterResult.isClean) {
         const issuesList = filterResult.issues.join(', ');
-        alert(`⚠️ Your review was blocked: ${issuesList}\n\nKeep the Nebula community family-friendly! 🌟`);
+        alert(`⚠️ Your message was blocked: ${issuesList}\n\nKeep the Nebula network family-friendly! 🌟`);
         return;
     }
 
-    const { error } = await supabase.from('reviews').insert([{
+    input.value = '';
+
+    const { error } = await supabase.from('messages').insert([{
         username: profile.name || profile.username,
         avatar_url: profile.picture || profile.avatar || "/images/user.png",
-        stars: parseInt(stars),
-        title: title,
-        content: body
+        content: text
     }]);
 
-    if (error) {
-        alert(`Error: ${error.message}`);
-    } else {
-        // Clear form and reload reviews
-        document.getElementById('review-title').value = '';
-        document.getElementById('review-body').value = '';
-        document.getElementById('rating-value').value = '0';
-        location.reload(); 
-    }
+    if (error) console.error("Signal lost:", error.message);
+}
+
+function scrollDown() {
+    const chat = document.getElementById('chat-messages');
+    if (chat) chat.scrollTop = chat.scrollHeight;
 }

@@ -131,3 +131,21 @@
   color: #a3f7ff;
   font-size: .95rem;
 }
+.nav-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4d; /* Red notification color */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    pointer-events: none; /* Don't block clicks to the icon */
+}

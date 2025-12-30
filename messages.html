@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Nebula</title>
+    
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="/js/navbar.js" defer></script>
+    <script type="module" src="/js/messages.js" defer></script>
+</head>
+<body>
+
+    <div class="page-content">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Nebula Global Chat</h1>
+                <div id="profile-display">
+                    <img id="profile-display-img" src="/images/user.png" alt="Profile">
+                    <span id="profile-display-name">Guest</span>
+                </div>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                <p style="color:#888; text-align:center;">Connecting to transmission...</p>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+                <button id="send-btn" class="btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
