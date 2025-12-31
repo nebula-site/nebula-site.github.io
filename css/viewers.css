@@ -25,6 +25,41 @@ body, html {
     overflow: hidden;
 }
 
+
+    #wrapper {
+        background-color: #000;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Make the game info/bottom bar area expand or stay black */
+    #bottom-bar {
+        background-color: #000 !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* Force the image to be as wide as the container */
+    #game-image {
+        width: 100vw;       /* Viewport Width */
+        height: auto;       /* Keep aspect ratio */
+        max-height: 100vh;  /* Don't let it exceed screen height */
+        object-fit: contain; /* Ensures the whole image is visible */
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* Hide the text and buttons if you only want the image visible */
+    #game-name, #button-group {
+        display: none !important;
+    }
+
+    /* Hide the game frame/iframe if you only want the 'favicon' image showing */
+    #game-frame {
+        display: none; 
+    }
+
 #wrapper {
     width: 100vw;
     height: 100vh;
