@@ -58,32 +58,47 @@ const errorOverlay = document.getElementById('error-overlay');
 
 // --- DYNAMIC CONTENT SETUP ---
 window.addEventListener('load', () => {
-    // Retrieve dynamic data from sessionStorage
     const link = sessionStorage.getItem('gameLink');
     const name = sessionStorage.getItem('gameName') || "Error 404! No Game Found.";
     const img = sessionStorage.getItem('gameImage') || "/images/favicon.png"; 
 
-    // FALLBACK LOGIC
     if (!link) {
-        console.warn("No gameLink found in sessionStorage. Redirecting to home.");
         window.location.href = "/games";
         return; 
     }
 
-    // 1. Set the Iframe source
     myIframe.src = link;
-
-    // 2. Populate Bottom Bar
     document.getElementById('game-name').innerText = name;
     document.getElementById('game-image').src = img;
-    
-    // 3. Attach error listener
-    myIframe.addEventListener('error', handleError);
+    document.title = name;
 
-    // OPTIMIZATION: Focus the iframe immediately so keyboard controls work without clicking
-    myIframe.onload = function() {
-        myIframe.contentWindow.focus();
-    };
+    // --- NEW: Wikipedia Fetch Logic ---
+    fetchWikipediaDescription(name);
+
+    myIframe.addEventListener('error', handleError);
+    myIframe.onload = () => myIframe.contentWindow.focus();
+    changeFavicon(img);
+});
+
+async function fetchWikipediaDescription(gameName) {
+    const descriptionEl = document.getElementById('game-description');
+    
+    // Clean up name for Wikipedia (e.g., "Super Mario" -> "Super_Mario")
+    const searchTitle = encodeURIComponent(gameName.trim().replace(/\s+/g, '_'));
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${searchTitle}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Not found');
+        
+        const data = await response.json();
+        // Use 'extract' for a full sentence or 'description' for a short blurb
+        descriptionEl.innerText = data.description || data.extract.split('.')[0] + '.';
+    } catch (err) {
+        console.warn("Wikipedia description not found for:", gameName);
+        descriptionEl.innerText = "No description available.";
+    }
+}
 
     document.title = name;
 
