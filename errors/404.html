@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Game Not Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-red: #ff4757;
+            --bg-dark: #0a0a0a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 8rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -5px;
+            color: white;
+            position: relative;
+        }
+
+        /* Subtle glow effect for the 404 text */
+        h1::after {
+            content: '404';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            color: var(--accent-red);
+            opacity: 0.5;
+            filter: blur(15px);
+            z-index: -1;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+            color: var(--accent-red);
+        }
+
+        p {
+            color: #888;
+            max-width: 400px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-home:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Decorative background elements */
+        .bg-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: -1;
+            font-size: 15rem;
+        }
+    </style>
+</head>
+<body>
+
+    <i class="fa-solid fa-ghost bg-icon" style="top: 10%; left: 5%;"></i>
+    <i class="fa-solid fa-gamepad bg-icon" style="bottom: 5%; right: 5%;"></i>
+
+    <div class="container">
+        <div class="glitch-wrapper">
+            <h1>404</h1>
+        </div>
+        <h2>Level Not Found</h2>
+        <div style="width: 40px; height: 4px; background: var(--accent-red); margin: 20px auto; border-radius: 2px;"></div>
+        <p>The game you are looking for has been moved, deleted, or never existed in this dimension.</p>
+        
+        <a href="/games" class="btn-home">
+            <i class="fa-solid fa-house"></i>
+            Return to Lobby
+        </a>
+    </div>
+
+</body>
+</html>
