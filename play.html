@@ -35,9 +35,12 @@
     <div id="bottom-bar">
 
         <div id="game-info">
-            <img id="game-image" src="" alt="Game Icon">
-            <span id="game-name">Game Placeholder</span>
-        </div>
+    <img id="game-image" src="" alt="Game Icon">
+    <div id="text-container" style="display: flex; flex-direction: column; margin-left: 10px;">
+        <span id="game-name" style="font-weight: 800; font-size: 1.2rem;">Game Placeholder</span>
+        <span id="game-description" style="font-size: 0.85rem; color: #fff; max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Loading description...</span>
+    </div>
+</div>
 
         <div id="button-group">
             <button onclick="goHome()" title="Go Home"><i class="fa fa-house"></i></button>
