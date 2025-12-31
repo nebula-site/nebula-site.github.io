@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"] # Or "master" depending on your branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Inject Secrets into JS files
+        run: |
+          # This replaces the placeholders in ALL .js files in the /js/ folder
+          sed -i "s|YOUR_SUPABASE_URL_PLACEHOLDER|${{ secrets.secret1 }}|g" js/*.js
+          sed -i "s|YOUR_SUPABASE_KEY_PLACEHOLDER|${{ secrets.secret2 }}|g" js/*.js
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
