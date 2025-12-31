@@ -44,13 +44,11 @@
 
         <section id="auth-section" class="auth-section">
             <h2>Welcome to Nebula</h2>
-            <p>Sign in or create an account to get started</p>
             <div class="auth-buttons">
                 <button class="btn btn-primary" id="signInBtn"><i class="fa fa-sign-in"></i> Sign In</button>
                 <button class="btn btn-secondary" id="signUpBtn"><i class="fa fa-user-plus"></i> Sign Up</button>
             </div>
         </section>
-
     </main>
 
     <div id="signInModal" class="modal">
@@ -68,41 +66,12 @@
                 <button class="btn btn-tertiary" id="loginBtn"><i class="fa fa-check"></i> Sign In</button>
                 <button class="btn btn-danger" id="closeSignInBtn"><i class="fa fa-times"></i> Cancel</button>
             </div>
-            <div class="switch-auth-text">
-                Don't have an account? <button id="switchToSignUp"><i class="fa fa-arrow-right"></i> Sign Up</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="signUpModal" class="modal">
-        <div class="modal-content">
-            <h2><i class="fa fa-user-plus"></i> Create Account</h2>
-            <div class="form-group">
-                <label><i class="fa fa-envelope"></i> Email</label>
-                <input type="email" id="signUpEmail" placeholder="your@email.com" />
-            </div>
-            <div class="form-group">
-                <label><i class="fa fa-user"></i> Username</label>
-                <input type="text" id="signUpUsername" placeholder="Choose a username" />
-            </div>
-            <div class="form-group">
-                <label><i class="fa fa-lock"></i> Password</label>
-                <input type="password" id="signUpPassword" placeholder="At least 6 characters" />
-            </div>
-            <div class="modal-buttons">
-                <button class="btn btn-tertiary" id="createAccountBtn"><i class="fa fa-check"></i> Create Account</button>
-                <button class="btn btn-danger" id="closeSignUpBtn"><i class="fa fa-times"></i> Cancel</button>
-            </div>
-            <div class="switch-auth-text">
-                Already have an account? <button id="switchToSignIn"><i class="fa fa-arrow-right"></i> Sign In</button>
-            </div>
         </div>
     </div>
 
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h2><i class="fa fa-edit"></i> Edit Profile</h2>
-            
             <div class="form-group">
                 <label><i class="fa fa-image"></i> Avatar</label>
                 <img id="avatarPreview" class="avatar-preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23a3f7ff' opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23a3f7ff' stroke-width='2'/%3E%3C/svg%3E" alt="avatar preview">
@@ -111,22 +80,10 @@
                     <button type="button" class="upload-btn" id="uploadAvatarBtn"><i class="fa fa-upload"></i> Upload Avatar</button>
                 </div>
             </div>
-
             <div class="form-group">
                 <label><i class="fa fa-user"></i> Username</label>
                 <input type="text" id="editUsername" placeholder="Enter your username" />
             </div>
-
-            <div class="form-group">
-                <label><i class="fa fa-envelope"></i> Email Address</label>
-                <input type="email" id="editEmail" placeholder="New Email Address" />
-            </div>
-
-            <div class="form-group">
-                <label><i class="fa fa-lock"></i> New Password</label>
-                <input type="password" id="editPassword" placeholder="Leave blank to keep current" />
-            </div>
-
             <div class="modal-buttons">
                 <button class="btn btn-tertiary" id="saveProfileBtn"><i class="fa fa-save"></i> Save Changes</button>
                 <button class="btn btn-danger" id="closeEditBtn"><i class="fa fa-times"></i> Cancel</button>
@@ -140,9 +97,8 @@
             <a href="/privacy.html"><i class="fa fa-shield"></i> Privacy Policy</a>
             <a href="/terms.html"><i class="fa fa-file-contract"></i> Terms of Service</a>
             <a href="/contact.html"><i class="fa fa-envelope"></i> Contact Us</a>
-             <a href="/DMCA.html"><i class="fa fa-gavel"></i> DMCA</a>
+            <a href="/DMCA.html"><i class="fa fa-gavel"></i> DMCA</a>
         </nav>
     </footer>
 </body>
-
 </html>
