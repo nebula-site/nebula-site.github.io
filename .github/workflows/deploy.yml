@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main", "master"]
+  workflow_dispatch: # Allows you to run it manually from the Actions tab
 
-# THIS IS THE PART YOU WERE MISSING:
 permissions:
   contents: read
   pages: write
@@ -19,9 +19,10 @@ jobs:
 
       - name: Inject Secrets
         run: |
-          # Make sure these match your JS folder/file names!
-          sed -i "s|secret1|${{ secrets.SUPABASE_URL }}|g" js/*.js
-          sed -i "s|secret2|${{ secrets.SUPABASE_KEY }}|g" js/*.js
+          # This finds EVERY .js file in your repo and replaces secret1/secret2
+          # It works whether your files are in /js/ or the root folder
+          find . -name "*.js" -exec sed -i "s|secret1|${{ secrets.SUPABASE_URL }}|g" {} +
+          find . -name "*.js" -exec sed -i "s|secret2|${{ secrets.SUPABASE_KEY }}|g" {} +
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -32,4 +33,5 @@ jobs:
           path: '.'
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
