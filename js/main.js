@@ -4,38 +4,7 @@ document.title = "Nebula - Gaming Meets Reality";
  * Self-contained utility function to create and manage a full-screen loading spinner.
  * Includes mobile redirection for devices with screen widths under 768px.
  */
-(function() {
-    // 1. Define your valid routes
-    const validPages = [
-        '/', 
-        '/terms.html', 
-        '/reviews.html', 
-        '/profile.html',
-        '/privacy.html'
-        '/play.html'
-        '/messages.html'
-        '/index.html'
-        '/home.html'
-        '/games.html'
-        '/forms.html'
-        '/contact.html'
-        '/ai.html'
-        '/README.md'
-        '/DMCA.html'
-        '/terms', 
-        '/reviews', 
-        '/profile',
-        '/privacy'
-        '/play'
-        '/messages'
-        '/index'
-        '/home'
-        '/games'
-        '/forms'
-        '/contact'
-        '/ai'
-        '/DMCA'
-    ];
+
 
     // 2. Get current path
     const currentPath = window.location.pathname;
