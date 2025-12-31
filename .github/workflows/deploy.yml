@@ -2,7 +2,13 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Or "master" depending on your branch name
+    branches: ["main", "master"]
+
+# THIS IS THE PART YOU WERE MISSING:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -11,16 +17,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Inject Secrets into JS files
+      - name: Inject Secrets
         run: |
+          # Make sure these match your JS folder/file names!
           sed -i "s|secret1|${{ secrets.SUPABASE_URL }}|g" js/*.js
           sed -i "s|secret2|${{ secrets.SUPABASE_KEY }}|g" js/*.js
 
-      - name: Upload Pages Artifact
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
