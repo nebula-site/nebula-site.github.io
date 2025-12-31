@@ -5,6 +5,88 @@ document.title = "Nebula - Gaming Meets Reality";
  * Includes mobile redirection for devices with screen widths under 768px.
  */
 (function() {
+    // 1. Define your valid routes
+    const validPages = [
+        '/', 
+        '/terms.html', 
+        '/reviews.html', 
+        '/profile.html',
+        '/privacy.html'
+        '/play.html'
+        '/messages.html'
+        '/index.html'
+        '/home.html'
+        '/games.html'
+        '/forms.html'
+        '/contact.html'
+        '/ai.html'
+        '/README.md'
+        '/DMCA.html'
+        '/terms', 
+        '/reviews', 
+        '/profile',
+        '/privacy'
+        '/play'
+        '/messages'
+        '/index'
+        '/home'
+        '/games'
+        '/forms'
+        '/contact'
+        '/ai'
+        '/DMCA'
+    ];
+
+    // 2. Get current path
+    const currentPath = window.location.pathname;
+
+    // 3. Check if current path is invalid
+    // This allows for root access and checking specific filenames
+    if (!validPages.includes(currentPath) && currentPath !== '') {
+        trigger404();
+    }
+
+    function trigger404() {
+        // Change title for SEO/UX
+        document.title = "404 - Page Not Found";
+
+        // Inject CSS to reset body and handle iframe
+        const style = document.createElement('style');
+        style.innerHTML = `
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                background-color: #000;
+            }
+            #error-frame {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                border: none;
+                z-index: 999999;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Clear current body and inject the iframe
+        document.body.innerHTML = `
+            <iframe 
+                id="error-frame" 
+                src="/errors/404.html" 
+                title="404 Error">
+            </iframe>
+        `;
+        
+        // Prevent further script execution on the "broken" page
+        window.stop();
+    }
+})();
+(function() {
     // --- 0. Mobile Detection & Redirection ---
     const isMobileUserAgent = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isSmallScreen = window.innerWidth < 768; // Standard breakpoint for tablets vs phones
