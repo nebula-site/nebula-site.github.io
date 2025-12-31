@@ -1,10 +1,19 @@
 document.title = "Nebula - Gaming Meets Reality";
+
 /**
  * Self-contained utility function to create and manage a full-screen loading spinner.
- * It injects the necessary HTML and CSS into the document and hides itself
- * automatically when the entire page (including all resources like images) is loaded.
+ * Includes mobile redirection for devices with screen widths under 768px.
  */
 (function() {
+    // --- 0. Mobile Detection & Redirection ---
+    const isMobileUserAgent = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth < 768; // Standard breakpoint for tablets vs phones
+
+    if (isMobileUserAgent && isSmallScreen) {
+        window.location.href = "/errors/phone.html";
+        return; // Stop execution of the loader if redirecting
+    }
+
     // --- 1. Define HTML and CSS Templates ---
     const LOADER_ID = 'js-loading-screen';
     const SPINNER_CLASS = 'js-spinner';
@@ -65,11 +74,8 @@ document.title = "Nebula - Gaming Meets Reality";
     function hideLoader(loaderElement) {
         if (loaderElement) {
             console.log("All resources loaded. Hiding spinner.");
-            // 1. Start the fade-out effect
             loaderElement.classList.add(HIDDEN_CLASS);
 
-            // 2. Remove the element from the DOM after the transition is complete
-            // (Wait 600ms to allow the 500ms CSS transition to finish)
             setTimeout(() => {
                 if (loaderElement.parentNode) {
                     loaderElement.parentNode.removeChild(loaderElement);
@@ -80,31 +86,24 @@ document.title = "Nebula - Gaming Meets Reality";
 
     // --- 5. Initialization ---
     function initializeLoader() {
-        // Ensure styles and loader are created before content loads
         injectStyles();
         const loaderElement = createLoader();
 
-        // The 'load' event waits for ALL page resources (HTML, CSS, JS, Images, etc.)
         window.addEventListener('load', () => {
             hideLoader(loaderElement);
         });
         
-        // Safety timeout: If 'load' fails for some reason or takes an extreme amount of time,
-        // hide the loader after a very long delay (e.g., 30 seconds) to prevent infinite loading.
         setTimeout(() => {
-            // Check if the loader is already hidden before forcing it
             if (!loaderElement.classList.contains(HIDDEN_CLASS)) {
                 console.warn("Forcing loader hide after timeout.");
                 hideLoader(loaderElement);
             }
-        }, 30000); // 30 seconds
+        }, 30000); 
     }
 
-    // Run the initialization logic when the DOM structure is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeLoader);
     } else {
-        // DOM is already ready (in case the script is placed at the end of the body)
         initializeLoader();
     }
 })();
