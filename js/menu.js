@@ -1,6 +1,6 @@
 // --- Supabase Configuration ---
-const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc'
+const SUPABASE_URL = 'secret1'
+const SUPABASE_ANON_KEY = 'secret2'
 
 let supabase = null
 let supabasePublic = null
