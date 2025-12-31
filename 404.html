@@ -3,129 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
+    <title>404 - Page not Found</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --accent-red: #ff4757;
-            --nebula-blue: #7aa7d8;
-            --nebula-pink: #d9a7d8;
-            --bg-1: #0d1b35; /* From your desc-1 */
-            --bg-2: #1a1a35; /* From your desc-2 */
+            /* Your Exact Color Palette */
+            --midnight-blue: #162441;
+            --panel-bg: #1a2a4a;
+            --cyan-text: #a3f7ff;
+            --dim-text: #a0a0a0;
+            --border-glow: rgba(163, 247, 255, 0.12);
+            --btn-blue: #244466;
+            --btn-hover: #2d5580;
         }
 
-        body {
+        /* Fullscreen Layout Setup */
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
             margin: 0;
             padding: 0;
-            /* Using a gradient of your two space-themed backgrounds */
-            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
-            color: white;
-            font-family: 'Roboto Mono', Arial, sans-serif;
+            height: 100vh; /* Full viewport height */
+            width: 100vw;  /* Full viewport width */
+            background-color: #0a0e1a; /* Matching your form input backgrounds */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            overflow: hidden; /* Prevent scrollbars */
         }
 
-        /* Using your specific glass-morphism style */
+        /* Main Center Card - Matches .reviews-form */
         .error-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px;
-            background: rgba(30, 40, 60, 0.3); /* From your text-container */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(163,247,255,0.08); /* Your border style */
-            border-radius: 12px; /* Your border-radius */
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3); /* Your shadow style */
+            background: var(--panel-bg);
+            backdrop-filter: blur(8px);
+            padding: 60px 50px;
+            border-radius: 22px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
             max-width: 600px;
             width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
+        /* Large 404 Header - Matches your .reviews-form h1 colors */
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 8rem;
-            font-weight: 900;
+            color: var(--cyan-text);
             margin: 0;
-            color: var(--nebula-blue); /* Your Headline color */
-            text-shadow: 0 0 20px rgba(122, 167, 216, 0.3);
+            font-size: 7rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(163,247,255,0.2);
             line-height: 1;
         }
 
+        /* Section Title - Matches h2.section-title */
         h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--nebula-pink); /* Using your desc-2 headline color */
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 10px;
+            color: #ffffff;
+            font-size: 1.6rem;
+            margin: 15px 0 25px 0;
+            border-left: 4px solid var(--btn-blue);
+            padding-left: 15px;
+            display: inline-block;
+            text-align: left;
+            text-transform: capitalize;
         }
 
-        .divider {
-            width: 80px;
-            height: 2px;
-            background: rgba(163,247,255,0.2);
-            margin: 20px auto;
-        }
-
+        /* Description - Matches .review-text */
         p {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1.2rem;
-            color: #d9e8f7; /* Your paragraph color */
-            margin: 0 0 30px 0;
+            color: var(--dim-text);
+            font-size: 1.1rem;
             line-height: 1.6;
+            margin: 0 0 40px 0;
         }
 
+        /* Button Styling - Matches .btn-primary */
         .btn-home {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: rgba(30, 40, 60, 0.5);
-            color: var(--nebula-blue);
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 30px; /* Matching your image border-radius style */
-            font-family: 'Orbitron', sans-serif;
+            background: var(--btn-blue);
+            color: var(--cyan-text);
+            border: 1px solid rgba(163,247,255,0.2);
+            padding: 15px 35px;
+            border-radius: 50px;
             font-weight: 700;
-            border: 1px solid rgba(163,247,255,0.1);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
         .btn-home:hover {
-            background: var(--nebula-blue);
-            color: var(--bg-1);
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(122, 167, 216, 0.4);
+            background: var(--btn-hover);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(163,247,255,0.15);
         }
 
-        /* Decorative Background Icons */
-        .bg-icon {
+        /* System Status Badge - Matches #profile-display styling */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            background: rgba(10, 14, 26, 0.5);
+            border: 1px solid var(--border-glow);
+            border-radius: 50px;
+            margin-bottom: 30px;
+            color: var(--cyan-text);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #ff4757; /* Professional Red Alert */
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff4757;
+        }
+
+        /* Subtle Background Decorative Grid */
+        .bg-grid {
             position: absolute;
-            color: rgba(163, 247, 255, 0.03);
-            z-index: -1;
-            font-size: 20rem;
-            pointer-events: none;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: radial-gradient(circle, rgba(163,247,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
 
-    <i class="fa-solid fa-satellite-dish bg-icon" style="top: -5%; left: 0%;"></i>
-    <i class="fa-solid fa-user-astronaut bg-icon" style="bottom: 0%; right: 0%;"></i>
+    <div class="bg-grid"></div>
 
     <div class="error-card">
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            404 Error Page not Found
+        </div>
+        
         <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <div class="divider"></div>
-        <p>Woah there. looks like youve gotten lost in the pages of Nebula!</p>
+        <h2>Page not Found</h2>
+        
+        <p>The system was unable to retrieve the requested data. This link may have expired or the directory path has been modified within the dashboard database.</p>
         
         <a href="/index.html" class="btn-home">
-            <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-home"></i>
+            Return to site home
         </a>
     </div>
 
