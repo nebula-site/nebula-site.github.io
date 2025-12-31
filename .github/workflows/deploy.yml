@@ -21,8 +21,8 @@ jobs:
         run: |
           # This finds EVERY .js file in your repo and replaces secret1/secret2
           # It works whether your files are in /js/ or the root folder
-          find . -name "*.js" -exec sed -i "s|secret1|${{ secrets.SUPABASE_URL }}|g" {} +
-          find . -name "*.js" -exec sed -i "s|secret2|${{ secrets.SUPABASE_KEY }}|g" {} +
+          find . -name "*.js" -exec sed -i "s|secret1|${{ secrets.secret1 }}|g" {} +
+          find . -name "*.js" -exec sed -i "s|secret2|${{ secrets.secret2 }}|g" {} +
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
