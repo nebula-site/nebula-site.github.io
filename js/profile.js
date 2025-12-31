@@ -128,6 +128,7 @@ function showProfile(user) {
         card: document.getElementById('profile-card'),
         auth: document.getElementById('auth-section'),
         editName: document.getElementById('editUsername'),
+        editEmail: document.getElementById('editEmail'), // UPDATED: Get Email Input
         prev: document.getElementById('avatarPreview')
     };
 
@@ -138,6 +139,7 @@ function showProfile(user) {
     if (els.card) els.card.classList.add('show');
     if (els.auth) els.auth.style.display = 'none';
     if (els.editName) els.editName.value = profile.name;
+    if (els.editEmail) els.editEmail.value = profile.email; // UPDATED: Pre-fill Email
     if (els.prev) els.prev.src = profile.avatar;
 }
 
@@ -192,22 +194,60 @@ document.addEventListener('DOMContentLoaded', async () => {
         reader.readAsDataURL(file);
     });
 
+    // --- UPDATED SAVE LISTENER ---
     document.getElementById('saveProfileBtn')?.addEventListener('click', async () => {
         const btn = document.getElementById('saveProfileBtn');
         const name = document.getElementById('editUsername').value.trim();
         const b64 = document.getElementById('avatarUpload').dataset.base64;
         
+        // NEW: Get Email/Pass values
+        const newEmail = document.getElementById('editEmail')?.value.trim();
+        const newPassword = document.getElementById('editPassword')?.value.trim();
+        
         if (!name) return showError('Name required');
+        
         btn.disabled = true;
         btn.textContent = 'Saving...';
 
         try {
-            const { error } = await supabase.auth.updateUser({ 
-                data: { full_name: name, avatar_url: b64 || getProfileFromStorage()?.avatar } 
-            });
+            // 1. Prepare base update object
+            const updates = {
+                data: { 
+                    full_name: name, 
+                    avatar_url: b64 || getProfileFromStorage()?.avatar 
+                }
+            };
+
+            // 2. Add Email change if different from current
+            const currentProfile = getProfileFromStorage();
+            if (newEmail && newEmail !== currentProfile?.email) {
+                updates.email = newEmail;
+            }
+
+            // 3. Add Password change if provided
+            if (newPassword && newPassword.length > 0) {
+                if (newPassword.length < 6) throw new Error("Password must be at least 6 characters");
+                updates.password = newPassword;
+            }
+
+            // 4. Send to Supabase
+            const { error } = await supabase.auth.updateUser(updates);
             if (error) throw error;
-            showSuccess('Updated!');
-            location.reload(); // Reload to refresh all session instances
+
+            // 5. Success Logic
+            let msg = 'Updated!';
+            if (updates.email) msg += ' Check email to verify.';
+            if (updates.password) msg = 'Profile & Password updated!';
+            
+            showSuccess(msg);
+            
+            // Reload unless email changed (email change needs verification first usually)
+            if (!updates.email) {
+                 location.reload(); 
+            } else {
+                btn.textContent = 'Verification Sent';
+            }
+
         } catch (e) {
             showError(e.message);
             btn.disabled = false;
