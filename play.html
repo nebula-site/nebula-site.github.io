@@ -1,196 +1,355 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Nebula - Play</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/viewers.css">
 
 
+
+
+
 </head>
+
 <body>
+
+
 
 <div id="wrapper">
 
+
+
     <div id="game-frame">
+
         <div id="error-overlay">
+
             <i class="fa-solid fa-triangle-exclamation"></i>
+
             <h2>GAME LOAD ERROR</h2>
+
             <p>The game failed to load. This may be due to browser security restrictions, the game link being invalid, or the game being unavailable.</p>
+
             <button onclick="window.location.reload()">Try Reloading Page</button>
+
         </div>
+
         
+
         <iframe 
+
             id="myIframe" 
+
             src=""
+
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; gamepad; vibration; xr-spatial-tracking" 
+
             allowfullscreen="true"
+
             loading="eager"
+
             scrolling="no">
+
         </iframe>
+
     </div>
+
+
 
     <div id="bottom-bar">
 
+
+
         <div id="game-info">
-    <img id="game-image" src="" alt="Game Icon">
-    <div id="text-container" style="display: flex; flex-direction: column; margin-left: 10px;">
-        <span id="game-name" style="font-weight: 800; font-size: 1.2rem;">Game Placeholder</span>
-        <span id="game-description" style="font-size: 0.85rem; color: #fff; max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Loading description...</span>
-    </div>
-</div>
+
+            <img id="game-image" src="" alt="Game Icon">
+
+            <span id="game-name">Game Placeholder</span>
+
+        </div>
+
+
 
         <div id="button-group">
+
             <button onclick="goHome()" title="Go Home"><i class="fa fa-house"></i></button>
+
             <button id="fullscreenButton" onclick="makeFullscreen()" title="Fullscreen Toggle"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+
             <button id="reloadButton" onclick="reloadIframe()" title="Reload Game"><i class="fa fa-rotate-right"></i></button>
+
         </div>
+
     </div>
+
+
 
 </div>
 
+
+
 <script>
+
 const myIframe = document.getElementById('myIframe');
+
 const reloadButtonIcon = document.querySelector('#reloadButton i');
+
 const errorOverlay = document.getElementById('error-overlay');
 
+
+
 // --- DYNAMIC CONTENT SETUP ---
+
 window.addEventListener('load', () => {
+
+    // Retrieve dynamic data from sessionStorage
+
     const link = sessionStorage.getItem('gameLink');
+
     const name = sessionStorage.getItem('gameName') || "Error 404! No Game Found.";
+
     const img = sessionStorage.getItem('gameImage') || "/images/favicon.png"; 
 
+
+
+    // FALLBACK LOGIC
+
     if (!link) {
+
+        console.warn("No gameLink found in sessionStorage. Redirecting to home.");
+
         window.location.href = "/games";
+
         return; 
+
     }
+
+
+
+    // 1. Set the Iframe source
 
     myIframe.src = link;
-    document.getElementById('game-name').innerText = name;
-    document.getElementById('game-image').src = img;
-    document.title = name;
 
-    // --- NEW: Wikipedia Fetch Logic ---
-    fetchWikipediaDescription(name);
+
+
+    // 2. Populate Bottom Bar
+
+    document.getElementById('game-name').innerText = name;
+
+    document.getElementById('game-image').src = img;
+
+    
+
+    // 3. Attach error listener
 
     myIframe.addEventListener('error', handleError);
-    myIframe.onload = () => myIframe.contentWindow.focus();
-    changeFavicon(img);
-});
 
-async function fetchWikipediaDescription(gameName) {
-    const descriptionEl = document.getElementById('game-description');
-    
-    // Clean up name for Wikipedia (e.g., "Super Mario" -> "Super_Mario")
-    const searchTitle = encodeURIComponent(gameName.trim().replace(/\s+/g, '_'));
-    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${searchTitle}`;
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Not found');
-        
-        const data = await response.json();
-        // Use 'extract' for a full sentence or 'description' for a short blurb
-        descriptionEl.innerText = data.description || data.extract.split('.')[0] + '.';
-    } catch (err) {
-        console.warn("Wikipedia description not found for:", gameName);
-        descriptionEl.innerText = "No description available.";
-    }
-}
+
+    // OPTIMIZATION: Focus the iframe immediately so keyboard controls work without clicking
+
+    myIframe.onload = function() {
+
+        myIframe.contentWindow.focus();
+
+    };
+
+
 
     document.title = name;
 
+
+
     function changeFavicon(src) {
+
          var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+
          link.type = 'image/x-icon';
+
          link.rel = 'shortcut icon';
+
          link.href = img; 
+
          document.getElementsByTagName('head')[0].appendChild(link);
+
     }
 
+
+
     changeFavicon(img);
+
 });
 
+
+
 // --- ERROR HANDLING ---
+
 function handleError() {
+
     console.error("Iframe failed to load content. Displaying error overlay.");
+
     myIframe.style.opacity = '0';
+
     errorOverlay.style.display = 'flex';
+
 }
 
+
+
 // --- CONTROL BAR FUNCTIONS ---
+
 function reloadIframe() {
+
     const iframe = document.getElementById('myIframe');
+
     const src = iframe.src;
+
     
+
     if (src === 'about:blank' || src === '') return;
 
+
+
     errorOverlay.style.display = 'none';
+
     myIframe.style.opacity = '1';
+
+
 
     reloadButtonIcon.classList.add('fa-spin-custom'); 
 
+
+
     // OPTIMIZATION: Re-focus after reload
+
     iframe.contentWindow.location.replace(src); 
+
     setTimeout(() => {
+
         iframe.contentWindow.focus();
+
     }, 200);
 
+
+
     setTimeout(() => {
+
         reloadButtonIcon.classList.remove('fa-spin-custom');
+
     }, 1200); 
+
 }
 
+
+
 function makeFullscreen() {
+
     const frame = document.getElementById('game-frame'); 
+
+
 
     const requestFS = frame.requestFullscreen || frame.webkitRequestFullscreen || frame.mozRequestFullScreen || frame.msRequestFullscreen;
 
+
+
     if (requestFS) {
+
         requestFS.call(frame).then(() => {
+
              // OPTIMIZATION: Ensure focus when entering fullscreen
+
             setTimeout(() => {
+
                 const iframe = document.getElementById('myIframe');
+
                 if(iframe) iframe.contentWindow.focus();
+
             }, 100);
+
         }).catch(err => {
+
             console.warn('Fullscreen request failed:', err);
+
             alert('Fullscreen is not available for this content in your browser or device settings.');
+
         });
+
     } else {
+
         alert('Fullscreen API is not supported.');
+
     }
+
 }
 
+
+
 function goHome() {
+
     window.location.href = "/games"; 
+
 }
+
+
+
 
 
 // --- FULLSCREEN SYNC LOGIC ---
+
 const fsEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+
 fsEvents.forEach(ev => {
+
     document.addEventListener(ev, () => {
+
         const frame = document.getElementById('game-frame');
+
         const isFs = document.fullscreenElement === frame || document.webkitFullscreenElement === frame || document.mozFullScreenElement === frame || document.msFullscreenElement === frame;
+
         const btn = document.getElementById('fullscreenButton');
+
         
+
         if (btn) {
+
             const icon = btn.querySelector('i');
+
             if (isFs) {
+
                 icon.className = 'fa-solid fa-compress';
+
                 btn.title = 'Exit Fullscreen';
+
             } else {
+
                 icon.className = 'fa-solid fa-up-right-and-down-left-from-center';
+
                 btn.title = 'Fullscreen Toggle';
+
             }
+
         }
+
     });
+
 });
+
+
 
 </script>
 
+
+
 </body>
+
 </html>
