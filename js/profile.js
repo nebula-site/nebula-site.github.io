@@ -1,8 +1,8 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 // --- Supabase and Global Constants ---
-const SUPABASE_URL = 'secret1';
-const SUPABASE_ANON_KEY = 'secret2';
+const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc';
 const MAX_FILE_SIZE = 500 * 1024;
 const ADMIN_EMAIL_CHECK = 'REESDOLSEN@GMAIL.COM'.toUpperCase().trim();
 const STORAGE_KEY = 'nebula_profile';
@@ -12,10 +12,6 @@ const defaultAvatar = "/images/user.png";
 
 // --- UTILITY FUNCTIONS ---
 
-/**
- * Aggressive compression to ensure we stay under the 64KB Auth limit.
- * Resizes to 120px and uses 0.5 quality.
- */
 function compressImage(base64Str, maxWidth = 120, maxHeight = 120) {
     return new Promise((resolve) => {
         const img = new Image();
@@ -33,7 +29,6 @@ function compressImage(base64Str, maxWidth = 120, maxHeight = 120) {
             canvas.height = height;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
-            // JPEG at 0.5 quality is extremely small (usually < 5KB)
             resolve(canvas.toDataURL('image/jpeg', 0.5));
         };
         img.onerror = () => resolve(defaultAvatar);
@@ -58,25 +53,10 @@ function getProfileFromStorage() {
 function clearProfileStorage() {
     try {
         localStorage.removeItem(STORAGE_KEY);
-        // Also clear Supabase's own internal session storage to fix the "Reset" error
         localStorage.removeItem('sb-lhurtuuxsmlakoikcpiz-auth-token'); 
         updateFloatingProfile(null);
         checkAdminStatusAndDispatch(null);
     } catch (e) { console.error('Storage error:', e); }
-}
-
-function showAuthToast(msg = 'Sign in required') {
-    let t = document.getElementById('nebula-auth-toast');
-    if (!t) {
-        t = document.createElement('div');
-        t.id = 'nebula-auth-toast';
-        t.style = 'position:fixed;right:20px;bottom:90px;background:#3a6fb5;color:white;padding:10px 14px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.4);z-index:2000;font-weight:600;opacity:0;transition:opacity 0.3s;pointer-events:none;';
-        document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.opacity = '1';
-    clearTimeout(t._hideTimer);
-    t._hideTimer = setTimeout(() => { t.style.opacity = '0'; }, 2200);
 }
 
 function checkAdminStatusAndDispatch(profile) {
@@ -85,11 +65,6 @@ function checkAdminStatusAndDispatch(profile) {
     window.dispatchEvent(new CustomEvent('adminStatusChecked', {
         detail: { isAdmin, email }
     }));
-}
-
-function isSignedIn() {
-    const p = getProfileFromStorage();
-    return !!(p && (p.email || p.name));
 }
 
 function showError(msg) {
@@ -128,7 +103,7 @@ function showProfile(user) {
         card: document.getElementById('profile-card'),
         auth: document.getElementById('auth-section'),
         editName: document.getElementById('editUsername'),
-        editEmail: document.getElementById('editEmail'), // UPDATED: Get Email Input
+        editEmail: document.getElementById('editEmail'),
         prev: document.getElementById('avatarPreview')
     };
 
@@ -139,7 +114,7 @@ function showProfile(user) {
     if (els.card) els.card.classList.add('show');
     if (els.auth) els.auth.style.display = 'none';
     if (els.editName) els.editName.value = profile.name;
-    if (els.editEmail) els.editEmail.value = profile.email; // UPDATED: Pre-fill Email
+    if (els.editEmail) els.editEmail.value = profile.email;
     if (els.prev) els.prev.src = profile.avatar;
 }
 
@@ -165,7 +140,7 @@ function updateFloatingProfile(profile) {
 
 // --- MAIN LOGIC ---
 document.addEventListener('DOMContentLoaded', async () => {
-    // Inject Navbar & Float (Standard HTML)
+    // UI Injection
     const navbarHTML = `<nav class="navbar"><div class="nav-left-bg"><a href="/" class="logo"><img src="/images/favicon.png"></a><div class="nav-links"><a href="/home"><i class="fa fa-home"></i></a><a href="/games"><i class="fa fa-gamepad"></i></a><a href="/messages" style="position: relative;"><i class="fa-solid fa-message"></i><span id="msg-badge" class="nav-badge"></span></a><a href="/ai"><i class="fa fa-robot"></i></a><a href="/forms"><i class="fa fa-clipboard-list"></i></a><a href="/profile"><i class="fa fa-user"></i></a><a href="/reviews"><i class="fa fa-star"></i></a><a href="/admin" id="admin-nav-btn" style="display:none;"><i class="fa fa-crown"></i></a><a class="extra"><i class="fa fa-plus"></i></a><div class="extra-buttons"><a href="https://github.com/nebula-site" target="_blank"><i class="fa-brands fa-github"></i></a><a href="/terms"><i class="fa fa-clipboard-check"></i></a><a href="/privacy"><i class="fa fa-user-lock"></i></a><a href="/contact"><i class="fa fa-envelope"></i></a></div></div></div></nav>`;
     document.body.insertAdjacentHTML("afterbegin", navbarHTML);
 
@@ -175,13 +150,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     profileLink.innerHTML = `<img id="profile-float-img" src="${defaultAvatar}"><span id="profile-float-name">Sign In</span>`;
     document.body.appendChild(profileLink);
 
-    // Initial check
+    // Initial Auth Check
     const { data: { session } } = await supabase.auth.getSession();
     if (session) showProfile(session.user); else hideProfile();
 
-    // Event Listeners
-    document.getElementById('uploadAvatarBtn')?.addEventListener('click', () => document.getElementById('avatarUpload').click());
+    // Modal Helpers
+    const modal = (id, open) => document.getElementById(id)?.classList[open ? 'add' : 'remove']('show');
 
+    // Avatar Upload Logic
+    document.getElementById('uploadAvatarBtn')?.addEventListener('click', () => document.getElementById('avatarUpload').click());
     document.getElementById('avatarUpload')?.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -194,60 +171,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         reader.readAsDataURL(file);
     });
 
-    // --- UPDATED SAVE LISTENER ---
+    // Save Profile Changes
     document.getElementById('saveProfileBtn')?.addEventListener('click', async () => {
         const btn = document.getElementById('saveProfileBtn');
         const name = document.getElementById('editUsername').value.trim();
         const b64 = document.getElementById('avatarUpload').dataset.base64;
-        
-        // NEW: Get Email/Pass values
         const newEmail = document.getElementById('editEmail')?.value.trim();
         const newPassword = document.getElementById('editPassword')?.value.trim();
         
         if (!name) return showError('Name required');
-        
         btn.disabled = true;
         btn.textContent = 'Saving...';
 
         try {
-            // 1. Prepare base update object
-            const updates = {
-                data: { 
-                    full_name: name, 
-                    avatar_url: b64 || getProfileFromStorage()?.avatar 
-                }
-            };
-
-            // 2. Add Email change if different from current
+            const updates = { data: { full_name: name, avatar_url: b64 || getProfileFromStorage()?.avatar } };
             const currentProfile = getProfileFromStorage();
-            if (newEmail && newEmail !== currentProfile?.email) {
-                updates.email = newEmail;
-            }
+            if (newEmail && newEmail !== currentProfile?.email) updates.email = newEmail;
+            if (newPassword && newPassword.length >= 6) updates.password = newPassword;
 
-            // 3. Add Password change if provided
-            if (newPassword && newPassword.length > 0) {
-                if (newPassword.length < 6) throw new Error("Password must be at least 6 characters");
-                updates.password = newPassword;
-            }
-
-            // 4. Send to Supabase
             const { error } = await supabase.auth.updateUser(updates);
             if (error) throw error;
 
-            // 5. Success Logic
-            let msg = 'Updated!';
-            if (updates.email) msg += ' Check email to verify.';
-            if (updates.password) msg = 'Profile & Password updated!';
-            
-            showSuccess(msg);
-            
-            // Reload unless email changed (email change needs verification first usually)
-            if (!updates.email) {
-                 location.reload(); 
-            } else {
-                btn.textContent = 'Verification Sent';
-            }
-
+            showSuccess('Profile Updated!');
+            if (!updates.email) location.reload(); else btn.textContent = 'Check Email';
         } catch (e) {
             showError(e.message);
             btn.disabled = false;
@@ -255,8 +201,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    // Sign Out
     document.getElementById('signOutBtn')?.addEventListener('click', async () => {
-        hideProfile(); // Clear local first
+        hideProfile();
         await supabase.auth.signOut();
         location.href = '/profile';
     });
@@ -271,10 +218,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         location.reload();
     });
 
-    // Modal Helpers
-    const modal = (id, open) => document.getElementById(id)?.classList[open ? 'add' : 'remove']('show');
+    // Sign Up logic
+    document.getElementById('createAccountBtn')?.addEventListener('click', async () => {
+        const btn = document.getElementById('createAccountBtn');
+        const email = document.getElementById('signUpEmail').value.trim();
+        const password = document.getElementById('signUpPassword').value;
+        const name = document.getElementById('signUpName').value.trim();
+
+        if (!email || !password || !name) return showError('All fields are required');
+        btn.disabled = true;
+        btn.textContent = 'Creating...';
+
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: { data: { full_name: name, avatar_url: defaultAvatar } }
+        });
+
+        if (error) {
+            showError(error.message);
+            btn.disabled = false;
+            btn.textContent = 'Sign Up';
+            return;
+        }
+
+        if (data?.user && data?.session === null) {
+            showSuccess('Check your email to verify!');
+            modal('signUpModal', false);
+        } else {
+            showProfile(data.user);
+            location.reload();
+        }
+    });
+    
+
+    // Modal Control Listeners
     document.getElementById('editProfileBtn')?.addEventListener('click', () => modal('editModal', true));
     document.getElementById('closeEditBtn')?.addEventListener('click', () => modal('editModal', false));
     document.getElementById('signInBtn')?.addEventListener('click', () => modal('signInModal', true));
     document.getElementById('closeSignInBtn')?.addEventListener('click', () => modal('signInModal', false));
+    document.getElementById('signUpBtn')?.addEventListener('click', () => modal('signUpModal', true));
+    document.getElementById('closeSignUpBtn')?.addEventListener('click', () => modal('signUpModal', false));
 });
