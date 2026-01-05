@@ -1,8 +1,8 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 // --- Supabase and Global Constants ---
-const SUPABASE_URL = 'https://lhurtuuxsmlakoikcpiz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJ0dXV4c21sYWtvaWtjcGl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1OTIyNjEsImV4cCI6MjA3OTE2ODI2MX0.NiXIlUukeNB-gOANdbHSyfb6T9GcO7QqtlMsQgkEGKc';
+const SUPABASE_URL = 'secret1';
+const SUPABASE_ANON_KEY = 'secret2';
 const MAX_FILE_SIZE = 500 * 1024;
 const ADMIN_EMAIL_CHECK = 'REESDOLSEN@GMAIL.COM'.toUpperCase().trim();
 const STORAGE_KEY = 'nebula_profile';
