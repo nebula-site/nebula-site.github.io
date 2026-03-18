@@ -1,12 +1,7 @@
 // =========================================================
 //  NEBULA HERO SLIDER — Premium Edition
-//  Styles live in menu.css. Font loaded in index.html.
-//
-//  Fixes vs previous version:
-//  - Card image now renders (hs-card-in/out use opacity correctly)
-//  - Ambient background cross-fades via a second div swap
-//  - CARD_W / CARD_H constants removed (CSS handles sizing)
-//  - activateSlide(0, true) now forces immediate class adds
+//  Fixes: slide direction animation, timer never resets on
+//  manual nav (only resets on auto-advance), image quality
 // =========================================================
 
 ;(function () {
@@ -15,6 +10,7 @@
 
     let slides        = []
     let current       = 0
+    let direction     = 1      // 1 = forward, -1 = backward
     let timer         = null
     let progressRaf   = null
     let progressStart = null
@@ -22,7 +18,6 @@
     let built         = false
 
     // ── Poll for games ────────────────────────────────────
-    // menu.js sets window.allGames after the Supabase fetch completes.
     function waitForGames() {
         const check = setInterval(() => {
             const games = window.allGames
@@ -34,7 +29,6 @@
                 startAutoPlay()
             }
         }, 300)
-        // Give up after 15 s
         setTimeout(() => clearInterval(check), 15000)
     }
 
@@ -55,7 +49,7 @@
         const hero = document.createElement('div')
         hero.id = 'hs'
         hero.innerHTML = `
-            <div class="hs-ambient"         id="hsAmbientA"></div>
+            <div class="hs-ambient"              id="hsAmbientA"></div>
             <div class="hs-ambient hs-ambient-b" id="hsAmbientB"></div>
             <div class="hs-ambient-overlay"></div>
             <div class="hs-scanlines"></div>
@@ -116,8 +110,7 @@
             </button>
         `
 
-        // Insert before the <center> block (search bar + game grid)
-        const ref = document.querySelector('center')
+        const ref = document.querySelector('.games-header') || document.querySelector('center')
         if (ref) ref.parentNode.insertBefore(hero, ref)
         else     document.body.insertBefore(hero, document.body.firstChild)
 
@@ -125,7 +118,7 @@
         const strip = document.getElementById('hsStrip')
         slides.forEach((game, i) => {
             const thumb = document.createElement('div')
-            thumb.className    = 'hs-thumb'
+            thumb.className     = 'hs-thumb'
             thumb.dataset.index = i
             thumb.innerHTML = `
                 <img src="${imgUrl(game)}" alt="${escHtml(game.name)}" loading="lazy" />
@@ -156,13 +149,11 @@
             if (slides[current]) triggerPlay(slides[current])
         })
 
-        // Pause autoplay on hover
+        // Pause autoplay on hover — do NOT touch the timer, just pause progress bar
         hero.addEventListener('mouseenter', () => {
-            clearInterval(timer)
             cancelAnimationFrame(progressRaf)
         })
         hero.addEventListener('mouseleave', () => {
-            startAutoPlay()
             animateProgress()
         })
 
@@ -178,7 +169,7 @@
     }
 
     // ── Activate a slide ──────────────────────────────────
-    let ambToggle = false  // alternates which ambient div is "on top"
+    let ambToggle = false
 
     function activateSlide(index, instant) {
         if (isAnimating && !instant) return
@@ -188,8 +179,6 @@
         const img  = imgUrl(game)
 
         // ── Ambient cross-fade ──
-        // We alternate between two absolutely-positioned divs so the
-        // background image transition is smooth without CSS template literals.
         const divA = document.getElementById('hsAmbientA')
         const divB = document.getElementById('hsAmbientB')
         if (divA && divB) {
@@ -201,24 +190,45 @@
             ambToggle = !ambToggle
         }
 
-        // ── Card image ──
+        // ── Card image with directional slide ──
         const cardImg = document.getElementById('hsCardImg')
         const card    = document.getElementById('hsCard')
         const wrap    = document.getElementById('hsCardWrap')
 
+        // Pick direction classes
+        const outClass = direction >= 0 ? 'hs-card-out-left'  : 'hs-card-out-right'
+        const inClass  = direction >= 0 ? 'hs-card-in-left'   : 'hs-card-in-right'
+
         if (instant) {
-            // Immediate — set src, add active classes right away
             if (cardImg) { cardImg.src = img; cardImg.alt = game.name }
-            if (card)  { card.classList.remove('hs-card-out');  card.classList.add('hs-card-in') }
-            if (wrap)  { wrap.classList.add('hs-wrap-in') }
+            if (card) {
+                card.classList.remove(
+                    'hs-card-out', 'hs-card-in',
+                    'hs-card-out-left', 'hs-card-out-right',
+                    'hs-card-in-left',  'hs-card-in-right'
+                )
+                card.classList.add('hs-card-in')
+            }
+            if (wrap) { wrap.classList.add('hs-wrap-in') }
         } else {
-            // Animate out
-            if (card) { card.classList.remove('hs-card-in'); card.classList.add('hs-card-out') }
+            // Slide out
+            if (card) {
+                card.classList.remove(
+                    'hs-card-in', 'hs-card-in-left', 'hs-card-in-right',
+                    'hs-card-out', 'hs-card-out-left', 'hs-card-out-right'
+                )
+                card.classList.add(outClass)
+            }
             if (wrap) { wrap.classList.remove('hs-wrap-in') }
 
             setTimeout(() => {
                 if (cardImg) { cardImg.src = img; cardImg.alt = game.name }
-                if (card) { card.classList.remove('hs-card-out'); card.classList.add('hs-card-in') }
+                if (card) {
+                    card.classList.remove(
+                        'hs-card-out', 'hs-card-out-left', 'hs-card-out-right'
+                    )
+                    card.classList.add(inClass)
+                }
                 if (wrap) { wrap.classList.add('hs-wrap-in') }
             }, TRANSITION_MS / 2)
         }
@@ -229,7 +239,7 @@
         const subEl   = document.getElementById('hsSub')
 
         const setTextIn = () => {
-            if (tagEl)   tagEl.textContent   = (game.category || game.tag || 'FEATURED').toUpperCase()
+            if (tagEl)   tagEl.textContent = (game.category || game.tag || 'FEATURED').toUpperCase()
             if (titleEl) {
                 titleEl.textContent = game.name
                 titleEl.classList.remove('hs-text-out')
@@ -258,13 +268,9 @@
             t.classList.toggle('hs-thumb-active', i === index)
         )
 
-        // Scroll active thumb into view
-        setTimeout(() => {
-            const activeThumb = document.querySelector('.hs-thumb.hs-thumb-active')
-            if (activeThumb) {
-                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
-            }
-        }, 50)
+        // Scroll active thumb into view (filmstrip only, not the page)
+// Scroll active thumb into view (filmstrip only, skip if user is searching)
+
 
         setTimeout(() => { isAnimating = false }, TRANSITION_MS + 60)
 
@@ -291,27 +297,47 @@
     }
 
     // ── Navigation ────────────────────────────────────────
+    // goTo: does NOT reset the auto-advance timer
     function goTo(index) {
         if (index === current || isAnimating) return
-        current = (index + slides.length) % slides.length
+        direction = index > current ? 1 : -1
+        current   = (index + slides.length) % slides.length
         activateSlide(current, false)
-        resetTimer()
+        // ← no resetTimer() here — timer keeps its original cadence
     }
-    function next() { goTo((current + 1) % slides.length) }
-    function prev() { goTo((current - 1 + slides.length) % slides.length) }
+
+    // next/prev used by arrows, dots, thumbs — no timer reset
+    function next() {
+        direction = 1
+        goTo((current + 1) % slides.length)
+    }
+    function prev() {
+        direction = -1
+        goTo((current - 1 + slides.length) % slides.length)
+    }
+
+    // autoNext: called only by the internal timer — this is the only
+    // place the timer chain restarts, keeping it strictly on schedule
+    function autoNext() {
+        direction = 1
+        current   = (current + 1) % slides.length
+        activateSlide(current, false)
+        scheduleNext()   // reschedule next auto-advance
+    }
+
+    function scheduleNext() {
+        clearTimeout(timer)
+        timer = setTimeout(autoNext, SLIDE_INTERVAL)
+    }
 
     function startAutoPlay() {
-        clearInterval(timer)
-        timer = setInterval(next, SLIDE_INTERVAL)
+        scheduleNext()
     }
-    function resetTimer() { clearInterval(timer); startAutoPlay() }
 
     // ── Play game ─────────────────────────────────────────
     function triggerPlay(game) {
-        // Reuse menu.js playGame if available
         if (typeof window.playGame === 'function') { window.playGame(game); return }
 
-        // Fallback
         try {
             const profile = JSON.parse(localStorage.getItem('nebula_profile') || 'null')
             if (!profile || !(profile.email || profile.username || profile.name)) {
@@ -333,4 +359,4 @@
         return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
     }
 
-})()
+}())

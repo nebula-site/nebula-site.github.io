@@ -18,10 +18,10 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     margin-bottom: 18px;
     transition:
-        background 0.4s cubic-bezier(0.4,0.2,0.2,1),
-        box-shadow 0.4s cubic-bezier(0.4,0.2,0.2,1),
-        border-color 0.4s cubic-bezier(0.4,0.2,0.2,1),
-        transform 0.3s cubic-bezier(0.4,0.2,0.2,1);
+        background    0.4s cubic-bezier(0.4,0.2,0.2,1),
+        box-shadow    0.4s cubic-bezier(0.4,0.2,0.2,1),
+        border-color  0.4s cubic-bezier(0.4,0.2,0.2,1),
+        transform     0.3s cubic-bezier(0.4,0.2,0.2,1);
 }
 
 .search::placeholder {
@@ -115,6 +115,7 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
+/* Auto image quality enhancement */
 .menu-button img {
     position: absolute;
     top: 0;
@@ -123,11 +124,15 @@
     height: 100%;
     object-fit: cover;
     border: none;
-    transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
+    transition: transform 0.35s ease, filter 0.35s ease;
+    filter: contrast(1.07) saturate(1.15) brightness(1.03);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .menu-button:hover img {
     transform: scale(1.06);
+    filter: contrast(1.12) saturate(1.22) brightness(1.06);
 }
 
 .overlay {
@@ -450,7 +455,7 @@
     justify-content: center;
 }
 
-/* Card wrapper — 480×300 = exact 8:5 (240×150) ratio */
+/* Card wrapper — 480×300 */
 .hs-card-wrap {
     position: relative;
     width: 480px;
@@ -475,6 +480,7 @@
         0 0 0 1px rgba(163,247,255,0.08),
         0 24px 60px rgba(0,0,0,0.7),
         0 0 80px rgba(58,143,212,0.08);
+    /* Directional slide + standard transitions */
     transition: opacity 600ms ease, transform 600ms ease, box-shadow 600ms ease;
 }
 .hs-card-wrap:hover .hs-card {
@@ -485,32 +491,49 @@
         0 0 100px rgba(58,143,212,0.18);
 }
 
-.hs-card-out { opacity: 0; transform: scale(0.95); }
-.hs-card-in  { opacity: 1; transform: scale(1); }
+/* ── Directional slide states ── */
+.hs-card-out        { opacity: 0; transform: scale(0.95); }
+.hs-card-in         { opacity: 1; transform: scale(1); }
 
+/* Slide left (forward) */
+.hs-card-out-left   { opacity: 0; transform: translateX(-52px) scale(0.94); }
+.hs-card-in-left    { opacity: 1; transform: translateX(0)     scale(1);    }
+
+/* Slide right (backward) */
+.hs-card-out-right  { opacity: 0; transform: translateX(52px)  scale(0.94); }
+.hs-card-in-right   { opacity: 1; transform: translateX(0)     scale(1);    }
+
+/* ── Card image — auto-enhanced ── */
 .hs-card-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    transition: transform 600ms ease;
+    transition: transform 600ms ease, filter 600ms ease;
+    filter: contrast(1.08) saturate(1.18) brightness(1.04);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
-.hs-card-wrap:hover .hs-card-img { transform: scale(1.04); }
+.hs-card-wrap:hover .hs-card-img {
+    transform: scale(1.04);
+    filter: contrast(1.13) saturate(1.26) brightness(1.07);
+}
 
-/* Shine sweep on hover */
+/* Shine sweep — blend mode prevents blocking square */
 .hs-card-shine {
     position: absolute;
     inset: 0;
     background: linear-gradient(
         115deg,
         transparent 30%,
-        rgba(163,247,255,0.07) 50%,
+        rgba(163,247,255,0.04) 50%,
         transparent 70%
     );
     transform: translateX(-100%);
     transition: transform 0s;
     pointer-events: none;
+    mix-blend-mode: screen;
     z-index: 2;
 }
 .hs-card-wrap:hover .hs-card-shine {
@@ -585,7 +608,7 @@
 }
 .hs-strip::-webkit-scrollbar { display: none; }
 
-/* Thumbnail — same 8:5 ratio at 144×90 */
+/* Thumbnail */
 .hs-thumb {
     flex-shrink: 0;
     width: 144px;
@@ -599,14 +622,18 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
     opacity: 0.45;
 }
+
+/* Thumbnail image — auto-enhanced */
 .hs-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: contrast(1.06) saturate(1.15) brightness(1.03);
 }
+
 .hs-thumb-label {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -640,7 +667,10 @@
     border-color: rgba(163,247,255,0.22);
     opacity: 1;
 }
-.hs-thumb:hover img           { transform: scale(1.06); }
+.hs-thumb:hover img {
+    transform: scale(1.06);
+    filter: contrast(1.1) saturate(1.22) brightness(1.06);
+}
 .hs-thumb:hover .hs-thumb-label { opacity: 1; }
 
 .hs-thumb.hs-thumb-active {
@@ -648,6 +678,9 @@
     border-color: rgba(58,143,212,0.7);
     box-shadow: 0 0 0 1px rgba(58,143,212,0.35), 0 8px 24px rgba(0,0,0,0.5);
     transform: translateY(-3px);
+}
+.hs-thumb.hs-thumb-active img {
+    filter: contrast(1.1) saturate(1.2) brightness(1.05);
 }
 .hs-thumb.hs-thumb-active .hs-thumb-active-bar { transform: scaleX(1); }
 .hs-thumb.hs-thumb-active .hs-thumb-label      { opacity: 1; }
@@ -688,10 +721,10 @@
     .hs-body    { padding: 36px 24px 16px; }
 }
 @media (max-width: 600px) {
-    .hs-title        { font-size: 2rem; }
-    .hs-actions      { gap: 8px; }
-    .hs-btn-play     { padding: 11px 20px; font-size: 0.9rem; }
-    .hs-btn-ghost    { display: none; }
-    .hs-strip-wrap   { padding: 0 16px 20px; }
-    .hs-thumb        { width: 112px; height: 70px; }
+    .hs-title      { font-size: 2rem; }
+    .hs-actions    { gap: 8px; }
+    .hs-btn-play   { padding: 11px 20px; font-size: 0.9rem; }
+    .hs-btn-ghost  { display: none; }
+    .hs-strip-wrap { padding: 0 16px 20px; }
+    .hs-thumb      { width: 112px; height: 70px; }
 }

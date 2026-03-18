@@ -15,26 +15,24 @@
     <script src="/js/navbar.js"></script>
 
     <style>
-        /* Reset body margin so slider touches top of viewport */
         body {
             margin: 0;
             padding: 0;
         }
-        /* ── Game section header: search + counter in one bar ── */
-        .games-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 18px clamp(20px, 4vw, 60px) 14px;
-            background: #080c18;
-            border-bottom: 1px solid rgba(163,247,255,0.06);
-            position: sticky;
-            top: 56px; /* sits just below the fixed navbar */
-            z-index: 50;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+
+        /* ── Game section header ── */
+        /* AFTER */.games-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px clamp(20px, 4vw, 60px) 14px;
+    background: #080c18;
+    border-bottom: 1px solid rgba(163,247,255,0.06);
+    position: relative;   /* ← was sticky */
+    z-insdex: 50;
+    /* removed: top, backdrop-filter */
+}
 
         .games-header-left {
             display: flex;
@@ -42,7 +40,6 @@
             gap: 10px;
         }
 
-        /* Section label */
         .games-label {
             font-family: 'Barlow Condensed', sans-serif;
             font-size: 0.72rem;
@@ -53,7 +50,6 @@
             white-space: nowrap;
         }
 
-        /* Counter badge */
         #gamesLoadedCounter {
             font-family: 'Barlow Condensed', sans-serif;
             font-size: 0.72rem;
@@ -64,7 +60,6 @@
             white-space: nowrap;
         }
 
-        /* Divider dot between label and counter */
         .games-header-sep {
             width: 3px;
             height: 3px;
@@ -73,7 +68,6 @@
             flex-shrink: 0;
         }
 
-        /* Search input — overrides menu.css defaults for this layout */
         .games-header .search {
             width: clamp(180px, 30vw, 360px);
             min-width: unset;
@@ -85,7 +79,6 @@
             background: rgba(26,42,74,0.8);
         }
 
-        /* Game grid wrapper — no more <center> weirdness */
         .games-grid-wrap {
             padding: 28px clamp(20px, 4vw, 60px) 60px;
         }
@@ -99,7 +92,6 @@
             margin: 0;
         }
 
-        /* Mobile: stack search below label */
         @media (max-width: 560px) {
             .games-header {
                 flex-wrap: wrap;
@@ -109,6 +101,128 @@
                 width: 100%;
             }
         }
+
+        /* ═══════════════════════════════════════════════
+           DYNAMIC ISLAND
+        ═══════════════════════════════════════════════ */
+        .dynamic-island {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0.18) scaleY(0.6);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition:
+                opacity      350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform    400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                width        400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                border-color 250ms ease,
+                box-shadow   250ms ease;
+            width: 52px;
+            height: 40px;
+            background: #080c18;
+            border-radius: 50px;
+            border: 1px solid rgba(163,247,255,0.18);
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(58,143,212,0.12),
+                inset 0 1px 0 rgba(163,247,255,0.06);
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 9px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .dynamic-island.di-visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) scaleX(1) scaleY(1);
+            width: clamp(260px, 38vw, 440px);
+        }
+
+        .dynamic-island.di-expanded {
+            width: clamp(300px, 46vw, 520px);
+            border-color: rgba(58,143,212,0.45);
+            box-shadow:
+                0 12px 40px rgba(0,0,0,0.7),
+                0 0 0 3px rgba(58,143,212,0.15),
+                inset 0 1px 0 rgba(163,247,255,0.08);
+        }
+
+        .di-icon {
+            flex-shrink: 0;
+            width: 14px;
+            height: 14px;
+            color: rgba(163,247,255,0.5);
+            transition: color 0.2s;
+        }
+
+        .dynamic-island.di-expanded .di-icon {
+            color: #a3f7ff;
+        }
+
+        .di-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #a3f7ff;
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.88rem;
+            letter-spacing: 0.02em;
+            caret-color: #3a8fd4;
+            min-width: 0;
+            padding: 0;
+        }
+
+        .di-input::placeholder {
+            color: rgba(163,247,255,0.28);
+        }
+
+        .di-pill {
+            flex-shrink: 0;
+            background: rgba(58,143,212,0.12);
+            border: 1px solid rgba(58,143,212,0.25);
+            border-radius: 50px;
+            padding: 3px 9px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: rgba(58,143,212,0.8);
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            user-select: none;
+            cursor: default;
+        }
+
+        .di-pill.di-pill-clear {
+            cursor: pointer;
+            background: rgba(163,247,255,0.1);
+            border-color: rgba(163,247,255,0.3);
+            color: #a3f7ff;
+        }
+
+        .di-pill.di-pill-clear:hover {
+            background: rgba(163,247,255,0.18);
+        }
+
+        /* count badge that appears when filtering */
+        .di-count {
+            flex-shrink: 0;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: rgba(163,247,255,0.35);
+            opacity: 0;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .di-count.di-count-visible { opacity: 1; }
     </style>
 </head>
 <body>
@@ -137,6 +251,26 @@
         <div class="button-container" id="buttonContainer"></div>
     </div>
 
+    <!-- ── Dynamic Island ── -->
+    <div class="dynamic-island" id="dynamicIsland" role="search" aria-label="Search games">
+        <svg class="di-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6.5" cy="6.5" r="4.5"/>
+            <line x1="10.5" y1="10.5" x2="14" y2="14"/>
+        </svg>
+        <input
+            class="di-input"
+            id="diInput"
+            type="text"
+            placeholder="Search games..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search games"
+        >
+        <span class="di-count" id="diCount"></span>
+        <span class="di-pill" id="diPill">ESC</span>
+    </div>
+
     <div id="particles-js"></div>
 
     <footer>
@@ -153,5 +287,128 @@
     <!-- menu.js MUST come before slider.js -->
     <script src="/js/menu.js" type="module"></script>
     <script src="/js/slider.js"></script>
+
+    <script>
+    /* ── Dynamic Island Logic ── */
+    (function () {
+        const island     = document.getElementById('dynamicIsland')
+        const diInput    = document.getElementById('diInput')
+        const diPill     = document.getElementById('diPill')
+        const diCount    = document.getElementById('diCount')
+        const header     = document.querySelector('.games-header')
+        const mainSearch = document.getElementById('search')
+
+        if (!island || !header || !mainSearch) return
+
+        let islandVisible = false
+
+        // ── Watch header visibility ──
+        const observer = new IntersectionObserver(([entry]) => {
+            const shouldShow = !entry.isIntersecting
+            if (shouldShow === islandVisible) return
+            islandVisible = shouldShow
+
+            if (shouldShow) {
+                island.classList.add('di-visible')
+            } else {
+                island.classList.remove('di-visible', 'di-expanded')
+                // Clear search when island hides
+                if (diInput.value) {
+                    diInput.value    = ''
+                    mainSearch.value = ''
+                    mainSearch.dispatchEvent(new Event('input'))
+                    syncPill('')
+                    syncCount('')
+                }
+            }
+        }, {
+            threshold:  0,
+            rootMargin: '-56px 0px 0px 0px'   // account for fixed navbar height
+        })
+
+        observer.observe(header)
+
+        // ── Focus / blur ──
+        diInput.addEventListener('focus', () => {
+            island.classList.add('di-expanded')
+        })
+
+        diInput.addEventListener('blur', () => {
+            if (!diInput.value) island.classList.remove('di-expanded')
+        })
+
+        // ── Input — sync to main search ──
+        diInput.addEventListener('input', (e) => {
+            const val = e.target.value
+            mainSearch.value = val
+            mainSearch.dispatchEvent(new Event('input'))
+            syncPill(val)
+        })
+
+        // ── Sync the counter badge from gamesLoadedCounter ──
+        // Watch for changes to gamesLoadedCounter so we can reflect filtered count
+        const counterEl = document.getElementById('gamesLoadedCounter')
+        if (counterEl) {
+            const mo = new MutationObserver(() => {
+                if (diInput.value) {
+                    syncCount(counterEl.textContent)
+                }
+            })
+            mo.observe(counterEl, { childList: true, subtree: true, characterData: true })
+        }
+
+        function syncPill(val) {
+            if (val) {
+                diPill.textContent = '✕'
+                diPill.classList.add('di-pill-clear')
+                // Show count
+                if (counterEl) syncCount(counterEl.textContent)
+            } else {
+                diPill.textContent = 'ESC'
+                diPill.classList.remove('di-pill-clear')
+                diCount.textContent = ''
+                diCount.classList.remove('di-count-visible')
+            }
+        }
+
+        function syncCount(text) {
+            if (!diInput.value) return
+            // text is like "42 games loaded" or "5 games found"
+            const match = text.match(/^(\d+)/)
+            if (match) {
+                diCount.textContent = match[1]
+                diCount.classList.add('di-count-visible')
+            }
+        }
+
+        // ── Pill click — clear ──
+        diPill.addEventListener('click', () => {
+            if (!diInput.value) return
+            clearIsland()
+        })
+
+        // ── ESC key ──
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && islandVisible && document.activeElement === diInput) {
+                clearIsland()
+                diInput.blur()
+            }
+            // Slash key focuses island when visible
+            if (e.key === '/' && islandVisible && document.activeElement !== diInput) {
+                e.preventDefault()
+                diInput.focus()
+            }
+        })
+
+        function clearIsland() {
+            diInput.value    = ''
+            mainSearch.value = ''
+            mainSearch.dispatchEvent(new Event('input'))
+            syncPill('')
+            syncCount('')
+            island.classList.remove('di-expanded')
+        }
+    }())
+    </script>
 </body>
 </html>
