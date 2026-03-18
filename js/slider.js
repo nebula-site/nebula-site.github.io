@@ -272,6 +272,7 @@
 // Scroll active thumb into view (filmstrip only, skip if user is searching)
 
 
+        setTimeout(() => { isAnimating = false }, TRANSITION_MS + 60)
 
         // ── Progress bar ──
         cancelAnimationFrame(progressRaf)
