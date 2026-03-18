@@ -6,64 +6,152 @@
     <title>Nebula - Games</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&family=Barlow:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/menu.css">
     <script src="/js/main.js"></script>
-     <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0" defer></script>
+    <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0" defer></script>
     <script src="/js/navbar.js"></script>
 
     <style>
-        /* Inline styles for search/sort options layout */
-        .search-sort-row {
+        /* Reset body margin so slider touches top of viewport */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        /* ── Game section header: search + counter in one bar ── */
+        .games-header {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px clamp(20px, 4vw, 60px) 14px;
+            background: #080c18;
+            border-bottom: 1px solid rgba(163,247,255,0.06);
+            position: sticky;
+            top: 56px; /* sits just below the fixed navbar */
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .games-header-left {
+            display: flex;
             align-items: center;
             gap: 10px;
-            width: 100%;
-            margin-top: 40px;
-            margin-bottom: 20px;
         }
-        .search {
-            height: 50px;
-            min-width: 50%;
+
+        /* Section label */
+        .games-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(163,247,255,0.45);
+            white-space: nowrap;
         }
-        #sortOptions {
-            height: 50px;
-            min-width: 160px;
+
+        /* Counter badge */
+        #gamesLoadedCounter {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(163,247,255,0.35);
+            white-space: nowrap;
         }
-        @media (max-width: 500px) {
-            .search-sort-row {
-                flex-direction: column;
-                gap: 7px;
+
+        /* Divider dot between label and counter */
+        .games-header-sep {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(163,247,255,0.2);
+            flex-shrink: 0;
+        }
+
+        /* Search input — overrides menu.css defaults for this layout */
+        .games-header .search {
+            width: clamp(180px, 30vw, 360px);
+            min-width: unset;
+            height: 38px;
+            margin: 0;
+            font-size: 0.95rem;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(26,42,74,0.8);
+        }
+
+        /* Game grid wrapper — no more <center> weirdness */
+        .games-grid-wrap {
+            padding: 28px clamp(20px, 4vw, 60px) 60px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0;
+            margin: 0;
+        }
+
+        /* Mobile: stack search below label */
+        @media (max-width: 560px) {
+            .games-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .games-header .search {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div id="navbar-container"></div>
-    <center>
-        <br><br><br>
-        <div class="search-sort-row">
-            <input autocomplete="false" name="hidden" type="text" class="search animate__animated animate__fadeInDown" id="search" placeholder="Search for games...">
-           
+
+    <!-- Hero Slider injected here by slider.js -->
+
+    <!-- ── Game section ─────────────────────────── -->
+    <div class="games-header">
+        <div class="games-header-left">
+            <span class="games-label">All Games</span>
+            <span class="games-header-sep"></span>
+            <span id="gamesLoadedCounter">Loading...</span>
         </div>
-        <br>
-        <div id="gamesLoadedCounter">Loading...</div>
-        <br>
+        <input
+            autocomplete="off"
+            name="hidden"
+            type="text"
+            class="search"
+            id="search"
+            placeholder="Search for games..."
+        >
+    </div>
+
+    <div class="games-grid-wrap">
         <div class="button-container" id="buttonContainer"></div>
-    </center>
+    </div>
+
     <div id="particles-js"></div>
-    <script src="/js/profile.js"></script>
-    <script src="/js/menu.js" type="module"></script>
-</body>
-</html>
- <footer>
+
+    <footer>
         <p style="margin: 0;"><i class="fa fa-star"></i> Nebula — gaming meets reality!</p>
         <nav style="margin-top: 8px;">
             <a href="/privacy.html"><i class="fa fa-shield"></i> Privacy Policy</a>
             <a href="/terms.html"><i class="fa fa-file-contract"></i> Terms of Service</a>
             <a href="/contact.html"><i class="fa fa-envelope"></i> Contact Us</a>
-             <a href="/DMCA.html"><i class="fa fa-gavel"></i> DMCA</a>
+            <a href="/DMCA.html"><i class="fa fa-gavel"></i> DMCA</a>
         </nav>
     </footer>
+
+    <script src="/js/profile.js"></script>
+    <!-- menu.js MUST come before slider.js -->
+    <script src="/js/menu.js" type="module"></script>
+    <script src="/js/slider.js"></script>
+</body>
+</html>
