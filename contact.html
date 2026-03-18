@@ -100,8 +100,8 @@
             }
           } catch (e) { /* ignore */ }
 
-          // 3) Not signed in — redirect to profile page to sign in
-          window.location.href = '/profile.html';
+          // 3) Not signed in — do not redirect. Allow user to continue as guest.
+          // window.location.href = '/profile.html';
         });
       </script>
 <!-- ...existing code... -->

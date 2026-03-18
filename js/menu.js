@@ -119,16 +119,19 @@ function playGame(game) {
         const profile = raw ? JSON.parse(raw) : null
 
         if (!profile || !(profile.email || profile.username || profile.name)) {
+            // Guest play allowed: skip forced profile sign-in redirect.
+            // Keep postAuthRedirect for optional later login flow.
             sessionStorage.setItem(
                 'postAuthRedirect',
                 `/play?game=${encodeURIComponent(game.name)}`
             )
-            window.location.href = '/profile'
-            return
+            // window.location.href = '/profile'
+            // return
         }
     } catch {
-        window.location.href = '/profile'
-        return
+        // Allow fallback to guest play on parser error.
+        // window.location.href = '/profile'
+        // return
     }
 
     const slug = slugify(game.name)

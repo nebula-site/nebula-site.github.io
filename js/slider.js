@@ -341,11 +341,16 @@
         try {
             const profile = JSON.parse(localStorage.getItem('nebula_profile') || 'null')
             if (!profile || !(profile.email || profile.username || profile.name)) {
+                // Guest play allowed, no redirect.
                 sessionStorage.setItem('postAuthRedirect', `/play?game=${encodeURIComponent(game.name)}`)
-                window.location.href = '/profile'
-                return
+                // window.location.href = '/profile'
+                // return
             }
-        } catch { window.location.href = '/profile'; return }
+        } catch {
+            // Allow fallback to guest play instead of forcing profile.
+            // window.location.href = '/profile'
+            // return
+        }
 
         const slug = slugify(game.name)
         sessionStorage.setItem('gameLink',  `/sourceCode/${slug}`)
