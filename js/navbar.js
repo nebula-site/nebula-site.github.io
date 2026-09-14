@@ -23,12 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <a href="/" class="logo"><img src="/images/favicon.png"></a>
               <div class="nav-links">
                   <a href="/home"><i class="fa fa-home"></i></a>
-                  <a href="/games"><i class="fa fa-gamepad"></i></a>
-                  <a href="/messages" style="position: relative;">
-                      <i class="fa-solid fa-message"></i>
-                      <span id="msg-badge" class="nav-badge"></span>
-                  </a>
-                  <a href="/ai"><i class="fa fa-robot"></i></a>
+                  <a href="/games"><i class="fa fa-gamepad"></i></a>   
                   <a href="/forms"><i class="fa fa-clipboard-list"></i></a>
                   <a href="/profile"><i class="fa fa-user"></i></a>
                   <a href="/reviews"><i class="fa fa-star"></i></a>
